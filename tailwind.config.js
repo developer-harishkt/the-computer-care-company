@@ -8,10 +8,12 @@ export default {
     extend: {
       colors: {
         brand: {
-          900: '#0F1115', 
-          800: '#1A1D24', 
-          red: '#E53935', 
-          light: '#F8F9FA'
+          950: '#08101D', // Premium deep navy – hero & footer anchor
+          900: '#0B192C', // Deep navy for dark text
+          800: '#1E3E62', // Secondary deep blue
+          blue: '#3182CE', // Vibrant engineering blue
+          light: '#F8FAFC', // Soft off-white mid-section background
+          card: '#FFFFFF',  // Pure white cards
         }
       },
       fontFamily: {
