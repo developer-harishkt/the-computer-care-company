@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE COMPUTER CARE COMPANY</title>
+    <link href="/src/style.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-brand-900/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-xl font-black tracking-tight uppercase">THE COMPUTER CARE COMPANY</span>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#process" class="hover:text-white transition-colors">How We Work</a>
+                <a href="#locations" class="hover:text-white transition-colors">Locations</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a href="tel:+910000000000" class="text-sm font-medium hover:text-brand-red transition-colors">Make a Call</a>
+                <a href="#" class="bg-white text-brand-900 px-5 py-2.5 rounded-sm text-sm font-bold hover:bg-gray-200 transition-colors">
+                    Make a home/ On-site service appointment
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SHELL -->
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section class="relative bg-brand-900 overflow-hidden border-b border-white/10">
+            <!-- Subtle Tech Background Pattern -->
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-800 border border-white/10 text-brand-red text-sm font-mono mb-8">
+                        <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+                        24hrs Computer Service & Support in Chennai
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tight text-white mb-6 leading-tight uppercase">
+                        Repair before <br><span class="text-gray-500">replacement.</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
+                        We diagnose the problem first, explain the available options, and recommend the most practical solution based on your needs and budget. We don't sell you a replacement just because you have a problem.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#booking" class="bg-brand-red text-white px-8 py-4 rounded-sm font-bold text-center hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+                            Book On-Site Service
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </a>
+                        <a href="https://wa.me/910000000000" class="bg-brand-800 text-white border border-white/10 px-8 py-4 rounded-sm font-bold text-center hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                            Connect on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUST SIGNALS -->
+        <section class="bg-brand-800 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10">
+                    
+                    <!-- Trust Item 1 -->
+                    <div class="flex items-center gap-4 md:px-6 py-4 md:py-0">
+                        <div class="w-12 h-12 bg-brand-900 border border-white/5 rounded-sm flex items-center justify-center flex-shrink-0 text-brand-red">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-sm uppercase tracking-wide mb-1">Free Initial Diagnosis</h3>
+                            <p class="text-sm text-gray-400">No more payments for check-ups.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust Item 2 -->
+                    <div class="flex items-center gap-4 md:px-6 py-4 md:py-0">
+                        <div class="w-12 h-12 bg-brand-900 border border-white/5 rounded-sm flex items-center justify-center flex-shrink-0 text-brand-red">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-sm uppercase tracking-wide mb-1">60-Day Warranty</h3>
+                            <p class="text-sm text-gray-400">Included on all service bills.</p>
+                        </div>
+                    </div>
+
+                    <!-- Trust Item 3 -->
+                    <div class="flex items-center gap-4 md:px-6 py-4 md:py-0">
+                        <div class="w-12 h-12 bg-brand-900 border border-white/5 rounded-sm flex items-center justify-center flex-shrink-0 text-brand-red">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-sm uppercase tracking-wide mb-1">Your Data Matters</h3>
+                            <p class="text-sm text-gray-400">Strict privacy during diagnostics.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-24 bg-brand-900 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="mb-16 md:flex md:justify-between md:items-end">
+                    <div class="max-w-2xl">
+                        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase mb-4">Our Services</h2>
+                        <p class="text-gray-400 text-lg">We provide services understanding your need and your strict budget.</p>
+                    </div>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+                    
+                    <!-- Service 1 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Laptop & Desktop Repairs</h3>
+                        <p class="text-sm text-gray-400">Comprehensive hardware diagnostics and repair. We only recommend parts replacement when absolutely necessary.</p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Custom PC Building</h3>
+                        <p class="text-sm text-gray-400">Tailored builds for gaming, workstation, or general use. We help you select the right components for your exact performance requirements.</p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Data Recovery & Backup</h3>
+                        <p class="text-sm text-gray-400 mb-2">We assess the storage device first and explain available recovery options.</p>
+                        <span class="text-xs font-mono text-brand-red">Note: No process can guarantee 100% recovery.</span>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Software & OS Fixes</h3>
+                        <p class="text-sm text-gray-400">No more unnecessary re-installations for smaller issues. We attempt to resolve the actual cause without erasing your applications or data.</p>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Networking & CCTV</h3>
+                        <p class="text-sm text-gray-400">Complete Network Setup & WI-FI configuration alongside professional CCTV/Security cameras Installations for homes and offices.</p>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="bg-brand-800 p-8 rounded-sm border border-white/5 hover:border-brand-red/50 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3">Corporate & AMCs</h3>
+                        <p class="text-sm text-gray-400">Annual Maintenance Contracts, software solutions for Corporates, and authorized sale of Laptops, Printers, and more.</p>
+                    </div>
+                    
+                </div>
+
+                <!-- Turnaround Table -->
+                <div class="bg-brand-800 rounded-sm border border-white/10 overflow-hidden">
+                    <div class="px-6 py-5 border-b border-white/10 bg-brand-900/50">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-wide">Expected Turnaround Times</h3>
+                    </div>
+                    <div class="divide-y divide-white/5">
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">Software troubleshooting</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day / depending on issue</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">OS installation</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">Laptop cleaning/service</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">Hardware diagnosis</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on fault</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">Parts replacement</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on parts availability</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 hover:bg-white/[0.02] transition-colors text-sm">
+                            <div class="font-medium text-gray-300 col-span-1 md:col-span-2">Data recovery</div>
+                            <div class="text-gray-400 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on storage condition</div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 border-t border-white/10 bg-brand-900/30">
+                        <p class="text-xs text-gray-500 italic">Note: Typical turnaround is subject to vary based on work required.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- PROCESS SECTION -->
+        <section id="process" class="py-24 bg-brand-800 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase mb-4">How We Work</h2>
+                    <p class="text-gray-400 text-lg">We diagnose before we recommend, repair before we replace, and explain before we proceed.</p>
+                </div>
+
+                <!-- 7-Step Timeline -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+                    
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-red text-white font-bold flex items-center justify-center rounded-sm">1</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Diagnose</h3>
+                        <p class="text-sm text-gray-400">We identify the actual cause of the problem before recommending a solution.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">2</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Explain</h3>
+                        <p class="text-sm text-gray-400">We explain what we found, what can be done, and what the expected costs are.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">3</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Approve</h3>
+                        <p class="text-sm text-gray-400">You decide whether you want us to proceed. We don't carry out major additional work without your approval.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">4</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Repair</h3>
+                        <p class="text-sm text-gray-400">We repair, replace, configure, or restore the equipment as required.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">5</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Test</h3>
+                        <p class="text-sm text-gray-400">We test the system after the work to ensure the reported issue has been addressed.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">6</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Notify</h3>
+                        <p class="text-sm text-gray-400">We keep you informed and note any findings, limitations, or future maintenance recommendations.</p>
+                    </div>
+
+                    <div class="relative p-6 bg-brand-900 border border-white/5 rounded-sm lg:col-span-2">
+                        <span class="absolute -top-4 -left-4 w-8 h-8 bg-brand-800 border border-white/10 text-white font-bold flex items-center justify-center rounded-sm">7</span>
+                        <h3 class="text-lg font-bold text-white mb-2 mt-2">Support</h3>
+                        <p class="text-sm text-gray-400">Our responsibility doesn't end when you collect your device. Our repair and maintenance work are covered by our stated warranty.</p>
+                    </div>
+
+                </div>
+
+                <!-- Transparency Guide -->
+                <div class="bg-brand-900 border border-white/10 rounded-sm p-8 md:p-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wide">Before We Repair</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3 text-sm text-gray-300">
+                                    <svg class="w-5 h-5 text-brand-red shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Clearly communicate what is causing the problem.
+                                </li>
+                                <li class="flex items-start gap-3 text-sm text-gray-300">
+                                    <svg class="w-5 h-5 text-brand-red shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Outline exactly what needs to be repaired or replaced.
+                                </li>
+                                <li class="flex items-start gap-3 text-sm text-gray-300">
+                                    <svg class="w-5 h-5 text-brand-red shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Provide the estimated service cost and turnaround time.
+                                </li>
+                                <li class="flex items-start gap-3 text-sm text-gray-300">
+                                    <svg class="w-5 h-5 text-brand-red shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Advise if repair or replacement makes more financial sense.
+                                </li>
+                            </ul>
+                            <p class="mt-6 text-white font-bold">Then: You decide whether we proceed.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wide">Repair vs Replace Guide</h3>
+                            <p class="text-sm text-gray-400 mb-6 italic">"Our goal is to help you make the right decision"</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Age of the device</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Nature of the fault</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Cost of repair</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Availability of parts</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Expected remaining life</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Performance requirements</span>
+                                <span class="px-3 py-1.5 bg-brand-800 border border-white/5 rounded-sm text-sm text-gray-300">Future upgrade possibilities</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-24 bg-brand-900 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="mb-16">
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase mb-4">Inside the Repair</h2>
+                    <p class="text-gray-400 text-lg">Real work, real results. We document our process to show exactly what goes into fixing your devices.</p>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="bg-brand-800 border border-white/5 rounded-sm overflow-hidden">
+                        <div class="aspect-video bg-black/50 flex items-center justify-center border-b border-white/5">
+                            <span class="text-gray-600 font-mono text-sm">[Actual Photo: SSD upgrade]</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-white mb-4 uppercase tracking-wide text-sm border-b border-white/10 pb-2">SSD Upgrade</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="text-gray-400"><strong class="text-gray-300">Problem:</strong> Extremely slow boot times.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Diagnosis:</strong> Failing mechanical hard drive.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Solution:</strong> Cloned to 500GB NVMe SSD.</li>
+                                <li class="text-gray-400"><strong class="text-brand-red">Result:</strong> Boot time reduced from 3 mins to 12 secs.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="bg-brand-800 border border-white/5 rounded-sm overflow-hidden">
+                        <div class="aspect-video bg-black/50 flex items-center justify-center border-b border-white/5">
+                            <span class="text-gray-600 font-mono text-sm">[Actual Photo: Thermal cleaning]</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-white mb-4 uppercase tracking-wide text-sm border-b border-white/10 pb-2">Laptop Thermal Cleaning</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="text-gray-400"><strong class="text-gray-300">Problem:</strong> Laptop shutting down randomly.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Diagnosis:</strong> Clogged vents & dried thermal paste.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Solution:</strong> Deep clean & repaste CPU/GPU.</li>
+                                <li class="text-gray-400"><strong class="text-brand-red">Result:</strong> Temps dropped by 25°C, stable operation.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="bg-brand-800 border border-white/5 rounded-sm overflow-hidden">
+                        <div class="aspect-video bg-black/50 flex items-center justify-center border-b border-white/5">
+                            <span class="text-gray-600 font-mono text-sm">[Actual Photo: PSU replacement]</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-white mb-4 uppercase tracking-wide text-sm border-b border-white/10 pb-2">Desktop PSU Replacement</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="text-gray-400"><strong class="text-gray-300">Problem:</strong> PC dead, no power lights.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Diagnosis:</strong> Shorted power supply unit.</li>
+                                <li class="text-gray-400"><strong class="text-gray-300">Solution:</strong> Installed reliable 650W Bronze PSU.</li>
+                                <li class="text-gray-400"><strong class="text-brand-red">Result:</strong> System restored with protected power.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- FAQ SECTION -->
+        <section id="faq" class="py-24 bg-brand-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase mb-4">Frequently Asked Questions</h2>
+                    <p class="text-gray-400 text-lg">Clear answers to common concerns before you book a service.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-brand-900 border border-white/5 rounded-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-white font-medium">
+                            Do I need to back up my data before giving you my computer?
+                            <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed">
+                            While we handle customer equipment responsibly and prioritize data safety, we highly encourage customers to maintain their own backups before handing over any device to prevent unforeseen loss during hardware failure.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-brand-900 border border-white/5 rounded-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-white font-medium">
+                            Will you format my computer during repair?
+                            <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed">
+                            No. A software problem does not always require formatting. We attempt to resolve the actual cause without unnecessarily erasing your applications, settings, or data. If a format is unavoidable, we require your explicit approval first.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-brand-900 border border-white/5 rounded-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-white font-medium">
+                            Will I be informed before replacing any parts?
+                            <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed">
+                            Absolutely. We explain what needs to be repaired or replaced, estimated costs, and options (New/OEM/refurbished) before doing any major work. You always have the final say.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-brand-900 border border-white/5 rounded-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-white font-medium">
+                            How much does diagnosis cost?
+                            <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed">
+                            We provide a free initial diagnosis for eligible computer and equipment problems. You pay no fees just for a check-up.
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER & SEO -->
+    <footer class="bg-brand-800 border-t border-white/10 pt-16 pb-8" id="locations">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold uppercase tracking-wider">THE COMPUTER CARE COMPANY</h3>
+                <p class="text-sm text-gray-400">24hrs Computer Service & Support in Chennai</p>
+                <div class="pt-4 space-y-2">
+                    <p class="text-sm font-mono text-brand-red">✓ 60-day warranty</p>
+                    <p class="text-sm font-mono text-brand-red">✓ Free Initial Diagnosis</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-white mb-4">Our Branches</h4>
+                <div class="bg-brand-900 p-4 rounded-sm border border-white/5">
+                    <p class="font-medium text-sm text-white">Korattur (Main branch)</p>
+                    <p class="text-xs text-gray-400 mt-1">TNHB colony - 71st street<br>CH- 600080</p>
+                </div>
+                <div class="bg-brand-900 p-4 rounded-sm border border-white/5">
+                    <p class="font-medium text-sm text-white">Maduravoyal (2nd branch)</p>
+                    <p class="text-xs text-gray-400 mt-1">Address & Mobile number pending</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-white mb-4">On-Site Service Coverage</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Anna Nagar</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Korattur</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Maduravoyal</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Thirumangalam</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Mogappair</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Villivakkam</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Padi</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Ambattur</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Koyambedu</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Nungambakkam</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Kolathur</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Retteri</span>
+                    <span class="px-2 py-1 bg-brand-900 text-gray-400 text-xs rounded border border-white/5">Madhavaram</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
