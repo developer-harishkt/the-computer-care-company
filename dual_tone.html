@@ -585,20 +585,24 @@
     
     <script type="module" src="/src/main.js"></script>
 
-    <aside aria-label="Design Switcher" class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-slate-900/95 backdrop-blur-md text-white p-2 rounded-xl shadow-2xl border border-white/10 text-xs font-mono">
+    <aside aria-label="Design Switcher" class="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-slate-900/95 backdrop-blur-md text-white p-2 rounded-xl shadow-2xl border border-white/10 text-xs font-mono">
       <span class="text-slate-400 px-2">Theme:</span>
-      <a href="/index.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors hover:bg-white/20 active:scale-95">Original (Dark)</a>
-      <a href="/index_v1.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors hover:bg-white/20 active:scale-95">Corporate Blue</a>
-      <a href="/dual_tone.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors hover:bg-white/20 active:scale-95">Dual Tone</a>
-      <a href="/saas.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors hover:bg-white/20 active:scale-95">Modern SaaS</a>
-      <a href="/nordic.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors hover:bg-white/20 active:scale-95">Nordic Minimalist</a>
+      <a href="/index.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-white/20 active:scale-95">Original (Dark)</a>
+      <a href="/index_v1.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-white/20 active:scale-95">Corporate Blue</a>
+      <a href="/dual_tone.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-white/20 active:scale-95">Dual Tone</a>
+      <a href="/saas.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-white/20 active:scale-95">Modern SaaS</a>
+      <a href="/nordic.html" class="theme-btn px-3 py-1.5 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-white/20 active:scale-95">Nordic Minimalist</a>
       <script>
         const currentPath = window.location.pathname;
         document.querySelectorAll('.theme-btn').forEach(btn => {
           const href = btn.getAttribute('href');
-          if (currentPath.includes(href.replace('/', '')) || (currentPath === '/' && href === '/index.html')) {
+          const isActive = currentPath.includes(href.replace('/', '')) || (currentPath === '/' && href === '/index.html');
+          if (isActive) {
             btn.classList.add('bg-blue-600', 'text-white', 'font-semibold');
-            btn.classList.remove('hover:bg-white/20');
+            btn.classList.remove('text-gray-400', 'hover:text-white', 'hover:bg-white/20');
+          } else {
+            btn.classList.add('text-gray-400', 'hover:text-white');
+            btn.classList.remove('bg-blue-600', 'text-white', 'font-semibold');
           }
         });
       </script>
