@@ -35,7 +35,7 @@ Typography pairs `font-black` uppercase display headings with `font-mono` for la
 - **Service matrix** — eleven service cards plus an expected-turnaround-times table covering software troubleshooting, OS installation, servicing, hardware diagnosis, parts replacement, and data recovery.
 - **8-step "How We Work" process** — Diagnose → Explain → Approve → Repair → **Progress** → Test → Notify → Support. Presented as a responsive 4×2 card grid. The Progress step communicates live status tracking (Product Received → Under Repair → Final Testing → Ready for Delivery, including waits on customer approval, parts, or information).
 - **"Repair Before Replacement" narrative** — an ordered sequence: Repair vs Replace guide, Parts & Replacements (with component-transparency tiers: New / OEM / Compatible / Refurbished), Before We Repair (closing on "Then: You decide whether we proceed"), and a concluding sign-off.
-- **Onsite Service Coverage banner** — branch prominence (Korattur main, Maduravoyal upcoming) plus a 13-locality chip cluster across Chennai, elevated out of the footer for local SEO.
+- **Onsite Service Coverage banner** — branch prominence (Korattur main, Maduravoyal upcoming) plus a 16-locality chip cluster across Chennai, elevated out of the footer for local SEO.
 - **Grievance & Redressal component** — a native `<details>` disclosure styled to match the FAQ accordions. Leads with the italicised statement *"Our aim is to resolve genuine concerns fairly and respectfully, without unnecessary inconvenience to the customer"*, then covers how to raise a grievance, the redressal approach, the distinction between grievances and warranty, escalation paths, and contact details.
 - **FAQ** — four native `<details>` accordions (zero-dependency disclosure).
 - **Repair portfolio** — three case-study cards documenting problem, diagnosis, solution, and result.
@@ -102,5 +102,5 @@ Complete these before going live:
 - [ ] **Add Open Graph and Twitter Card meta tags**, plus a canonical URL. Neither is currently present.
 - [ ] **Add a `<link rel="icon">`.** No favicon is declared.
 - [ ] **Review the "Book On-Site Service" CTA label.** It now opens an email client, which is a behavioural change from the original booking intent.
-- [ ] **Run an accessibility and responsive pass** on a real device, particularly the mobile header height and the 13-chip coverage cluster.
+- [ ] **Run an accessibility and responsive pass** on a real device, particularly the mobile header height and the 16-chip coverage cluster.
 - [ ] **Consider extracting the inline SVGs** — roughly two dozen icons are duplicated by hand across the document and would benefit from a sprite or component layer if the page grows.
