@@ -41,7 +41,7 @@ Typography pairs `font-black` uppercase display headings with `font-mono` for la
 - **Repair portfolio** — three case-study cards documenting problem, diagnosis, solution, and result.
 - **Sticky header** with logo lockup, anchor navigation, and a mailto CTA.
 
-All primary calls to action route to `mailto:support@computercarecompany.in`. Every in-page anchor resolves to an existing section ID — no dead links.
+All primary calls to action route to `mailto:thecomputercarecompany@gmail.com`. Every in-page anchor resolves to an existing section ID — no dead links.
 
 ## Project Structure
 
@@ -97,7 +97,7 @@ Complete these before going live:
 
 - [ ] **Add the brand logo at `public/logo.jpg`.** The header (`h-10`) and footer (`h-16`) both reference it. The file is not in version control, so both images render broken until it is added. Vite copies `public/` verbatim — no import or registration needed.
 - [ ] **Replace the dummy phone number `+91 00000 00000`.** It appears in the header CTA cluster, the mobile menu, and the Grievance & Redressal contact block. Since all CTAs now resolve to live `mailto:` / `tel:` targets, this placeholder is user-visible on every conversion path.
-- [ ] **Confirm the support email address.** `support@computercarecompany.in` is currently used site-wide, including for grievance escalation. Verify it is the correct address for customer care, and add a dedicated grievance address if one exists.
+- [ ] **Confirm the support email address.** `thecomputercarecompany@gmail.com` is currently used site-wide, including for grievance escalation. Verify it is the correct address for customer care, and add a dedicated grievance address if one exists.
 - [ ] **Fill in the Maduravoyal branch address and mobile number**, currently marked "upcoming" / pending.
 - [ ] **Add Open Graph and Twitter Card meta tags**, plus a canonical URL. Neither is currently present.
 - [ ] **Add a `<link rel="icon">`.** No favicon is declared.
