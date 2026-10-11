@@ -14,21 +14,14 @@
     <!-- HEADER / NAVIGATION — light glass bar, no longer competes with the hero -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-9 sm:h-10 w-auto object-contain shrink-0" />
-                <div class="flex flex-col justify-center min-w-0">
-                    <span class="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 uppercase leading-tight">The Computer Care Company</span>
-                    <span class="text-[10px] sm:text-xs text-blue-600 font-mono font-bold uppercase tracking-widest mt-1 leading-tight">Complete IT Solutions and Maintenance</span>
-                </div>
+            <div class="flex items-center shrink-0">
+                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-12 md:h-16 w-auto object-contain" />
             </div>
-            <nav class="hidden md:flex gap-8 text-sm font-medium text-slate-500">
+            <nav class="hidden md:flex ml-auto mr-10 gap-8 text-sm font-medium text-slate-500">
                 <a href="#services" class="hover:text-slate-900 transition-colors">Services</a>
-                <a href="#process" class="hover:text-slate-900 transition-colors">How We Work</a>
                 <a href="#coverage" class="hover:text-slate-900 transition-colors">Locations</a>
             </nav>
             <div class="hidden md:flex items-center gap-4">
-                <a href="mailto:thecomputercarecompany@gmail.com" class="hidden lg:inline-block text-xs font-mono text-slate-500 hover:text-slate-900 transition-colors">thecomputercarecompany@gmail.com</a>
-                <a href="tel:+910000000000" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Make a Call</a>
                 <a href="mailto:thecomputercarecompany@gmail.com" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
                           shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
                           hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(37,99,235,0.35)]
@@ -58,9 +51,7 @@
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
-                <a href="#process" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">How We Work</a>
                 <a href="#coverage" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Locations</a>
-                <a href="#grievance" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Grievance &amp; Redressal</a>
                 <div class="border-t border-slate-200 my-3"></div>
                 <a href="tel:+910000000000" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
                 <a href="mailto:thecomputercarecompany@gmail.com" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
@@ -247,11 +238,10 @@
                                 hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
                                 hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300 ease-out">
                         <div class="w-11 h-11 bg-blue-50 border border-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a2 2 0 012-2h9a2 2 0 012 2v4m4 0H8a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-9z"></path></svg>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 mb-2">Data Recovery & Backup</h3>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-3">We assess the storage device first and explain available recovery options.</p>
-                        <span class="inline-flex items-center gap-1.5 text-xs font-mono text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded">⚠ No process can guarantee 100% recovery.</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">We assess the storage device first and explain available recovery options.</p>
                     </div>
 
                     <!-- Service 7 -->
@@ -320,30 +310,40 @@
                 <div class="bg-white border border-slate-200/80 rounded-xl overflow-hidden
                             shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]">
                     <div class="px-6 py-5 border-b border-slate-200 bg-blue-600">
-                        <h3 class="text-lg font-bold text-white uppercase tracking-wide">Expected Turnaround Times</h3>
+                        <h3 class="flex items-center gap-2.5 text-lg font-bold text-white uppercase tracking-wide">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 7.5V12l3 2.25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Expected Turnaround Times
+                        </h3>
                     </div>
                     <div class="divide-y divide-slate-100">
                         <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Software troubleshooting</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day / depending on issue</div>
+                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Computer cleaning/service</div>
+                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">OS installation</div>
+                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Custom PC builds</div>
                             <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Laptop cleaning/service</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
                             <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Hardware diagnosis</div>
                             <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on fault</div>
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
                             <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Parts replacement</div>
                             <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on parts availability</div>
                         </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
+                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">OS Installations</div>
+                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
+                        </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
+                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Software troubleshooting</div>
+                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day / depending on issue</div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
                             <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Data recovery</div>
                             <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on storage condition</div>
                         </div>
@@ -463,31 +463,23 @@
                         </div>
                         <ul class="space-y-3 max-w-4xl">
                             <li class="flex items-start gap-3 text-sm text-slate-700">
-                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4L19 7"></path></svg>
+                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 What we believe is causing the problem
                             </li>
                             <li class="flex items-start gap-3 text-sm text-slate-700">
-                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4L19 7"></path></svg>
+                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 What needs to be repaired or replaced
                             </li>
                             <li class="flex items-start gap-3 text-sm text-slate-700">
-                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4L19 7"></path></svg>
+                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 Estimated service cost and expected turnaround time
                             </li>
                             <li class="flex items-start gap-3 text-sm text-slate-700">
-                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4L19 7"></path></svg>
+                                <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 Whether repair or replacement makes more financial sense
                             </li>
                         </ul>
                         <p class="mt-6 text-slate-900 font-bold">Then: You decide whether we proceed.</p>
-                    </div>
-
-                    <!-- Doodle connector — Step 1 → Step 2 -->
-                    <div class="flex justify-center" aria-hidden="true">
-                        <svg class="w-8 h-16 text-blue-400" viewBox="0 0 48 96" fill="none">
-                            <path d="M24 6 C 10 32, 38 54, 22 78" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M14 66 L22 80 L32 69" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                     </div>
 
                     <!-- STEP 2 — Repair vs Replace Guide -->
@@ -505,14 +497,6 @@
                             <div class="bg-white border border-slate-200/80 p-4 rounded-lg text-sm text-slate-700 font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300">6. Performance requirements</div>
                             <div class="bg-white border border-slate-200/80 p-4 rounded-lg text-sm text-slate-700 font-medium sm:col-span-2 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300">7. Future upgrade possibilities</div>
                         </div>
-                    </div>
-
-                    <!-- Doodle connector — Step 2 → Step 3 -->
-                    <div class="flex justify-center" aria-hidden="true">
-                        <svg class="w-8 h-16 text-blue-400" viewBox="0 0 48 96" fill="none">
-                            <path d="M24 6 C 38 32, 10 54, 26 78" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M17 68 L26 80 L35 67" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                     </div>
 
                     <!-- STEP 3 — Parts & Replacements -->
@@ -701,7 +685,6 @@
             </div>
         </section>
 
-        <!-- FAQ SECTION -->
         <!-- GRIEVANCE & REDRESSAL -->
         <section id="grievance" class="scroll-mt-24 py-24 md:py-28 bg-[#EEF2F7] border-t border-slate-200">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
