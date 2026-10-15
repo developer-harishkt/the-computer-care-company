@@ -92,6 +92,23 @@
                   });
 
                   Cal.ns["on-site-repair-booking"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+
+                  Cal.ns["on-site-repair-booking"]("on", {
+                    action: "bookingSuccessful",
+                    callback: function (e) {
+                      // 1. Update the success messaging
+                      const heading = document.querySelector('main h1');
+                      const subtext = document.querySelector('main p');
+
+                      if (heading) heading.innerText = "Booking Confirmed! 🎉";
+                      if (subtext) subtext.innerText = "Karthik has received your details and will WhatsApp you shortly. Redirecting to homepage...";
+
+                      // 2. Redirect back to the home screen after 4 seconds
+                      setTimeout(function() {
+                        window.location.href = "/";
+                      }, 4000);
+                    }
+                  });
                   </script>
                 <!-- Cal inline embed code ends -->
             </div>
