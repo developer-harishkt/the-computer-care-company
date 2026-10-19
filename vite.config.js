@@ -5,7 +5,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        schedule: 'schedule-visit.html'
+        schedule: 'schedule-visit.html',
+        privacy: 'privacy.html',
+        terms: 'terms.html'
       }
     }
   }
