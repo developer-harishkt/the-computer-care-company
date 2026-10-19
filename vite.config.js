@@ -7,7 +7,8 @@ export default defineConfig({
         main: 'index.html',
         schedule: 'schedule-visit.html',
         privacy: 'privacy.html',
-        terms: 'terms.html'
+        terms: 'terms.html',
+        about: 'about.html'
       }
     }
   }
