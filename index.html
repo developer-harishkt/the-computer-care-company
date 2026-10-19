@@ -114,10 +114,11 @@
                             Book On-Site Service
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
-                        <a href="https://wa.me/917010481012" class="bg-white text-slate-800 border border-slate-300 px-8 py-4 rounded-lg font-bold text-center
-                                  shadow-sm hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-md
-                                  active:scale-[0.98] active:translate-y-0
-                                  focus:ring-2 focus:ring-blue-400/30 focus:outline-none
+                        <a href="https://wa.me/917010481012" class="bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold text-center
+                                  shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(16,185,129,0.4)]
+                                  hover:bg-emerald-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_8px_20px_rgba(16,185,129,0.30)] hover:-translate-y-0.5
+                                  active:scale-[0.98] active:translate-y-0 active:shadow-none
+                                  focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:outline-none
                                   flex items-center justify-center gap-2 transition-all duration-300">
                             Connect on WhatsApp
                         </a>
@@ -323,50 +324,196 @@
 
                 </div>
 
-                <!-- Turnaround Table -->
+                <!-- Turnaround Times — inspiration layout -->
                 <div class="bg-white border border-slate-200/80 rounded-xl overflow-hidden
                             shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]">
-                    <div class="px-6 py-5 border-b border-slate-200 bg-blue-600">
-                        <h3 class="flex items-center gap-2.5 text-lg font-bold text-white uppercase tracking-wide">
-                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 7.5V12l3 2.25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <div class="px-8 py-10 md:py-12 border-b border-slate-200">
+                        <p class="text-xs font-mono font-semibold text-blue-600 uppercase tracking-wide mb-2">Clear Expectations. No Surprises.</p>
+                        <h3 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 mb-4 leading-tight">Expected Turnaround Times</h3>
+                        <p class="text-lg text-slate-600 max-w-2xl leading-relaxed">
+                            We diagnose first, explain your options, and get your device back to you as soon as we can — without rushing the quality.
+                        </p>
+                    </div>
+
+                    <!-- Note card -->
+                    <div class="px-8 py-6 border-b border-slate-100 bg-[#EEF2F7]/50">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-900 mb-1">A note on turnaround times</p>
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    These are typical estimates, not promises. Your expected completion time is confirmed after diagnosis, approval and assessment of parts availability.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turnaround cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8 md:p-10">
+                        <!-- Card 1 -->
+                        <div class="bg-white border border-slate-200/80 rounded-xl p-6 flex flex-col gap-4
+                                    shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]
+                                    hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
+                                    hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300 ease-out">
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Initial Diagnosis</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">We identify the actual cause before recommending a solution.</p>
+                            </div>
+                            <div class="mt-auto flex items-center gap-2 text-sm font-mono text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Same day ~ 1 day
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white border border-slate-200/80 rounded-xl p-6 flex flex-col gap-4
+                                    shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]
+                                    hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
+                                    hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300 ease-out">
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Software Issues</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">Operating system, drivers, updates and configuration.</p>
+                            </div>
+                            <div class="mt-auto flex items-center gap-2 text-sm font-mono text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                1-2 days
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white border border-slate-200/80 rounded-xl p-6 flex flex-col gap-4
+                                    shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]
+                                    hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
+                                    hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300 ease-out">
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Laptop & PC Repairs</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">Hardware repairs, component replacement and full system testing.</p>
+                            </div>
+                            <div class="mt-auto flex items-center gap-2 text-sm font-mono text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                1-3 days
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="bg-white border border-slate-200/80 rounded-xl p-6 flex flex-col gap-4
+                                    shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]
+                                    hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
+                                    hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-300 ease-out">
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Complex Faults / Parts Required</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">Advanced faults, uncommon components and special orders.</p>
+                            </div>
+                            <div class="mt-auto flex items-center gap-2 text-sm font-mono text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                3-7+ days
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Our Process strip -->
+                    <div class="bg-[#0B192C] text-white border-t border-slate-700/50 px-8 py-10 md:py-12">
+                        <div class="flex items-center gap-2 mb-8">
+                            <p class="text-xs font-mono text-blue-400 uppercase tracking-wide">Our Process</p>
+                            <h3 class="text-2xl font-black tracking-tight">From drop-off to go-back.</h3>
+                        </div>
+                        <div class="flex items-center justify-between gap-6 max-w-4xl mx-auto">
+                            <div class="text-center flex flex-col items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">1</span>
+                                </div>
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                <p class="text-sm font-medium">Receive</p>
+                                <p class="text-xs text-blue-300 leading-relaxed">Your device arrives at our service centre.</p>
+                            </div>
+                            <div class="text-center flex flex-col items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">2</span>
+                                </div>
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <p class="text-sm font-medium">Diagnose</p>
+                                <p class="text-xs text-blue-300 leading-relaxed">We find the actual cause.</p>
+                            </div>
+                            <div class="text-center flex flex-col items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">3</span>
+                                </div>
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <p class="text-sm font-medium">Explain & Approve</p>
+                                <p class="text-xs text-blue-300 leading-relaxed">We share findings, options and costs. You decide.</p>
+                            </div>
+                            <div class="text-center flex flex-col items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">4</span>
+                                </div>
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 012.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 011.066 2.573c-1.756.426-1.756 2.924 0 3.35a1.724 1.724 0 01-1.066 2.573c-.94 1.543-.826 3.31-.237 4.317a1.724 1.724 0 012.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 01-1.066 2.573c-1.756.426-1.756 2.924 0 3.35a1.724 1.724 0 01-1.066 2.573c-.94 1.543-.826 3.31-.237 4.317a1.724 1.724 0 012.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 01-1.066 2.573c-1.756.426-1.756 2.924 0 3.35a1.724 1.724 0 01-1.066 2.573c-.94 1.543-.826 3.31-.237 4.317a1.724 1.724 0 012.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 01-1.066 2.573c-1.756.426-1.756 2.924 0 3.35a1.724 1.724 0 01-1.066 2.573c-.94 1.543-.826 3.31-.237 4.317zM4.5 12c0-3.771 2.125-7.11 5.124-8.848A1 1 0 0110 2h4a1 1 0 011 1v1.414A9 9 0 0120.586 13H19a1 1 0 01-1-1v-1a10 10 0 10-2 2v1a1 1 0 01-1 1h-4a1 1 0 01-1-1V3a1 1 0 011-1c3.771 0 7.11 2.125 8.848 5.124A10.973 10.973 0 0122 12c0 5.053-3.278 9.347-7.828 10.116a1 1 0 01-1.144 0A10.973 10.973 0 012 12c0-3.771 2.125-7.11 5.124-8.848A1 1 0 018 2h1a1 1 0 011 1v4a10 10 0 00-2 2H4a1 1 0 01-1-1V3a1 1 0 011-1z"></path>
+                                </svg>
+                                <p class="text-sm font-medium">Repair & Test</p>
+                                <p class="text-xs text-blue-300 leading-relaxed">We fix, replace, configure and run thorough tests.</p>
+                            </div>
+                            <div class="text-center flex flex-col items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">5</span>
+                                </div>
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-sm font-medium">Ready for Collection</p>
+                                <p class="text-xs text-blue-300 leading-relaxed">Your device is good to go.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom badges -->
+                    <div class="px-8 py-8 border-t border-slate-200 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <span class="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium border border-blue-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Expected Turnaround Times
-                        </h3>
-                    </div>
-                    <div class="divide-y divide-slate-100">
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Computer cleaning/service</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Custom PC builds</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Hardware diagnosis</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on fault</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Parts replacement</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on parts availability</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">OS Installations</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-[#FAFBFD] text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Software troubleshooting</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Same day / depending on issue</div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 px-6 py-4 bg-white text-sm">
-                            <div class="font-medium text-slate-900 col-span-1 md:col-span-2">Data recovery</div>
-                            <div class="text-slate-500 col-span-1 md:col-span-2 text-right md:text-left font-mono">Depends on storage condition</div>
-                        </div>
-                    </div>
-                    <div class="px-6 py-4 border-t border-slate-100 bg-white">
-                        <p class="text-xs text-slate-500 italic">Note: Typical turnaround is subject to vary based on work required.</p>
+                            No work without approval
+                        </span>
+                        <span class="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium border border-blue-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            Repair-first approach
+                        </span>
                     </div>
                 </div>
 
@@ -854,12 +1001,64 @@
                 </div>
             </div>
         </section>
-        <!-- ABOUT US (placeholder section) -->
+        <!-- ABOUT US -->
         <section id="about" class="scroll-mt-24 py-24 md:py-28 bg-white border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 max-w-3xl mx-auto">
                     <h2 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 uppercase mb-4">About Us</h2>
-                    <p class="text-slate-600 text-lg">The Computer Care Company is a Chennai-based IT support and hardware repair business built on a simple principle: repair before replacement.</p>
+                    <p class="text-lg md:text-xl text-slate-600 leading-relaxed">Technology deserves care, not unnecessary replacement.</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto space-y-12 text-slate-700 leading-relaxed">
+                    <p class="text-lg">
+                        At <strong class="text-slate-900">The Computer Care Company</strong>, we believe that a computer problem should begin with a proper diagnosis, not an unnecessary purchase. Our focus is on extending the life of your devices through reliable repairs, careful maintenance, and practical technical support.
+                    </p>
+                    <p class="text-lg">
+                        We provide computer and laptop repairs, software installation and troubleshooting, PC builds, printer services, and CCTV solutions. Whether it is a minor software issue or a complex hardware fault, our approach remains the same: identify the actual problem, explain the available solutions, and help you make an informed decision.
+                    </p>
+
+                    <h3 class="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wide">Our Approach</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="w-8 h-8 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold">1</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Diagnose Before We Decide.</h4>
+                                <p class="text-slate-600">We investigate the cause of the problem before recommending a solution.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-8 h-8 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold">2</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Explain Before We Proceed.</h4>
+                                <p class="text-slate-600">We communicate our findings, available options, and expected costs so you can decide with confidence.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-8 h-8 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold">3</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Repair Before Replacing.</h4>
+                                <p class="text-slate-600">Whenever practical, we prioritise repair and reuse over unnecessary replacement and spending.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-8 h-8 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold">4</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Test Before We Return.</h4>
+                                <p class="text-slate-600">We carry out appropriate checks to help ensure your device is functioning as expected before handover.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="bg-[#EEF2F7] border border-slate-200/50 rounded-xl p-8 md:p-12">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 uppercase tracking-wide">Built on Trust and Transparency</h3>
+                        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                            We understand that your devices are an important part of your work, education, business, and everyday life. That is why we value clear communication, responsible handling, and service you can understand without technical confusion.
+                        </p>
+                        <p class="text-lg text-slate-600 leading-relaxed">
+                            Our goal is not simply to fix a device, but to help you get the most out of the technology you already own.
+                        </p>
+                        <p class="mt-6 italic text-slate-700">"The Computer Care Company — Complete care. Complete support. Technology that lasts."</p>
+                    </div>
                 </div>
             </div>
         </section>
