@@ -1,0 +1,208 @@
+<div id="booking-intro" class="text-center mb-6 sm:mb-8 px-1">
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wide mb-3 sm:mb-4">
+        On-site service — Chennai
+    </span>
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 uppercase mb-2 sm:mb-3">Book your visit</h1>
+    <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+        One step at a time — we only ask what’s relevant to your service.
+    </p>
+</div>
+
+<div id="booking-success" class="hidden booking-success-panel mb-0" role="status">
+    <div class="text-center mb-5">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mb-3" aria-hidden="true">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <p id="booking-success-heading" class="text-emerald-700 font-black text-xl uppercase tracking-tight mb-1">Booking saved</p>
+        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto" id="booking-success-summary"></p>
+    </div>
+
+    <div class="rounded-xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-4 sm:p-5 mb-4 text-left max-w-lg mx-auto shadow-sm">
+        <p class="text-[11px] font-mono font-semibold uppercase tracking-wide text-blue-700 mb-1">Service booking &amp; payment</p>
+        <p class="text-xs text-slate-600 leading-relaxed mb-4" id="booking-success-intro"></p>
+
+        <div id="booking-payment-block" class="hidden rounded-lg border border-blue-100 bg-blue-50/50 px-4 py-4 mb-4">
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-600 mb-2">Confirm visit fee</p>
+            <dl class="text-sm text-slate-800 space-y-2 mb-3">
+                <div class="flex justify-between gap-3 border-b border-blue-100/80 pb-2"><dt class="text-slate-500">Service</dt><dd class="font-medium text-right max-w-[55%]" id="booking-pay-service"></dd></div>
+                <div class="flex justify-between gap-3"><dt class="text-slate-500">Visit fee</dt><dd class="font-black text-lg text-slate-900" id="booking-pay-amount"></dd></div>
+            </dl>
+            <p class="text-xs text-slate-600 mb-3" id="booking-visit-fee-hint">Visit / diagnostics fee only — parts and extra repair work are quoted after inspection.</p>
+            <p id="booking-payment-done" class="hidden text-sm font-semibold text-emerald-700 mb-3 flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
+                Payment received — you’re all set.
+            </p>
+            <p id="booking-payment-error" class="hidden text-sm text-red-600 mb-3" role="alert"></p>
+            <button type="button" id="pay-visit-fee" class="book-btn-primary w-full min-h-[44px]">Continue to secure payment</button>
+            <p id="booking-razorpay-hint" class="hidden text-[11px] text-slate-500 leading-relaxed mt-2 text-center"></p>
+        </div>
+
+        <details class="group rounded-lg border border-slate-200 bg-white open:shadow-sm mb-2">
+            <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-semibold text-slate-800 flex items-center justify-between gap-2">
+                <span id="booking-trust-visit-title">Doorstep visit &amp; assessment</span>
+                <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <p class="px-3 pb-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2" id="booking-trust-visit-body"></p>
+        </details>
+        <details class="group rounded-lg border border-slate-200 bg-white open:shadow-sm mb-3">
+            <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-semibold text-slate-800 flex items-center justify-between gap-2">
+                <span id="booking-trust-warranty-title">60-day service warranty</span>
+                <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <p class="px-3 pb-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2" id="booking-trust-warranty-body"></p>
+        </details>
+
+        <p class="text-xs text-slate-500 italic leading-relaxed mb-3" id="booking-trust-longer-life"></p>
+        <p class="text-[11px] text-slate-500 leading-relaxed mb-2" id="booking-success-terms"></p>
+        <p class="text-[11px] text-slate-500" id="booking-success-contact"></p>
+    </div>
+
+    <p class="text-center text-xs font-mono font-semibold uppercase tracking-wide text-slate-400 mb-4" id="booking-success-tagline"></p>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <a href="https://wa.me/917010481012" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold text-sm inline-flex items-center justify-center min-h-[44px]">WhatsApp us</a>
+        <a href="/" data-booking-dismiss-page class="book-btn-secondary inline-flex justify-center">Back to home</a>
+        <button type="button" data-booking-dismiss-modal class="hidden book-btn-secondary justify-center">Close</button>
+    </div>
+</div>
+
+<form id="book-form" class="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 md:p-8 shadow-sm overflow-visible" novalidate>
+    <div id="wizard-progress-wrap" class="-mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 py-3 mb-5 sm:mb-6">
+        <p id="wizard-progress" class="text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2 leading-snug">Step 1 of 4</p>
+        <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden" aria-hidden="true">
+            <div id="wizard-progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-500 ease-out" style="width: 25%"></div>
+        </div>
+    </div>
+
+    <div id="wizard-selection-trail" class="hidden -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 mb-4 sm:mb-5" aria-label="Your choices so far"></div>
+
+    <p id="form-error" class="hidden text-sm text-red-600 font-medium text-center rounded-lg bg-red-50 border border-red-100 px-3 py-2 mb-5" role="alert"></p>
+
+    <div data-wizard-step="service" class="space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">What do you need help with? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">We’ll tailor the next questions based on this. <span class="text-slate-400">(* required)</span></p>
+            <select id="service-type" name="service" required class="sr-only" tabindex="-1" aria-hidden="true">
+                <option value="" disabled selected>Select a service</option>
+                <optgroup label="Visit &amp; servicing">
+                    <option value="Standard diagnostics / check-up">Standard diagnostics / check-up</option>
+                    <option value="Laptop or desktop servicing (cleaning)">Laptop or desktop servicing (cleaning)</option>
+                </optgroup>
+                <optgroup label="Software">
+                    <option value="OS installations & Fixes">OS installations &amp; Fixes</option>
+                    <option value="Virus removal &amp; security">Virus removal &amp; security</option>
+                    <option value="Software setups">Software setups</option>
+                </optgroup>
+                <optgroup label="Hardware &amp; upgrades">
+                    <option value="Hardware repair (screen, battery, keyboard, etc.)">Hardware repair (screen, battery, keyboard, etc.)</option>
+                    <option value="Component install (RAM / SSD / GPU)">Component install (RAM / SSD / GPU)</option>
+                    <option value="Custom PC build / upgrade consultation">Custom PC build / upgrade consultation</option>
+                    <option value="Data recovery assessment">Data recovery assessment</option>
+                </optgroup>
+                <optgroup label="Other services">
+                    <option value="Printer setup or repair">Printer setup or repair</option>
+                    <option value="Wi-Fi / network setup">Wi-Fi / network setup</option>
+                    <option value="CCTV installation">CCTV installation</option>
+                    <option value="Corporate / AMC enquiry">Corporate / AMC enquiry</option>
+                    <option value="Other">Other</option>
+                </optgroup>
+            </select>
+            <div id="service-picker" class="space-y-4" aria-live="polite"></div>
+        </div>
+        <p class="text-center text-xs text-slate-400">Tap a service to continue</p>
+    </div>
+
+    <div id="step-device" data-wizard-step="device" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">Which device is this for? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">Options match your service — pick the closest fit.</p>
+            <select id="device-type" name="device" class="sr-only" tabindex="-1" aria-hidden="true"></select>
+            <div id="device-picker"></div>
+        </div>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p class="text-center text-xs text-slate-400">Tap your device to continue</p>
+    </div>
+
+    <div data-wizard-step="schedule" class="hidden space-y-6">
+        <div id="visit-summary" class="hidden rounded-lg bg-blue-50/80 border border-blue-100 px-4 py-3 text-sm text-slate-700 break-words"></div>
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">When should we visit? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">Tap a recommended slot, or pick any date and time — we offer 24/7 on-site booking.</p>
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Recommended</p>
+            <div id="prime-slots" class="grid gap-3 sm:grid-cols-1"></div>
+            <button type="button" id="schedule-custom-toggle" class="mt-4 w-full text-left rounded-lg border border-dashed border-slate-300 bg-slate-50/80 px-4 py-3 text-sm font-semibold text-blue-700 hover:border-blue-300 hover:bg-blue-50/50 transition-colors min-h-[44px]">
+                None of these work? Choose date &amp; time
+            </button>
+        </div>
+        <div id="custom-schedule-panel" class="hidden space-y-3 rounded-lg border border-slate-200/80 p-4 bg-white">
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500">Choose date</p>
+            <div id="date-list" class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"></div>
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 pt-1">Choose time <span class="normal-case font-sans text-slate-400">(any hour, 24/7)</span></p>
+            <div id="time-grid" role="group" aria-label="Available visit times" class="grid grid-cols-3 min-[400px]:grid-cols-4 sm:grid-cols-4 gap-2 max-h-[min(14rem,40vh)] overflow-y-auto overscroll-contain pr-1"></div>
+            <p id="slot-selection-summary" class="hidden text-sm font-medium text-blue-800 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2"></p>
+        </div>
+        <p id="slot-selection-summary-prime" class="hidden text-sm font-medium text-blue-800 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2"></p>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p class="text-center text-xs text-slate-400">Pick a slot to continue — or choose date &amp; time below</p>
+    </div>
+
+    <div data-wizard-step="details" class="hidden space-y-8">
+        <div class="space-y-4">
+            <h2 class="text-lg font-bold text-slate-900">Who should we contact?</h2>
+            <p class="text-sm text-slate-500 -mt-2"><span class="text-red-600">*</span> Required fields</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                    <label for="full-name" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Your name</label>
+                    <input id="full-name" name="name" autocomplete="name" placeholder="Full name" class="book-field" required aria-required="true" />
+                </div>
+                <div>
+                    <label for="phone" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Phone / WhatsApp</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile" class="book-field" required aria-required="true" />
+                    <p class="text-[11px] text-slate-400 mt-1">We’ll confirm your slot here first.</p>
+                </div>
+                <div>
+                    <label for="email" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="book-field" required aria-required="true" />
+                    <p class="text-[11px] text-slate-400 mt-1">For visit updates &amp; warranty records.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <h2 class="text-lg font-bold text-slate-900">Where should we come?</h2>
+            <p class="text-sm text-slate-500">Search your area in Chennai (free lookup) or type your address.</p>
+            <div id="address-search-wrap" class="relative z-30">
+                <label for="address-search" class="sr-only">Search address</label>
+                <input id="address-search" type="search" autocomplete="off" placeholder="Start typing — e.g. Korattur, Anna Nagar…" class="book-field" />
+                <ul id="address-suggestions" role="listbox" aria-label="Address suggestions"
+                    class="hidden absolute z-40 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg ring-1 ring-slate-200/80 overflow-hidden max-h-[min(14rem,45vh)] overflow-y-auto overscroll-contain"></ul>
+            </div>
+            <div>
+                <label for="address-line" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Full address</label>
+                <textarea id="address-line" name="address" rows="2" placeholder="Flat / door no., street, area, PIN" class="book-field-area" required aria-required="true"></textarea>
+            </div>
+            <div>
+                <label for="landmark" class="block text-xs font-semibold text-slate-500 mb-1.5">Landmark (optional)</label>
+                <input id="landmark" type="text" placeholder="Near temple, school, or shop" class="book-field" />
+            </div>
+            <p class="text-[11px] text-slate-400">Address search uses OpenStreetMap data (no cost). Google Maps can be enabled later with an API key.</p>
+        </div>
+
+        <div>
+            <label for="notes" class="block text-xs font-semibold text-slate-500 mb-1.5">Anything else we should know?</label>
+            <textarea id="notes" rows="2" placeholder="Symptoms, urgency, gate code…" class="book-field-area"></textarea>
+        </div>
+
+        <div class="flex flex-col-reverse sm:flex-row gap-3 pt-2">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+            <button type="submit" id="submit-booking" class="book-btn-primary flex-[2]">
+                Submit booking request
+            </button>
+        </div>
+        <p class="text-center text-xs text-slate-500">Submitting sends your request to our team (Chennai on-site).</p>
+    </div>
+</form>

@@ -1,0 +1,76 @@
+UC source,Urban Company main heading,Urban Company sub-service / option,Urban Company listed price (INR),Closest match on our website,Our price (INR) — co-founder to fill,Notes
+Booking menu,Laptop Repair,Laptop check-up (45 min — base SKU),199,Laptop & Desktop Repairs (Free Initial Diagnosis on homepage),,"Same flow as issue-type rows below (each issue also shows ₹199 visit)."
+Booking menu,Laptop Repair,Inspection only — no repair booked (FAQ),159,Laptop & Desktop Repairs,,Customer declines all work after visit.
+Booking — issue type (Laptop check-up),Laptop Repair,Software issue (visit / inspection step),199,Software Installation & Fixes + Virus Removal,,Part of check-up flow; repair quote separate after inspection.
+Booking — issue type (Laptop check-up),Laptop Repair,Charging issue,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Display issue,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Keyboard issue,199,Laptop & Desktop Repairs,,Distinct from full keyboard repair quote after diagnosis.
+Booking — issue type (Laptop check-up),Laptop Repair,Overheating issue,199,Laptop & Desktop Repairs + thermal cleaning portfolio,,
+Booking — issue type (Laptop check-up),Laptop Repair,Physical damage,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Port issue,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Slow / hanging,199,Software Installation & Fixes,,
+Booking — issue type (Laptop check-up),Laptop Repair,Speaker / audio issue,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Touchpad issue,199,Laptop & Desktop Repairs,,
+Booking — issue type (Laptop check-up),Laptop Repair,Unknown issue,199,Laptop & Desktop Repairs,,
+Booking — device type (no extra fee),Laptop Repair,Device: Apple / MacBook,— (select with issue above),Laptop & Desktop Repairs,,Price driven by servicing SKU not device alone.
+Booking — device type (no extra fee),Laptop Repair,Device: Windows laptop,—,Laptop & Desktop Repairs,,
+Booking — device type (no extra fee),Laptop Repair,Device: Desktop,—,Laptop & Desktop Repairs + Custom PC Building,,
+Booking — 4 options,Laptop Repair,Laptop/Desktop service — Standard desktop,599,Laptop & Desktop Repairs,,Matches booking ""starts at ₹599"".
+Booking — 4 options,Laptop Repair,Laptop/Desktop service — Windows laptop,699,Laptop & Desktop Repairs,,Same as rate card Windows laptop servicing.
+Booking — 4 options,Laptop Repair,Laptop/Desktop service — MacBook / Apple laptop,999,Laptop & Desktop Repairs,,Same as rate card Apple laptop servicing.
+Booking — 4 options,Laptop Repair,Laptop/Desktop service — Gaming laptop,999,Laptop & Desktop Repairs,,Same as rate card gaming laptop servicing.
+Rate card,Laptop Repair,Laptop/Desktop service — All-in-one desktop,1099,Laptop & Desktop Repairs,,Not shown on 4-option carousel; rate card only.
+Booking menu,Laptop Repair,System upgrade consultation — base SKU (visit from),199,Custom PC Building + Laptop & Desktop Repairs,,Visitation fee adjusted in final repair quote per UC.
+Booking — 4 options,Laptop Repair,System upgrade consultation — Windows RAM,199,Custom PC Building + Laptop & Desktop Repairs,,Consult/visit line; parts extra.
+Booking — 4 options,Laptop Repair,System upgrade consultation — Windows hard disk,199,Laptop & Desktop Repairs + Data Recovery,,Consult/visit line; parts extra.
+Booking — 4 options,Laptop Repair,System upgrade consultation — MacBook RAM,199,Custom PC Building + Laptop & Desktop Repairs,,
+Booking — 4 options,Laptop Repair,System upgrade consultation — MacBook hard disk,199,Laptop & Desktop Repairs + Data Recovery,,
+Booking menu,Laptop Repair,Component installation — base SKU (from),600,Laptop & Desktop Repairs + Custom PC Building,,Labour visit; parts extra.
+Booking — 4 options,Laptop Repair,Component installation — RAM,600,Laptop & Desktop Repairs + Custom PC Building,,
+Booking — 4 options,Laptop Repair,Component installation — Battery,600,Laptop & Desktop Repairs,,
+Booking — 4 options,Laptop Repair,Component installation — SSD / HDD,600,Laptop & Desktop Repairs,,Portfolio: SSD upgrade case study.
+Booking — 4 options,Laptop Repair,Component installation — Graphic card,600,Custom PC Building + Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Software (OS) — full repair quote,Quote after diagnosis,Software Installation & Fixes,,See rate card — Software for indicative part+labor lines.
+Booking — repair category (post-diagnosis),Laptop Repair,Keyboard — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Trackpad — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Battery — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Display — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,Panel cost varies widely.
+Booking — repair category (post-diagnosis),Laptop Repair,Hard drive / storage — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs + Data Recovery & Backup,,
+Booking — repair category (post-diagnosis),Laptop Repair,Motherboard — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Speaker / mic — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Booking — repair category (post-diagnosis),Laptop Repair,Others — full repair quote,Quote after diagnosis,Laptop & Desktop Repairs,,
+Rate card policy,Laptop Repair,Labour charges (cap note),Up to 349 labour per appliance (rate card banner),All services,,Parts/conveyance wording on UC rate card — set our labour policy.
+Rate card — Software,Laptop Repair,Anti-virus total security,1500 + 249 labour,Virus Removal + Security,,
+Rate card — Software,Laptop Repair,OS — Professional,16700 + 249 labour,Software Installation & Fixes,,
+Rate card — Software,Laptop Repair,Anti-virus (standard),1100,Virus Removal + Security,,
+Rate card — Software,Laptop Repair,Minor software resolution,300 + 199 labour,Software Installation & Fixes,,
+Rate card — Software,Laptop Repair,All models — Mac O.S.,1000 + 249 labour,Software Installation & Fixes,,
+Rate card — Gaming,Laptop Repair,Gaming desktop servicing,998,Laptop & Desktop Repairs + Custom PC Building,,
+Rate card — Gaming,Laptop Repair,Desktop assembling,699,Custom PC Building,,
+Rate card — Gaming,Laptop Repair,Gaming desktop assembling,1099,Custom PC Building,,
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 1),500 + 249 labour,Laptop & Desktop Repairs,,Generic spare tiers on UC rate card — confirm part types in app.
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 2),1000 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 3),200 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 4),2000 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 5),300 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Gaming spare,Laptop Repair,Gaming laptop spare (tier 6 — all-in),2000,Laptop & Desktop Repairs,,Listed without separate labour line on card.
+Rate card — Gaming spare,Laptop Repair,External backlit keyboard (gaming),2400 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Gaming spare,Laptop Repair,Internal backlit keyboard (gaming),3400 + 249 labour,Laptop & Desktop Repairs,,
+Rate card — Minor resolution,Laptop Repair,RAM refix,500,Laptop & Desktop Repairs + Custom PC Building,,
+Rate card — Minor resolution,Laptop Repair,Power cable,500,Laptop & Desktop Repairs,,
+Rate card — Minor resolution,Laptop Repair,Battery adjustment,500,Laptop & Desktop Repairs,,
+Rate card — Minor resolution,Laptop Repair,Driver update,500,Software Installation & Fixes,,
+Rate card — Minor resolution,Laptop Repair,Connectivity,500,Network Setup & Wi-Fi,,
+Rate card — Minor resolution,Laptop Repair,Wire adjustment,0 + 299 labour,Laptop & Desktop Repairs,,
+Rate card — Minor resolution,Laptop Repair,Third-party software,500,Application Setups,,
+Rate card — Minor resolution,Laptop Repair,Tune-up,500,Software Installation & Fixes,,
+,,,,,,
+Our services — not on Urban Company Chennai laptop menu,,,Closest on our site,Our price (INR) — co-founder to fill,Notes
+,,,Application Setups,,No dedicated UC SKU; closest Minor resolution / third-party software.
+,,,Data Recovery & Backup,,Beyond UC hard-drive repair category; set assessment fee.
+,,,Printer installation & repairs,,No UC Chennai printer category.
+,,,CCTV installations,,Not on UC laptop menu.
+,,,Network setup & Wi-Fi,,Closest UC: Minor resolution connectivity only.
+,,,Corporate solutions & AMCs,,B2B — not comparable to UC one-off SKUs.
+,,,Sale of laptops & printers,,Retail — not on UC service menu.
+,,,On-site booking deposit (our current Razorpay flow),,Schedule / book page,,Align with visit fee vs free diagnosis marketing.

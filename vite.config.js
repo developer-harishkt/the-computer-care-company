@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => {
           privacy: 'privacy.html',
           terms: 'terms.html',
           about: 'about.html',
+          subscriptions: 'subscriptions.html',
         },
       },
     },

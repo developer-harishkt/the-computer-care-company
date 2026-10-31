@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Branch previews: deploy non-production branches for co-founder review.
+[context.branch-deploy]
+  command = "npm run build"
+
+[context.deploy-preview]
+  command = "npm run build"

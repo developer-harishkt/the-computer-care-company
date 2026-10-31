@@ -93,16 +93,17 @@
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- BRAND — logo image + company name -->
-            <div class="flex items-center gap-3 shrink-0">
+            <a href="/" class="flex items-center gap-3 shrink-0 hover:opacity-90 transition-opacity">
                 <img src="/logo.jpg" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
-            </div>
+            </a>
 
             <!-- DESKTOP NAV + CTA — equal gaps between every item -->
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="#" class="text-blue-600">Home</a>
                 <a href="/about" class="hover:text-blue-600 transition-colors">About Us</a>
                 <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
                 <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
                 <a href="/book" data-open-booking class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
                           shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
@@ -135,6 +136,7 @@
                 <a href="#" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
                 <a href="/about" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">About Us</a>
                 <a href="#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/subscriptions" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Subscriptions</a>
                 <a href="#contact" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Contact</a>
                 <div class="border-t border-slate-200 my-3"></div>
                 <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
@@ -175,7 +177,7 @@
                         <span class="text-base sm:text-lg font-bold text-slate-800 tracking-wide">Phone &amp; WhatsApp support in Chennai — on-site visits by appointment</span>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4">
                         <a href="/book" data-open-booking class="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-center
                                   shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
                                   hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_8px_20px_rgba(37,99,235,0.30)]
@@ -184,6 +186,14 @@
                                   flex items-center justify-center gap-2 transition-all duration-300">
                             Book On-Site Service
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </a>
+                        <a href="tel:+917010481012" class="bg-white text-slate-800 border border-slate-200 px-8 py-4 rounded-lg font-bold text-center
+                                  shadow-[0_1px_2px_rgba(0,0,0,0.06)]
+                                  hover:bg-slate-50 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:-translate-y-0.5
+                                  active:scale-[0.98] active:shadow-none
+                                  focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:outline-none
+                                  flex items-center justify-center gap-2 transition-all duration-300">
+                            Call us
                         </a>
                         <a href="https://wa.me/917010481012" class="bg-white text-emerald-600 border border-emerald-200 px-8 py-4 rounded-lg font-bold text-center
                                   shadow-[0_1px_2px_rgba(0,0,0,0.06)]
@@ -295,7 +305,7 @@
                         <div class="w-11 h-11 bg-blue-50 border border-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
-                        <h3 class="text-base font-bold text-slate-900 mb-2">Software Installation & Fixes</h3>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">OS installations &amp; Fixes</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">Clean installations and troubleshooting for operating systems and applications without unnecessary data loss.</p>
                     </div>
 
@@ -307,7 +317,7 @@
                         <div class="w-11 h-11 bg-blue-50 border border-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                         </div>
-                        <h3 class="text-base font-bold text-slate-900 mb-2">Application Setups</h3>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">Software setups</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">Configuration and setup of business and personal applications for reliable day-to-day use.</p>
                     </div>
 
@@ -1069,10 +1079,10 @@
 
             <!-- Column 1: Brand Info -->
             <div class="space-y-6">
-                <div class="flex items-center gap-3 shrink-0">
+                <a href="/" class="flex items-center gap-3 shrink-0 hover:opacity-90 transition-opacity">
                     <img src="/logo.jpg" alt="The Computer Care Company" class="h-8 w-auto shrink-0" />
                     <span class="font-black text-base md:text-lg tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
-                </div>
+                </a>
                 <div class="space-y-3">
                     <p class="text-sm font-mono font-semibold text-slate-700 uppercase tracking-wide">Phone &amp; WhatsApp support across Chennai — schedule on-site visits in advance</p>
                     <p class="text-base font-black text-slate-900 uppercase tracking-tight">Care Before Cost.</p>
@@ -1084,10 +1094,6 @@
                         <span class="font-semibold">Email:</span> <a href="mailto:thecomputercarecompany@gmail.com" class="text-emerald-700 hover:text-emerald-800 hover:underline">thecomputercarecompany@gmail.com</a><br>
                         <span class="font-semibold">Mobile:</span> <a href="tel:+917010481012" class="text-emerald-700 hover:text-emerald-800 hover:underline">+91 70104 81012</a>
                     </p>
-                </div>
-                <div class="space-y-2 pt-2 border-t border-slate-200/50">
-                    <p class="text-sm font-mono text-emerald-700 flex items-center gap-2">✓ 60-Day Service Warranty — on eligible repairs, subject to warranty terms</p>
-                    <p class="text-sm font-mono text-emerald-700 flex items-center gap-2">✓ Free Initial Diagnosis — for eligible issues</p>
                 </div>
             </div>
 
@@ -1108,6 +1114,7 @@
                     <li><a href="#services" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Our Services</a></li>
                     <li><a href="#coverage" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">On-Site Service Coverage</a></li>
                     <li><a href="#faq" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Frequently Asked Questions</a></li>
+                    <li><a href="/subscriptions" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Care subscriptions</a></li>
                     <li><a href="/book" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Book a visit</a></li>
                     <li><a href="#grievance" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Grievance &amp; Redressal</a></li>
                 </ul>
@@ -1141,7 +1148,7 @@
             </button>
         </div>
         <div id="booking-modal-mount" class="booking-wizard-root min-h-0"></div>
-        <p class="text-center text-[11px] text-slate-400 px-4 py-3 border-t border-slate-100 shrink-0 bg-slate-50/80">
+        <p class="text-center text-[11px] text-slate-400 px-4 py-3 border-t border-slate-100 shrink-0 bg-slate-50/80" id="booking-modal-footer">
             Prefer a full page? <a href="/book" class="text-blue-700 font-semibold hover:underline">Open dedicated booking page</a>
         </p>
     </dialog>
