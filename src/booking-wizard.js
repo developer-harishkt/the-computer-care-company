@@ -249,15 +249,9 @@ export function initBookingWizard(root, options = {}) {
   }
 
   function updateVisitSummary() {
-    const service = serviceSelect?.value;
-    if (!service || !visitSummary) return;
-    const rule = getServiceRule(service);
-    const deviceLine =
-      rule.mode === 'fixed'
-        ? rule.fixedLabel
-        : deviceSelect?.value || 'Device — next step';
-    visitSummary.textContent = `${service} · ${deviceLine}`;
-    visitSummary.classList.remove('hidden');
+    if (!visitSummary) return;
+    visitSummary.classList.add('hidden');
+    visitSummary.textContent = '';
   }
 
   function applyServiceChange() {

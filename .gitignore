@@ -1,6 +1,12 @@
 node_modules/
 dist/
+.env
+.env.local
+.env.*.local
 .DS_Store
 *.log
 ui-preview.png
 screenshot.js
+
+# Local Netlify folder
+.netlify

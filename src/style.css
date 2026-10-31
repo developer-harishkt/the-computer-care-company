@@ -7,3 +7,130 @@
     @apply bg-brand-900 text-brand-light antialiased font-sans scroll-smooth;
   }
 }
+
+@layer components {
+  .book-field {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base sm:text-sm text-slate-900
+           placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 focus:outline-none
+           min-h-[3rem] sm:min-h-[2.75rem];
+  }
+
+  .book-field-area {
+    @apply book-field resize-y min-h-[4.5rem];
+  }
+
+  .book-btn-primary {
+    @apply inline-flex items-center justify-center bg-blue-600 text-white rounded-lg font-bold text-sm
+           hover:bg-blue-700 transition-colors min-h-[3rem] sm:min-h-[2.75rem] px-4;
+  }
+
+  .book-btn-secondary {
+    @apply inline-flex items-center justify-center border border-slate-200 bg-white rounded-lg font-bold text-sm
+           text-slate-700 hover:bg-slate-50 transition-colors min-h-[3rem] sm:min-h-[2.75rem] px-4;
+  }
+
+  .book-label-required::after {
+    content: ' *';
+    @apply text-red-600 font-bold;
+  }
+
+  .booking-wizard-root[data-context='page'] #wizard-progress-wrap {
+    @apply sticky z-20 top-16 sm:top-20 bg-white/95 backdrop-blur-sm border-b border-slate-100;
+  }
+
+  .booking-wizard-root[data-context='modal'] #wizard-progress-wrap {
+    @apply relative z-20 bg-white border-b border-slate-100;
+  }
+
+  .booking-wizard-root [data-wizard-step]:not(.hidden) {
+    animation: wizard-step-in 0.4s ease-out both;
+  }
+
+  @keyframes wizard-step-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .booking-wizard-root [data-wizard-step]:not(.hidden) {
+      animation: none;
+    }
+  }
+
+  #wizard-selection-trail .wizard-trail-chip {
+    @apply inline-flex max-w-full items-center gap-1.5 rounded-full border border-slate-200 bg-white pl-3 pr-1.5 py-1 text-xs text-slate-700 shadow-sm;
+  }
+
+  #wizard-selection-trail .wizard-trail-change {
+    @apply shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold text-blue-700 hover:bg-blue-50 transition-colors;
+  }
+
+  #booking-modal:not([open]) {
+    display: none;
+  }
+
+  #booking-modal[open] {
+    @apply fixed inset-0 m-auto overflow-hidden w-[min(100%-1.5rem,42rem)] h-[min(92dvh,880px)] max-h-[min(92dvh,880px)] p-0 rounded-xl border border-slate-200 bg-white shadow-2xl;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #booking-modal.booking-modal--success[open] {
+    @apply h-auto max-h-[min(92dvh,880px)];
+  }
+
+  #booking-modal.booking-modal--success #booking-modal-footer {
+    @apply hidden;
+  }
+
+  .booking-wizard-root[data-phase='success'] .booking-success-panel {
+    @apply block pb-2;
+  }
+
+  .booking-wizard-root[data-context='modal'][data-phase='success'] {
+    @apply pb-2;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #booking-modal-mount {
+    @apply flex-1 min-h-[16rem] overflow-y-auto overscroll-contain px-4 py-4 sm:px-5 sm:py-5;
+  }
+
+  #booking-modal::backdrop {
+    @apply bg-slate-900/55 backdrop-blur-[2px];
+  }
+
+  /* Razorpay Checkout renders on body; hide booking dialog top-layer while paying */
+  body.razorpay-checkout-active #booking-modal[open] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  body.razorpay-checkout-active #booking-modal[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .pb-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .px-safe {
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  }
+}
