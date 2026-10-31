@@ -19,6 +19,10 @@
     @apply book-field resize-y min-h-[4.5rem];
   }
 
+  .book-field.is-invalid {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-400/30;
+  }
+
   .book-btn-primary {
     @apply inline-flex items-center justify-center bg-blue-600 text-white rounded-lg font-bold text-sm
            hover:bg-blue-700 transition-colors min-h-[3rem] sm:min-h-[2.75rem] px-4;
@@ -40,6 +44,19 @@
 
   .booking-wizard-root[data-context='modal'] #wizard-progress-wrap {
     @apply relative z-20 bg-white border-b border-slate-100;
+  }
+
+  .booking-wizard-root[data-context='modal'] #book-form {
+    @apply p-0 border-0 shadow-none bg-transparent;
+  }
+
+  .booking-wizard-root[data-context='modal'] #wizard-progress-wrap,
+  .booking-wizard-root[data-context='modal'] #wizard-selection-trail {
+    @apply mx-0 px-0 sm:mx-0 sm:px-0 md:mx-0 md:px-0;
+  }
+
+  .booking-wizard-root[data-context='page'][data-phase='success'] #booking-success {
+    scroll-margin-top: 5rem;
   }
 
   .booking-wizard-root [data-wizard-step]:not(.hidden) {
@@ -79,6 +96,16 @@
     @apply fixed inset-0 m-auto overflow-hidden w-[min(100%-1.5rem,42rem)] h-[min(92dvh,880px)] max-h-[min(92dvh,880px)] p-0 rounded-xl border border-slate-200 bg-white shadow-2xl;
     display: flex;
     flex-direction: column;
+    z-index: 50;
+  }
+
+  /* Non-modal dialog.show() — backdrop on body so Razorpay can stack above the dialog without closing it */
+  body.booking-modal-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    @apply bg-slate-900/55 backdrop-blur-[2px];
   }
 
   #booking-modal.booking-modal--success[open] {
@@ -90,11 +117,209 @@
   }
 
   .booking-wizard-root[data-phase='success'] .booking-success-panel {
-    @apply block pb-2;
+    @apply flex flex-col min-h-0 pb-0;
+  }
+
+  .booking-wizard-root[data-context='modal'] #booking-success-page-title {
+    @apply hidden;
+  }
+
+  .booking-success-panel__scroll {
+    @apply flex-1 min-h-0 space-y-5 px-5 py-5 sm:px-6 sm:py-6;
+  }
+
+  .booking-success-page-title {
+    @apply text-lg font-bold text-slate-900 leading-snug;
+  }
+
+  .booking-success-paid-hero {
+    @apply flex items-center gap-3 pb-1;
+  }
+
+  .booking-success-paid-hero__icon {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700;
+  }
+
+  .booking-success-paid-hero__title {
+    @apply text-lg font-bold text-slate-900;
+  }
+
+  .booking-success-summary {
+    @apply grid grid-cols-[minmax(5.5rem,38%)_1fr] gap-x-3 gap-y-2 border-y border-slate-200 py-4;
+  }
+
+  .booking-success-summary__row {
+    @apply contents;
+  }
+
+  .booking-success-summary__label {
+    @apply text-[13px] text-slate-600 leading-snug;
+  }
+
+  .booking-success-summary__value {
+    @apply text-[15px] font-medium text-slate-900 leading-snug text-right;
+  }
+
+  .booking-success-reference {
+    @apply flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2;
+  }
+
+  .booking-success-reference__label {
+    @apply text-[13px] text-slate-600;
+  }
+
+  .booking-success-reference__code {
+    @apply flex-1 min-w-0 truncate font-mono text-[13px] text-slate-900;
+  }
+
+  .booking-success-reference__copy {
+    @apply text-[13px] font-semibold text-blue-700 hover:underline min-h-[44px] px-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600;
+  }
+
+  .booking-success-section {
+    @apply border-t border-slate-200 pt-4;
+  }
+
+  .booking-success-fee-row {
+    @apply flex items-baseline justify-between gap-3 mb-2;
+  }
+
+  .booking-success-fee-row__label {
+    @apply text-[15px] font-medium text-slate-900;
+  }
+
+  .booking-success-fee-row__amount {
+    @apply text-xl font-bold text-slate-900;
+  }
+
+  .booking-success-fee-note {
+    @apply text-sm text-slate-600 leading-relaxed mb-4;
+  }
+
+  .booking-success-pay-sticky {
+    @apply space-y-2 pt-1;
+  }
+
+  .booking-wizard-root[data-context='modal'][data-phase='success'] .booking-success-pay-sticky {
+    @apply sticky bottom-0 z-10 -mx-5 border-t border-slate-200 bg-white px-5 py-3 pb-safe sm:-mx-6 sm:px-6;
+  }
+
+  .booking-success-pay-btn {
+    @apply min-h-[48px] text-[15px] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+  }
+
+  .booking-success-pay-sub {
+    @apply text-center text-sm text-slate-600 leading-snug;
+  }
+
+  .booking-success-pay-alert {
+    @apply flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800;
+  }
+
+  .booking-success-pay-alert__icon {
+    @apply shrink-0 mt-0.5 text-red-600;
+  }
+
+  .booking-success-pay-done {
+    @apply text-sm font-semibold text-emerald-800;
+  }
+
+  .booking-success-checklist {
+    @apply space-y-2 border-t border-slate-200 pt-4;
+  }
+
+  .booking-success-checklist__item {
+    @apply flex items-start gap-2 text-[15px] text-slate-900 leading-snug;
+  }
+
+  .booking-success-checklist__icon {
+    @apply shrink-0 mt-0.5 text-emerald-600;
+  }
+
+  .booking-success-details {
+    @apply rounded-xl border border-slate-200 bg-white;
+  }
+
+  .booking-success-details__summary {
+    @apply cursor-pointer list-none px-3 py-3 text-[15px] font-semibold text-slate-900 min-h-[44px] flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 rounded-xl;
+  }
+
+  .booking-success-details__body {
+    @apply border-t border-slate-100 px-3 pb-3 pt-2 space-y-3;
+  }
+
+  .booking-success-details__para {
+    @apply text-sm text-slate-600 leading-relaxed;
+  }
+
+  .booking-success-consent {
+    @apply text-sm text-slate-600 leading-relaxed;
+  }
+
+  .booking-wizard-root[data-pay-state='paid'] .booking-success-consent,
+  .booking-wizard-root[data-pay-state='paid'] .booking-success-payment,
+  .booking-wizard-root[data-pay-state='no-fee'] .booking-success-consent {
+    @apply hidden;
+  }
+
+  .booking-success-next__title {
+    @apply text-[15px] font-semibold text-slate-900 mb-2;
+  }
+
+  .booking-success-next__list {
+    @apply list-decimal list-inside space-y-1.5 text-sm text-slate-700 leading-relaxed;
+  }
+
+  .booking-success-longer-life {
+    @apply text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-4;
+  }
+
+  .booking-success-contact {
+    @apply text-sm text-slate-600 leading-relaxed;
+  }
+
+  .booking-success-actions {
+    @apply flex flex-col sm:flex-row gap-3 border-t border-slate-200 px-5 py-4 pb-safe sm:px-6 shrink-0;
+  }
+
+  .booking-success-actions__wa {
+    @apply inline-flex items-center justify-center bg-emerald-600 text-white rounded-xl font-bold text-sm min-h-[44px] px-6 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2;
+  }
+
+  .booking-success-actions__secondary {
+    @apply flex-1 justify-center min-h-[44px] rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+  }
+
+  #booking-modal.booking-modal--success #booking-modal-mount {
+    @apply flex flex-1 flex-col min-h-0 overflow-hidden p-0;
+  }
+
+  #booking-modal.booking-modal--success #booking-modal-mount[data-phase='success'] {
+    @apply flex flex-1 flex-col min-h-0 overflow-hidden;
+  }
+
+  #booking-modal.booking-modal--success .booking-success-panel:not(.hidden) {
+    @apply flex flex-1 flex-col min-h-0 overflow-hidden;
+  }
+
+  #booking-modal.booking-modal--success .booking-success-panel__scroll {
+    @apply overflow-y-auto overscroll-contain;
+  }
+
+  #booking-modal.booking-modal--success #booking-modal-footer {
+    @apply hidden;
+  }
+
+  .booking-wizard-root[data-context='page'] .booking-success-panel {
+    @apply bg-white border border-slate-200/80 rounded-xl shadow-sm overflow-hidden;
+  }
+
+  .booking-wizard-root[data-context='page'] .booking-success-panel__scroll {
+    @apply px-5 py-5 sm:p-6;
   }
 
   .booking-wizard-root[data-context='modal'][data-phase='success'] {
-    @apply pb-2;
+    @apply flex flex-col min-h-0 flex-1;
   }
 
   details summary::-webkit-details-marker {
@@ -102,26 +327,55 @@
   }
 
   #booking-modal-mount {
-    @apply flex-1 min-h-[16rem] overflow-y-auto overscroll-contain px-4 py-4 sm:px-5 sm:py-5;
+    @apply flex-1 min-h-[16rem] overflow-y-auto overscroll-contain scroll-pt-3 px-4 py-4 sm:scroll-pt-4 sm:px-5 sm:py-5;
   }
 
-  #booking-modal::backdrop {
-    @apply bg-slate-900/55 backdrop-blur-[2px];
-  }
-
-  /* Razorpay Checkout renders on body; hide booking dialog top-layer while paying */
+  /* Razorpay above booking UI; keep dialog open but hidden while checkout is active */
   body.razorpay-checkout-active #booking-modal[open] {
     visibility: hidden;
     pointer-events: none;
   }
 
-  body.razorpay-checkout-active #booking-modal[open]::backdrop {
-    opacity: 0;
+  body.razorpay-checkout-active.booking-modal-open::before {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .booking-payment-received-notice {
+    @apply fixed inset-x-0 bottom-0 z-[100000] px-4 pb-safe pt-2 pointer-events-none;
+  }
+
+  .booking-payment-received-notice__inner {
+    @apply pointer-events-auto max-w-lg mx-auto rounded-xl border border-emerald-200 bg-emerald-50 shadow-lg px-4 py-4 text-left;
+  }
+
+  .booking-payment-received-notice__title {
+    @apply text-emerald-900 font-bold text-sm mb-1;
+  }
+
+  .booking-payment-received-notice__body {
+    @apply text-slate-700 text-xs leading-relaxed mb-3;
+  }
+
+  .booking-payment-received-notice__actions {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .booking-payment-received-notice__wa {
+    @apply inline-flex items-center justify-center bg-emerald-600 text-white text-xs font-bold rounded-lg px-3 py-2 min-h-[40px];
+  }
+
+  .booking-payment-received-notice__dismiss {
+    @apply inline-flex items-center justify-center border border-slate-200 bg-white text-slate-700 text-xs font-semibold rounded-lg px-3 py-2 min-h-[40px];
+  }
+
+  body.booking-payment-locked #booking-modal-close {
+    @apply opacity-60;
   }
 
   /* Dedicated /book page — two columns; focus on wizard after booking */
   .book-page-layout:has(.booking-wizard-root[data-phase='success']) {
-    @apply max-w-3xl mx-auto;
+    @apply max-w-3xl mx-auto grid-cols-1;
   }
 
   .book-page-layout:has(.booking-wizard-root[data-phase='success']) .book-page-aside {

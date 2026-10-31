@@ -1,6 +1,7 @@
 import {
   DEVICE_OPTIONS,
   getServiceRule,
+  getVisitFee,
   resolveDeviceForPayload,
 } from './book-service-config.js';
 import { initAddressSearch } from './address-search.js';
@@ -15,9 +16,10 @@ import {
   initBookingSlots,
   resetBookingSlots,
 } from './booking-slots.js';
+import { validateBookingDetails } from './booking-form-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { initVisitFeePayment } from './booking-payment.js';
-import { initBookingSuccessCopy, setBookingSuccessPhase } from './booking-success-ui.js';
+import { initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
 
 /**
  * @param {HTMLElement} root
@@ -49,7 +51,6 @@ export function initBookingWizard(root, options = {}) {
   const deviceSelect = q('#device-type');
   const servicePickerEl = q('#service-picker');
   const devicePickerEl = q('#device-picker');
-  const visitSummary = q('#visit-summary');
 
   const dismissPage = q('[data-booking-dismiss-page]');
   const dismissModal = q('[data-booking-dismiss-modal]');
@@ -95,19 +96,52 @@ export function initBookingWizard(root, options = {}) {
     }
   }
 
-  function focusFieldForDetailsError(message) {
-    if (message.includes('name')) q('#full-name')?.focus();
-    else if (message.includes('email')) q('#email')?.focus();
-    else if (message.includes('phone') || message.includes('WhatsApp')) q('#phone')?.focus();
-    else if (message.includes('address')) q('#address-line')?.focus();
+  function focusFieldForDetailsError(message, fieldId) {
+    const id =
+      fieldId ||
+      (message.includes('email')
+        ? 'email'
+        : message.includes('mobile') || message.includes('Phone') || message.includes('WhatsApp')
+          ? 'phone'
+          : message.includes('address') || message.includes('Address')
+            ? 'address-line'
+            : message.includes('Name') || message.includes('name')
+              ? 'full-name'
+              : message.includes('Landmark')
+                ? 'landmark'
+                : message.includes('Notes')
+                  ? 'notes'
+                  : null);
+    if (id) q(`#${id}`)?.focus();
   }
 
-  function showError(message) {
+  const detailFieldIds = ['full-name', 'phone', 'email', 'address-line', 'landmark', 'notes'];
+
+  function clearFieldValidation() {
+    detailFieldIds.forEach((id) => {
+      const el = q(`#${id}`);
+      if (!el) return;
+      el.classList.remove('is-invalid');
+      el.removeAttribute('aria-invalid');
+    });
+  }
+
+  function markFieldInvalid(fieldId) {
+    if (!fieldId) return;
+    clearFieldValidation();
+    const el = q(`#${fieldId}`);
+    if (!el) return;
+    el.classList.add('is-invalid');
+    el.setAttribute('aria-invalid', 'true');
+  }
+
+  function showError(message, fieldId) {
     if (!formError) return;
     formError.textContent = message;
     formError.classList.remove('hidden');
     if (currentStepId() === 'details') {
-      focusFieldForDetailsError(message);
+      markFieldInvalid(fieldId);
+      focusFieldForDetailsError(message, fieldId);
     }
     const scrollHost = root.closest('#booking-modal-mount');
     if (scrollHost) {
@@ -120,6 +154,7 @@ export function initBookingWizard(root, options = {}) {
     if (!formError) return;
     formError.textContent = '';
     formError.classList.add('hidden');
+    clearFieldValidation();
   }
 
   function rebuildStepPlan() {
@@ -148,14 +183,13 @@ export function initBookingWizard(root, options = {}) {
   function goToNextStep() {
     if (stepIndex >= stepPlan.length - 1) return;
     showStep(stepIndex + 1);
-    if (currentStepId() === 'schedule') updateVisitSummary();
   }
 
   function scheduleAutoAdvance(fromStepId) {
     clearTimeout(autoAdvanceTimer);
     autoAdvanceTimer = setTimeout(() => {
       if (currentStepId() !== fromStepId) return;
-      const err = validateStep(fromStepId);
+      const err = formatStepError(validateStep(fromStepId));
       if (err) return;
       goToNextStep();
     }, AUTO_ADVANCE_MS);
@@ -251,12 +285,6 @@ export function initBookingWizard(root, options = {}) {
     refreshDevicePicker();
   }
 
-  function updateVisitSummary() {
-    if (!visitSummary) return;
-    visitSummary.classList.add('hidden');
-    visitSummary.textContent = '';
-  }
-
   function applyServiceChange() {
     const service = serviceSelect?.value;
     if (!service) return;
@@ -266,7 +294,6 @@ export function initBookingWizard(root, options = {}) {
     if (rule.mode !== 'fixed') {
       populateDeviceOptions(service);
     }
-    updateVisitSummary();
   }
 
   function validateStep(id) {
@@ -282,14 +309,31 @@ export function initBookingWizard(root, options = {}) {
       }
     }
     if (id === 'details') {
-      const name = q('#full-name')?.value.trim();
-      const email = q('#email')?.value.trim();
-      const phone = q('#phone')?.value.trim();
-      const address = q('#address-line')?.value.trim();
-      if (!name) return 'Please enter your name.';
-      if (!email) return 'Please enter your email.';
-      if (!phone) return 'Please enter a phone or WhatsApp number.';
-      if (!address) return 'Please add your service address in Chennai.';
+      const result = validateBookingDetails({
+        name: q('#full-name')?.value,
+        email: q('#email')?.value,
+        phone: q('#phone')?.value,
+        address: q('#address-line')?.value,
+        landmark: q('#landmark')?.value,
+        notes: q('#notes')?.value,
+      });
+      if (!result.ok) {
+        return { message: result.message, fieldId: result.fieldId };
+      }
+    }
+    return null;
+  }
+
+  function formatStepError(err) {
+    if (!err) return null;
+    if (typeof err === 'string') return { message: err, fieldId: undefined };
+    return err;
+  }
+
+  function validateAllSteps() {
+    for (const stepId of stepPlan) {
+      const err = formatStepError(validateStep(stepId));
+      if (err) return { stepId, ...err };
     }
     return null;
   }
@@ -314,16 +358,14 @@ export function initBookingWizard(root, options = {}) {
   function bindWizardButtons() {
     qa('[data-wizard-next]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const err = validateStep(currentStepId());
+        const err = formatStepError(validateStep(currentStepId()));
         if (err) {
-          showError(err);
+          showError(err.message, err.fieldId);
           return;
         }
         goToNextStep();
       });
     });
-
-    deviceSelect?.addEventListener('change', updateVisitSummary);
 
     qa('[data-wizard-back]').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -359,7 +401,6 @@ export function initBookingWizard(root, options = {}) {
   if (devicePickerEl && deviceSelect) {
     refreshDevicePicker = mountFlatChoicePicker(devicePickerEl, deviceSelect, {
       onChange: () => {
-        updateVisitSummary();
         if (currentStepId() === 'device') scheduleAutoAdvance('device');
       },
     });
@@ -401,6 +442,14 @@ export function initBookingWizard(root, options = {}) {
     },
   );
 
+  detailFieldIds.forEach((id) => {
+    const el = q(`#${id}`);
+    el?.addEventListener('input', () => {
+      el.classList.remove('is-invalid');
+      el.removeAttribute('aria-invalid');
+    });
+  });
+
   bindWizardButtons();
   applyServiceChange();
   showStep(0);
@@ -412,42 +461,81 @@ export function initBookingWizard(root, options = {}) {
 
   const submitBtn = q('#submit-booking');
   const submitBtnDefaultLabel = submitBtn?.textContent?.trim() || 'Submit booking request';
-  const successHeading = q('#booking-success-heading');
 
   initBookingSuccessCopy(root);
 
+  function scrollSuccessPanelIntoView() {
+    const scrollHost = root.closest('#booking-modal-mount');
+    if (scrollHost) {
+      scrollHost.scrollTop = 0;
+      return;
+    }
+    if (context === 'page' && successPanel) {
+      const headerOffset = window.matchMedia('(min-width: 640px)').matches ? 80 : 64;
+      const top =
+        successPanel.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  }
+
   function showBookingSuccess(payload, bookingKey) {
     intro?.classList.add('hidden');
-    setBookingSuccessPhase(root, true);
+    const fee = getVisitFee(payload.service, payload.device);
+    const headerVariant =
+      fee && fee.amountInr > 0 ? 'saved-unpaid' : 'received';
+    setBookingSuccessPhase(root, true, { headerVariant });
 
-    const landmark = payload.landmark ? ` · ${payload.landmark}` : '';
-    if (successSummary) {
-      successSummary.textContent =
-        `${payload.service} · ${payload.device} · ${payload.date} at ${payload.time} · ${payload.name}${landmark}`;
+    resetBookingSuccessPanelUi(root);
+    const rule = getServiceRule(payload.service);
+    populateBookingSummary(successSummary, payload, {
+      showDevice: rule.mode !== 'fixed',
+    });
+
+    if (fee && fee.amountInr > 0) {
+      root.dataset.payState = 'unpaid';
+    } else {
+      setBookingSuccessReceivedPanel(root);
     }
-    if (successHeading) successHeading.textContent = 'Booking saved';
+
     successPanel?.classList.remove('hidden');
     paymentBlock?.classList.add('hidden');
 
     paymentContext = { payload, bookingKey };
     visitFeePayment?.refresh(payload, bookingKey);
 
-    const scrollHost = root.closest('#booking-modal-mount');
-    if (scrollHost) scrollHost.scrollTop = 0;
-    successPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    scrollSuccessPanelIntoView();
   }
 
   if (form) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       clearError();
-      const err = validateStep('details');
-      if (err) {
-        showError(err);
+      const fail = validateAllSteps();
+      if (fail) {
+        if (fail.stepId !== currentStepId()) {
+          showStep(stepIndexForId(fail.stepId));
+        }
+        showError(fail.message, fail.fieldId);
         return;
       }
 
-      const payload = collectPayload();
+      const details = validateBookingDetails({
+        name: q('#full-name')?.value,
+        email: q('#email')?.value,
+        phone: q('#phone')?.value,
+        address: q('#address-line')?.value,
+        landmark: q('#landmark')?.value,
+        notes: q('#notes')?.value,
+      });
+      if (!details.ok) {
+        showError(details.message, details.fieldId);
+        return;
+      }
+
+      const payload = {
+        ...collectPayload(),
+        ...details.normalized,
+      };
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending…';

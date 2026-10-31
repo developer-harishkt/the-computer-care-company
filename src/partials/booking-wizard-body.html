@@ -8,61 +8,88 @@
     </p>
 </div>
 
-<div id="booking-success" class="hidden booking-success-panel mb-0" role="status">
-    <div class="text-center mb-5">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mb-3" aria-hidden="true">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-        </div>
-        <p id="booking-success-heading" class="text-emerald-700 font-black text-xl uppercase tracking-tight mb-1">Booking saved</p>
-        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto" id="booking-success-summary"></p>
-    </div>
+<div id="booking-success" class="hidden booking-success-panel" role="status" aria-live="polite">
+    <div class="booking-success-panel__scroll">
+        <h2 id="booking-success-page-title" class="booking-success-page-title">Complete your booking</h2>
 
-    <div class="rounded-xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-4 sm:p-5 mb-4 text-left max-w-lg mx-auto shadow-sm">
-        <p class="text-[11px] font-mono font-semibold uppercase tracking-wide text-blue-700 mb-1">Service booking &amp; payment</p>
-        <p class="text-xs text-slate-600 leading-relaxed mb-4" id="booking-success-intro"></p>
-
-        <div id="booking-payment-block" class="hidden rounded-lg border border-blue-100 bg-blue-50/50 px-4 py-4 mb-4">
-            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-600 mb-2">Confirm visit fee</p>
-            <dl class="text-sm text-slate-800 space-y-2 mb-3">
-                <div class="flex justify-between gap-3 border-b border-blue-100/80 pb-2"><dt class="text-slate-500">Service</dt><dd class="font-medium text-right max-w-[55%]" id="booking-pay-service"></dd></div>
-                <div class="flex justify-between gap-3"><dt class="text-slate-500">Visit fee</dt><dd class="font-black text-lg text-slate-900" id="booking-pay-amount"></dd></div>
-            </dl>
-            <p class="text-xs text-slate-600 mb-3" id="booking-visit-fee-hint">Visit / diagnostics fee only — parts and extra repair work are quoted after inspection.</p>
-            <p id="booking-payment-done" class="hidden text-sm font-semibold text-emerald-700 mb-3 flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
-                Payment received — you’re all set.
-            </p>
-            <p id="booking-payment-error" class="hidden text-sm text-red-600 mb-3" role="alert"></p>
-            <button type="button" id="pay-visit-fee" class="book-btn-primary w-full min-h-[44px]">Continue to secure payment</button>
-            <p id="booking-razorpay-hint" class="hidden text-[11px] text-slate-500 leading-relaxed mt-2 text-center"></p>
+        <div id="booking-success-paid-hero" class="booking-success-paid-hero hidden">
+            <div class="booking-success-paid-hero__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p id="booking-success-heading" class="booking-success-paid-hero__title">Booking confirmed</p>
         </div>
 
-        <details class="group rounded-lg border border-slate-200 bg-white open:shadow-sm mb-2">
-            <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-semibold text-slate-800 flex items-center justify-between gap-2">
-                <span id="booking-trust-visit-title">Doorstep visit &amp; assessment</span>
-                <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <p class="px-3 pb-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2" id="booking-trust-visit-body"></p>
-        </details>
-        <details class="group rounded-lg border border-slate-200 bg-white open:shadow-sm mb-3">
-            <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-semibold text-slate-800 flex items-center justify-between gap-2">
+        <dl id="booking-success-summary" class="booking-success-summary" aria-label="Your booking"></dl>
+
+        <div id="booking-success-reference-wrap" class="booking-success-reference hidden">
+            <span class="booking-success-reference__label">Reference</span>
+            <code id="booking-success-reference" class="booking-success-reference__code"></code>
+            <button type="button" id="booking-copy-reference" class="booking-success-reference__copy">Copy</button>
+        </div>
+
+        <div id="booking-payment-block" class="hidden booking-success-section booking-success-payment">
+            <span id="booking-pay-service" class="sr-only"></span>
+            <div class="booking-success-fee-row">
+                <span class="booking-success-fee-row__label">Visit fee</span>
+                <span id="booking-pay-amount" class="booking-success-fee-row__amount tabular-nums"></span>
+            </div>
+            <p class="booking-success-fee-note" id="booking-visit-fee-hint">Visit / diagnostics fee only — parts and extra repair work are quoted after inspection.</p>
+
+            <div class="booking-success-pay-sticky">
+                <p id="booking-payment-error" class="booking-success-pay-alert hidden" role="alert" aria-live="polite">
+                    <svg class="booking-success-pay-alert__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="booking-success-pay-alert__text"></span>
+                </p>
+                <p id="booking-payment-done" class="booking-success-pay-done hidden" aria-live="polite">
+                    Payment received — you’re all set.
+                </p>
+                <button type="button" id="pay-visit-fee" class="book-btn-primary booking-success-pay-btn w-full">Continue to secure payment</button>
+                <p id="booking-razorpay-hint" class="booking-success-pay-sub hidden"></p>
+            </div>
+        </div>
+
+        <ul class="booking-success-checklist" aria-label="Included with your visit">
+            <li class="booking-success-checklist__item">
+                <svg class="booking-success-checklist__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span id="booking-trust-visit-title">Doorstep visit and technical assessment</span>
+            </li>
+            <li class="booking-success-checklist__item">
+                <svg class="booking-success-checklist__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 <span id="booking-trust-warranty-title">60-day service warranty</span>
-                <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <p class="px-3 pb-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2" id="booking-trust-warranty-body"></p>
+            </li>
+        </ul>
+
+        <details class="booking-success-details">
+            <summary class="booking-success-details__summary">What’s included</summary>
+            <div class="booking-success-details__body">
+                <p id="booking-trust-visit-body" class="booking-success-details__para"></p>
+                <p id="booking-trust-warranty-body" class="booking-success-details__para"></p>
+            </div>
         </details>
 
-        <p class="text-xs text-slate-500 italic leading-relaxed mb-3" id="booking-trust-longer-life"></p>
-        <p class="text-[11px] text-slate-500 leading-relaxed mb-2" id="booking-success-terms"></p>
-        <p class="text-[11px] text-slate-500" id="booking-success-contact"></p>
+        <p id="booking-success-consent" class="booking-success-consent"></p>
+
+        <details class="booking-success-details">
+            <summary class="booking-success-details__summary">Full terms</summary>
+            <p id="booking-success-terms" class="booking-success-details__para"></p>
+        </details>
+
+        <div class="booking-success-next hidden" id="booking-success-next-wrap">
+            <p class="booking-success-next__title">What happens next</p>
+            <ol id="booking-success-next-steps" class="booking-success-next__list"></ol>
+        </div>
+
+        <p id="booking-trust-longer-life" class="booking-success-longer-life hidden"></p>
+        <p id="booking-success-contact" class="booking-success-contact"></p>
+
+        <p id="booking-success-intro" class="sr-only"></p>
+        <p id="booking-success-tagline" class="hidden" aria-hidden="true"></p>
     </div>
 
-    <p class="text-center text-xs font-mono font-semibold uppercase tracking-wide text-slate-400 mb-4" id="booking-success-tagline"></p>
-
-    <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-        <a href="https://wa.me/917010481012" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold text-sm inline-flex items-center justify-center min-h-[44px]">WhatsApp us</a>
-        <a href="/" data-booking-dismiss-page class="book-btn-secondary inline-flex justify-center">Back to home</a>
-        <button type="button" data-booking-dismiss-modal class="hidden book-btn-secondary justify-center">Close</button>
+    <div class="booking-success-actions">
+        <a href="https://wa.me/917010481012" class="booking-success-actions__wa">WhatsApp us</a>
+        <a href="/" data-booking-dismiss-page class="book-btn-secondary booking-success-actions__secondary">Back to home</a>
+        <button type="button" data-booking-dismiss-modal class="hidden book-btn-secondary booking-success-actions__secondary">Close</button>
     </div>
 </div>
 
@@ -126,7 +153,6 @@
     </div>
 
     <div data-wizard-step="schedule" class="hidden space-y-6">
-        <div id="visit-summary" class="hidden rounded-lg bg-blue-50/80 border border-blue-100 px-4 py-3 text-sm text-slate-700 break-words"></div>
         <div>
             <h2 class="text-lg font-bold text-slate-900 mb-1">When should we visit? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
             <p class="text-sm text-slate-500 mb-4">Tap a recommended slot, or pick any date and time — we offer 24/7 on-site booking.</p>
@@ -157,16 +183,16 @@
             <div class="grid sm:grid-cols-2 gap-4">
                 <div class="sm:col-span-2">
                     <label for="full-name" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Your name</label>
-                    <input id="full-name" name="name" autocomplete="name" placeholder="Full name" class="book-field" required aria-required="true" />
+                    <input id="full-name" name="name" autocomplete="name" placeholder="Full name" class="book-field" required aria-required="true" minlength="2" maxlength="80" />
                 </div>
                 <div>
                     <label for="phone" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Phone / WhatsApp</label>
-                    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile" class="book-field" required aria-required="true" />
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile" class="book-field" required aria-required="true" maxlength="14" />
                     <p class="text-[11px] text-slate-400 mt-1">We’ll confirm your slot here first.</p>
                 </div>
                 <div>
                     <label for="email" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Email</label>
-                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="book-field" required aria-required="true" />
+                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="book-field" required aria-required="true" maxlength="120" />
                     <p class="text-[11px] text-slate-400 mt-1">For visit updates &amp; warranty records.</p>
                 </div>
             </div>
@@ -183,18 +209,18 @@
             </div>
             <div>
                 <label for="address-line" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Full address</label>
-                <textarea id="address-line" name="address" rows="2" placeholder="Flat / door no., street, area, PIN" class="book-field-area" required aria-required="true"></textarea>
+                <textarea id="address-line" name="address" rows="2" placeholder="Flat / door no., street, area, PIN" class="book-field-area" required aria-required="true" minlength="12" maxlength="400"></textarea>
             </div>
             <div>
                 <label for="landmark" class="block text-xs font-semibold text-slate-500 mb-1.5">Landmark (optional)</label>
-                <input id="landmark" type="text" placeholder="Near temple, school, or shop" class="book-field" />
+                <input id="landmark" type="text" placeholder="Near temple, school, or shop" class="book-field" maxlength="120" />
             </div>
             <p class="text-[11px] text-slate-400">Address search uses OpenStreetMap data (no cost). Google Maps can be enabled later with an API key.</p>
         </div>
 
         <div>
             <label for="notes" class="block text-xs font-semibold text-slate-500 mb-1.5">Anything else we should know?</label>
-            <textarea id="notes" rows="2" placeholder="Symptoms, urgency, gate code…" class="book-field-area"></textarea>
+            <textarea id="notes" rows="2" placeholder="Symptoms, urgency, gate code…" class="book-field-area" maxlength="800"></textarea>
         </div>
 
         <div class="flex flex-col-reverse sm:flex-row gap-3 pt-2">
