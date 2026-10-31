@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule a Visit | THE COMPUTER CARE COMPANY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/src/style.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth">
+
+    <!-- HEADER / NAVIGATION — light glass bar, no longer competes with the hero -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center shrink-0">
+                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-12 md:h-16 w-auto object-contain" />
+            </div>
+            <nav class="hidden md:flex ml-auto mr-10 gap-8 text-sm font-medium text-slate-500">
+                <a href="/#services" class="hover:text-slate-900 transition-colors">Services</a>
+                <a href="/#coverage" class="hover:text-slate-900 transition-colors">Locations</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="https://rzp.io/rzp/on-site-repair-booking" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_8px_rgba(37,99,235,0.35)]
+                          active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition-all duration-150">
+                    Book On-Site Service
+                </a>
+            </div>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
+                    aria-controls="mobile-menu" aria-expanded="false"
+                    class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                           hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors duration-150">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M6 18L18 6" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
+                <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/#coverage" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Locations</a>
+                <div class="border-t border-slate-200 my-3"></div>
+                <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
+                <a href="https://rzp.io/rzp/on-site-repair-booking" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition-all duration-150">
+                    Book On-Site Service
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SHELL — post-payment confirmation + Cal.com scheduling -->
+    <main class="flex-grow">
+
+        <!-- PAYMENT SUCCESS + BOOKING SECTION -->
+        <section class="min-h-[80vh] bg-gray-50 py-12 px-4">
+
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <h1 class="text-4xl font-bold text-green-600 mb-4">Payment Successful!</h1>
+                <p class="text-lg text-gray-700">Your diagnostic fee has been securely processed. Please select your preferred date and time below for Karthik to arrive at your location.</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto h-[700px] bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <!-- Cal inline embed code begins -->
+                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-on-site-repair-booking"></div>
+                <script type="text/javascript">
+                  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+                Cal("init", "on-site-repair-booking", {origin:"https://app.cal.com"});
+                Cal.config = Cal.config || {};
+                Cal.config.forwardQueryParams = true;
+
+                  Cal.ns["on-site-repair-booking"]("inline", {
+                    elementOrSelector:"#my-cal-inline-on-site-repair-booking",
+                    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+                    calLink: "the-computer-care-company-0t26zl/on-site-repair-booking",
+                  });
+
+                  Cal.ns["on-site-repair-booking"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+
+                  Cal.ns["on-site-repair-booking"]("on", {
+                    action: "bookingSuccessful",
+                    callback: function (e) {
+                      // 1. Update the success messaging
+                      const heading = document.querySelector('main h1');
+                      const subtext = document.querySelector('main p');
+
+                      if (heading) heading.innerText = "Booking Confirmed! 🎉";
+                      if (subtext) subtext.innerText = "Karthik has received your details and will WhatsApp you shortly. Redirecting to homepage...";
+
+                      // 2. Redirect back to the home screen after 4 seconds
+                      setTimeout(function() {
+                        window.location.href = "/";
+                      }, 4000);
+                    }
+                  });
+                  </script>
+                <!-- Cal inline embed code ends -->
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER — the single deliberate dark bookend of the page, mirroring the header's brand block -->
+    <footer class="bg-[#EEF2F7] text-slate-800 border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+            <div class="space-y-4">
+                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-16 w-auto object-contain" />
+                <p class="text-sm text-slate-600">24hrs Computer Service & Support in Chennai</p>
+                <div class="pt-2 space-y-1">
+                    <p class="text-xs font-mono text-slate-700">Mail: <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 hover:text-blue-800 hover:underline">thecomputercarecompany@gmail.com</a></p>
+                </div>
+                <div class="pt-4 space-y-2">
+                    <p class="text-sm font-mono text-emerald-700">✓ 60-day warranty</p>
+                    <p class="text-sm font-mono text-blue-700">✓ Free Initial Diagnosis</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-slate-900 mb-4">Our Branches</h4>
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm transition-colors hover:border-blue-300">
+                    <p class="font-medium text-sm text-slate-900">Korattur (Main branch)</p>
+                    <p class="text-xs text-slate-600 mt-1">TNHB colony - 71st street<br>CH- 600080</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm transition-colors hover:border-blue-300">
+                    <p class="font-medium text-sm text-slate-900">Maduravoyal (2nd branch)</p>
+                    <p class="text-xs text-slate-600 mt-1">Address & Mobile number pending</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-slate-900 mb-4">Legal &amp; Support</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="/#grievance" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Grievance &amp; Redressal</a></li>
+                    <li><a href="/#coverage" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Onsite Service Coverage</a></li>
+                    <li><a href="/#faq" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Frequently Asked Questions</a></li>
+                    <li><a href="/#services" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Our Services</a></li>
+                    <li><a href="/#process" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">How We Work</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+
+</body>
+</html>
