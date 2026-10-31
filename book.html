@@ -30,7 +30,19 @@
       "provider": {
         "@id": "%VITE_SITE_URL%/#business",
         "@type": "LocalBusiness",
-        "name": "The Computer Care Company"
+        "name": "The Computer Care Company",
+        "url": "%VITE_SITE_URL%/",
+        "logo": "%VITE_SITE_URL%/logo.jpg",
+        "image": "%VITE_SITE_URL%/og-image.jpg",
+        "telephone": "+91 70104 81012",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "71st Street, TNHB Colony, Korattur",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600080",
+          "addressCountry": "IN"
+        }
       },
       "areaServed": { "@type": "City", "name": "Chennai" },
       "hasOfferCatalog": {
@@ -57,6 +69,7 @@
                 <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
                 <a href="/about" class="hover:text-blue-600 transition-colors">About Us</a>
                 <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
                 <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
                 <span class="bg-blue-50 text-blue-700 px-5 py-2.5 rounded-lg text-sm font-bold border border-blue-100" aria-current="page">Book visit</span>
             </div>
@@ -109,5 +122,6 @@
     </footer>
 
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/book.js"></script>
 </body>
 </html>
