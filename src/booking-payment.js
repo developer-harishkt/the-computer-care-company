@@ -39,10 +39,14 @@ function prepareCheckoutLayer(root) {
   return { dialog, wasOpen };
 }
 
-function restoreCheckoutLayer(root, state) {
+function restoreCheckoutLayer(_root, state) {
   document.body.classList.remove('razorpay-checkout-active');
   if (state?.wasOpen && state.dialog && !state.dialog.open) {
-    state.dialog.showModal();
+    try {
+      state.dialog.showModal();
+    } catch {
+      /* already open or invalid state */
+    }
   }
 }
 
@@ -63,6 +67,9 @@ export function initVisitFeePayment(root, hooks) {
   if (!block || !payBtn) return;
 
   let checkoutLayerState = null;
+  let activeCheckout = null;
+  let checkoutSession = 0;
+  let payFlowActive = false;
 
   const showPayError = (message) => {
     if (!errEl) return;
@@ -83,7 +90,32 @@ export function initVisitFeePayment(root, hooks) {
     if (heading) heading.textContent = 'Booking saved';
   };
 
+  const endCheckout = (session, { message, success = false } = {}) => {
+    if (session !== checkoutSession) return;
+    checkoutSession += 1;
+
+    if (activeCheckout) {
+      try {
+        activeCheckout.close();
+      } catch {
+        /* ignore */
+      }
+      activeCheckout = null;
+    }
+
+    restoreCheckoutLayer(root, checkoutLayerState);
+    checkoutLayerState = null;
+    payFlowActive = false;
+    payBtn.disabled = false;
+
+    if (success) return;
+
+    if (message) showPayError(message);
+  };
+
   payBtn.addEventListener('click', async () => {
+    if (payFlowActive) return;
+
     const { payload, bookingKey } = hooks.getContext();
     const fee = getVisitFee(payload.service, payload.device);
     if (!fee) return;
@@ -98,9 +130,12 @@ export function initVisitFeePayment(root, hooks) {
     }
 
     payBtn.disabled = true;
+    payFlowActive = true;
     const defaultLabel = payBtn.textContent;
     payBtn.textContent = 'Opening secure checkout…';
     if (errEl) errEl.classList.add('hidden');
+
+    const session = ++checkoutSession;
 
     const orderResult = await createVisitFeeOrder({
       service: payload.service,
@@ -108,9 +143,10 @@ export function initVisitFeePayment(root, hooks) {
       bookingKey,
     });
 
+    if (session !== checkoutSession) return;
+
     if (!orderResult.ok) {
-      showPayError(orderResult.message);
-      payBtn.disabled = false;
+      endCheckout(session, { message: orderResult.message });
       payBtn.textContent = defaultLabel;
       return;
     }
@@ -119,16 +155,26 @@ export function initVisitFeePayment(root, hooks) {
     try {
       Razorpay = await loadRazorpayCheckout();
     } catch {
-      showPayError('Could not load payment. Check your connection and try again.');
-      payBtn.disabled = false;
+      endCheckout(session, {
+        message: 'Could not load payment. Check your connection and try again.',
+      });
       payBtn.textContent = defaultLabel;
       return;
     }
 
-    payBtn.textContent = defaultLabel;
-    payBtn.disabled = false;
+    if (session !== checkoutSession) return;
+
+    if (activeCheckout) {
+      try {
+        activeCheckout.close();
+      } catch {
+        /* ignore */
+      }
+      activeCheckout = null;
+    }
 
     checkoutLayerState = prepareCheckoutLayer(root);
+    payBtn.textContent = defaultLabel;
 
     const rzp = new Razorpay({
       key: RAZORPAY_KEY_ID.trim(),
@@ -144,10 +190,14 @@ export function initVisitFeePayment(root, hooks) {
       },
       theme: { color: '#2563eb' },
       handler: async (response) => {
+        if (session !== checkoutSession) return;
+
         restoreCheckoutLayer(root, checkoutLayerState);
         checkoutLayerState = null;
+        activeCheckout = null;
 
         payBtn.disabled = true;
+        payFlowActive = true;
         payBtn.textContent = 'Confirming…';
         const verified = await verifyVisitFeePayment({
           bookingKey,
@@ -155,34 +205,41 @@ export function initVisitFeePayment(root, hooks) {
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_signature: response.razorpay_signature,
         });
+        if (session !== checkoutSession) return;
+
         if (!verified.ok) {
+          payFlowActive = false;
           showPayError(verified.message);
           payBtn.disabled = false;
           payBtn.textContent = defaultLabel;
           return;
         }
+        payFlowActive = false;
         if (doneEl) doneEl.classList.remove('hidden');
         payBtn.classList.add('hidden');
         feeHint?.classList.add('hidden');
+        if (errEl) errEl.classList.add('hidden');
         const heading = root.querySelector('#booking-success-heading');
         if (heading) heading.textContent = 'Paid & confirmed';
       },
       modal: {
         ondismiss: () => {
-          restoreCheckoutLayer(root, checkoutLayerState);
-          checkoutLayerState = null;
-          payBtn.disabled = false;
+          endCheckout(session, {
+            message: 'Payment cancelled. You can tap Pay again when ready.',
+          });
           payBtn.textContent = defaultLabel;
         },
       },
     });
 
+    activeCheckout = rzp;
+
     rzp.on('payment.failed', (event) => {
-      restoreCheckoutLayer(root, checkoutLayerState);
-      checkoutLayerState = null;
-      const reason = event.error?.description || event.error?.reason || 'Payment failed';
-      showPayError(reason);
-      payBtn.disabled = false;
+      const reason =
+        event.error?.description ||
+        event.error?.reason ||
+        'Payment failed. Try again or pay when we call.';
+      endCheckout(session, { message: reason });
       payBtn.textContent = defaultLabel;
     });
 
