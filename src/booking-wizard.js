@@ -61,6 +61,9 @@ export function initBookingWizard(root, options = {}) {
     dismissModal?.addEventListener('click', () => options.onClose?.());
   } else {
     dismissModal?.classList.add('hidden');
+    if (context === 'page') {
+      intro?.classList.add('hidden');
+    }
   }
 
   let refreshDevicePicker = () => {};
@@ -472,7 +475,7 @@ export function initBookingWizard(root, options = {}) {
       serviceSelect.value = '';
     }
     clearTimeout(autoAdvanceTimer);
-    if (context === 'modal') {
+    if (context === 'modal' || context === 'page') {
       intro?.classList.add('hidden');
     } else {
       intro?.classList.remove('hidden');

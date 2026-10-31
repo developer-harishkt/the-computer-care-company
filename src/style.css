@@ -118,6 +118,23 @@
   body.razorpay-checkout-active #booking-modal[open]::backdrop {
     opacity: 0;
   }
+
+  /* Dedicated /book page — two columns; focus on wizard after booking */
+  .book-page-layout:has(.booking-wizard-root[data-phase='success']) {
+    @apply max-w-3xl mx-auto;
+  }
+
+  .book-page-layout:has(.booking-wizard-root[data-phase='success']) .book-page-aside {
+    @apply hidden;
+  }
+
+  .booking-wizard-root[data-context='page'] #book-form {
+    @apply shadow-md ring-1 ring-slate-200/60;
+  }
+
+  .booking-wizard-root[data-context='page'] .booking-success-panel {
+    @apply max-w-none mx-0;
+  }
 }
 
 @layer utilities {

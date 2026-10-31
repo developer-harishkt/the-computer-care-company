@@ -30,7 +30,19 @@
       "provider": {
         "@id": "%VITE_SITE_URL%/#business",
         "@type": "LocalBusiness",
-        "name": "The Computer Care Company"
+        "name": "The Computer Care Company",
+        "url": "%VITE_SITE_URL%/",
+        "logo": "%VITE_SITE_URL%/logo.jpg",
+        "image": "%VITE_SITE_URL%/og-image.jpg",
+        "telephone": "+91 70104 81012",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "71st Street, TNHB Colony, Korattur",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600080",
+          "addressCountry": "IN"
+        }
       },
       "areaServed": { "@type": "City", "name": "Chennai" },
       "hasOfferCatalog": {
@@ -86,19 +98,82 @@
 
     <main class="flex-grow">
         <section class="relative bg-[#EEF2F7] overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_15%,#DBEAFE,transparent_55%)]"></div>
-            <div class="relative max-w-3xl mx-auto px-safe sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-                <div class="mb-8 sm:mb-10 text-slate-700 leading-relaxed space-y-6">
-                    <p class="text-base sm:text-lg">
-                        Skip the hassle of unplugging your desktop or navigating Chennai traffic with a broken laptop. THE COMPUTER CARE COMPANY brings expert IT support directly to your doorstep. We service key localities including Anna Nagar, Mogappair, Korattur, and the surrounding areas. Our process is entirely transparent: you schedule a visit, and our technicians arrive to diagnose the issue before recommending any fixes. We strictly believe in care before cost, meaning we aim to repair before replacing and will explain every detail before we proceed. With free initial diagnosis for eligible issues and a 60-day service warranty on qualifying repairs, your devices are in safe hands. Select your service category below to schedule your on-site visit today.
-                    </p>
-                    <ul class="list-none space-y-3 text-sm sm:text-base">
-                        <li><strong class="text-slate-900">Desktop &amp; Laptop Hardware Repair:</strong> Screen replacements, keyboard fixes, hard drive upgrades, and power issue diagnostics.</li>
-                        <li><strong class="text-slate-900">Software &amp; OS Troubleshooting:</strong> Virus removal, operating system installations, boot failure fixes, and system optimization.</li>
-                        <li><strong class="text-slate-900">Network &amp; Peripheral Setup:</strong> Wi-Fi troubleshooting, printer configuration, and smart home IT support.</li>
-                    </ul>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,#DBEAFE,transparent_50%)]" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_90%_80%,#E0E7FF,transparent_45%)]" aria-hidden="true"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-14 px-safe">
+                <div class="book-page-layout grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] xl:grid-cols-[minmax(0,1.1fr)_32rem] gap-10 lg:gap-12 xl:gap-16 items-start">
+
+                    <!-- Left: why book + what we cover -->
+                    <aside class="book-page-aside space-y-8 lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto lg:pr-2">
+                        <div class="space-y-4">
+                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wide">
+                                On-site service · Chennai
+                            </span>
+                            <h1 class="text-3xl sm:text-4xl lg:text-[2.5rem] font-black tracking-tight text-slate-900 uppercase leading-tight">
+                                Book your visit
+                            </h1>
+                            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+                                Doorstep computer care across Anna Nagar, Mogappair, Korattur, and nearby areas. We diagnose first, explain options, then repair — care before cost.
+                            </p>
+                        </div>
+
+                        <ol class="space-y-4">
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">1</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Choose service &amp; device</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Tell us what you need — we only ask what’s relevant.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">2</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Pick a visit time</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Recommended slots or any date &amp; hour — 24/7 booking.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">3</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Confirm &amp; pay visit fee</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Secure payment where applicable; repairs quoted after inspection.</p>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div>
+                            <h2 class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-3">What we help with</h2>
+                            <ul class="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Hardware repair</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Screens, batteries, keyboards, storage upgrades, power issues.</p>
+                                </li>
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Software &amp; OS</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Virus removal, OS installs, boot failures, performance tuning.</p>
+                                </li>
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm sm:col-span-2 lg:col-span-1">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Network &amp; peripherals</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Wi‑Fi, printers, and day-to-day device setup at your location.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm text-slate-700 space-y-2">
+                            <p class="font-semibold text-emerald-900">Questions before you book?</p>
+                            <p class="text-xs leading-relaxed">
+                                <a href="tel:+917010481012" class="text-blue-700 font-semibold hover:underline">Call / WhatsApp +91 70104 81012</a>
+                                · <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 font-semibold hover:underline">Email us</a>
+                            </p>
+                        </div>
+                    </aside>
+
+                    <!-- Right: wizard -->
+                    <div class="book-page-wizard min-w-0 w-full">
+                        <div id="booking-wizard-root" class="booking-wizard-root w-full"></div>
+                    </div>
                 </div>
-                <div id="booking-wizard-root" class="booking-wizard-root"></div>
             </div>
         </section>
     </main>
