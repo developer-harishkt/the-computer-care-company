@@ -1,6 +1,7 @@
 import {
   DEVICE_OPTIONS,
   getServiceRule,
+  formatInr,
   getVisitFee,
   resolveDeviceForPayload,
 } from './book-service-config.js';
@@ -244,6 +245,15 @@ export function initBookingWizard(root, options = {}) {
       items.push({ step: 'device', label: 'Device', value: truncateLabel(deviceSelect.value) });
     }
 
+    if (visitMode === 'doorstep' && service) {
+      const fee = getVisitFee(service, deviceSelect?.value);
+      items.push({
+        step: 'service',
+        label: 'Visit fee',
+        value: fee ? formatInr(fee.amountInr) : 'No online fee',
+      });
+    }
+
     if (visitMode !== 'branch' && hasScheduleSelection()) {
       items.push({
         step: 'schedule',
@@ -282,11 +292,15 @@ export function initBookingWizard(root, options = {}) {
       schedule: 'When we visit',
       details: 'Where & contact',
     };
+    // A paid doorstep booking has one more step after "Send request": paying the visit fee.
+    const fee = visitMode === 'doorstep' ? getVisitFee(serviceSelect?.value, deviceSelect?.value) : null;
+    const total = stepPlan.length + (fee ? 1 : 0);
+    const label = id === 'details' ? 'Contact · send request' : labels[id];
     if (progressLabel) {
-      progressLabel.textContent = `Step ${stepIndex + 1} of ${stepPlan.length} — ${labels[id]}`;
+      progressLabel.textContent = `Step ${stepIndex + 1} of ${total} — ${label}`;
     }
     if (progressBar) {
-      progressBar.style.width = `${((stepIndex + 1) / stepPlan.length) * 100}%`;
+      progressBar.style.width = `${((stepIndex + 1) / total) * 100}%`;
     }
   }
 
@@ -522,7 +536,7 @@ export function initBookingWizard(root, options = {}) {
   });
 
   const submitBtn = q('#submit-booking');
-  const submitBtnDefaultLabel = submitBtn?.textContent?.trim() || 'Submit booking request';
+  const submitBtnDefaultLabel = submitBtn?.textContent?.trim() || 'Send booking request';
 
   initBookingSuccessCopy(root);
 

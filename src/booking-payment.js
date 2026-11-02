@@ -461,7 +461,7 @@ export function initVisitFeePayment(root, hooks) {
       block.classList.remove('hidden');
       if (payService) payService.textContent = payload.service || 'On-site visit';
       if (payAmount) payAmount.textContent = formatInr(fee.amountInr);
-      payBtn.textContent = `Pay ${formatInr(fee.amountInr)} securely`;
+      payBtn.textContent = `Pay ${formatInr(fee.amountInr)} to confirm your slot`;
     },
   };
 }
