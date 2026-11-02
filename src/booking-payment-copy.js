@@ -27,6 +27,7 @@ export const PAYMENT_PAGE = {
   /** TODO(owner): Confirm operational wording for what happens after book/pay. */
   nextSteps: [
     'We’ll call you to confirm the visit',
+    'You get your technician’s name and number on WhatsApp',
     'Our technician arrives in your selected slot',
     'We diagnose first and quote before any repair',
   ],
