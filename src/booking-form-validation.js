@@ -35,7 +35,7 @@ export function normalizeIndianMobile(raw) {
  */
 export function validateEmail(email) {
   const value = String(email || '').trim();
-  if (!value) return 'Please enter your email.';
+  if (!value) return null;
   if (value.length > LIMITS.emailMax) return 'Email is too long.';
   if (!EMAIL_RE.test(value)) return 'Enter a valid email address (e.g. you@example.com).';
   return null;
