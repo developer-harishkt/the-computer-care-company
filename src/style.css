@@ -430,3 +430,10 @@
     padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
   }
 }
+
+/* No-fee / branch success: summary already has a bottom border, so skip the checklist's top border.
+   Attribute selector: a literal `.hidden` selector here breaks Tailwind @apply of `hidden`. */
+.booking-success-payment[class~="hidden"] + .booking-success-checklist {
+  border-top-width: 0;
+  padding-top: 0;
+}

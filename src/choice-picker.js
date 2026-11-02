@@ -63,7 +63,7 @@ export function mountGroupedChoicePicker(container, selectEl, { onChange } = {})
       const quote = group.dataset.quote;
       if (quote) {
         const q = document.createElement('p');
-        q.className = 'text-xs italic text-slate-500 pt-1';
+        q.className = 'text-xs font-medium text-slate-500 pt-1';
         q.textContent = `“${quote}”`;
         section.appendChild(q);
       }

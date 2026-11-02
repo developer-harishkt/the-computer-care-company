@@ -119,14 +119,14 @@
                         <span class="flex justify-between gap-3"><span>RAM issue</span><span class="font-semibold text-slate-900">₹189</span></span>
                         <span class="flex justify-between gap-3"><span>Slow PC</span><span class="font-semibold text-slate-900">₹189</span></span>
                     </span>
-                    <span class="mt-3 block text-[11px] text-slate-400">Visit fee. Parts and extra repair work are quoted after inspection.</span>
+                    <span class="mt-3 block text-[11px] text-slate-500">Visit fee. Parts and extra repair work are quoted after inspection.</span>
                 </button>
                 <div data-visit-mode-card="branch" class="visit-mode-card">
                     <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-emerald-700">Free diagnosis · Korattur</span>
                     <span class="block text-base font-black text-slate-900 mt-1">Branch visit</span>
                     <div class="mt-3 grid grid-cols-1 gap-2" role="group" aria-label="Branch visit slot">
-                        <button type="button" data-branch-slot="Morning (8AM–1PM)" aria-pressed="false" class="branch-slot-btn">Morning slot · 8AM–1PM</button>
-                        <button type="button" data-branch-slot="Afternoon (3PM–7PM)" aria-pressed="false" class="branch-slot-btn">Afternoon slot · 3PM–7PM</button>
+                        <button type="button" data-branch-slot="Morning (8am–1pm)" aria-pressed="false" class="branch-slot-btn">Morning slot · <span class="whitespace-nowrap">8am–1pm</span></button>
+                        <button type="button" data-branch-slot="Afternoon (3pm–7pm)" aria-pressed="false" class="branch-slot-btn">Afternoon slot · <span class="whitespace-nowrap">3pm–7pm</span></button>
                     </div>
                     <p class="mt-3 text-[11px] text-slate-500">We would appreciate your confirmation through WhatsApp or call.</p>
                 </div>
@@ -160,6 +160,9 @@
                 </optgroup>
             </select>
             <div id="service-picker" class="space-y-4" aria-live="polite"></div>
+        </div>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
         </div>
         <p class="text-center text-xs text-slate-400">Tap a service to continue</p>
     </div>

@@ -110,6 +110,7 @@ export function resetBookingSuccessPanelUi(root) {
   q('#booking-success-next-wrap')?.classList.add('hidden');
   q('#booking-trust-longer-life')?.classList.add('hidden');
   q('#booking-success-consent')?.classList.remove('hidden');
+  q('#booking-success-terms')?.closest('details')?.classList.remove('hidden');
   q('#booking-success-page-title')?.classList.remove('hidden');
 }
 
@@ -148,6 +149,8 @@ export function setBookingSuccessReceivedPanel(root) {
   q('#booking-success-next-wrap')?.classList.remove('hidden');
   q('#booking-trust-longer-life')?.classList.add('hidden');
   q('#booking-success-consent')?.classList.add('hidden');
+  // "Full terms" talks about completing a payment; not relevant when nothing is paid online.
+  q('#booking-success-terms')?.closest('details')?.classList.add('hidden');
   const heading = q('#booking-success-heading');
   if (heading) heading.textContent = 'Booking received';
 }

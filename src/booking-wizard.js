@@ -200,6 +200,13 @@ export function initBookingWizard(root, options = {}) {
     return stepPlan[stepIndex];
   }
 
+  function formatTrailDate(iso) {
+    const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return iso || '';
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+  }
+
   function truncateLabel(text, max = 36) {
     const s = String(text || '').trim();
     if (s.length <= max) return s;
@@ -213,7 +220,7 @@ export function initBookingWizard(root, options = {}) {
 
   function goToNextStep() {
     if (stepIndex >= stepPlan.length - 1) return;
-    showStep(stepIndex + 1);
+    showStep(stepIndex + 1, { focus: true });
   }
 
   function scheduleAutoAdvance(fromStepId) {
@@ -257,8 +264,8 @@ export function initBookingWizard(root, options = {}) {
     if (visitMode !== 'branch' && hasScheduleSelection()) {
       items.push({
         step: 'schedule',
-        label: 'Visit',
-        value: truncateLabel(`${getSelectedDate()} · ${getSelectedTime()}`, 28),
+        label: 'When',
+        value: truncateLabel(`${formatTrailDate(getSelectedDate())} · ${getSelectedTime()}`, 28),
       });
     }
 
@@ -304,7 +311,7 @@ export function initBookingWizard(root, options = {}) {
     }
   }
 
-  function showStep(index) {
+  function showStep(index, { focus = false } = {}) {
     stepIndex = index;
     const activeId = currentStepId();
     steps.forEach((el) => {
@@ -316,6 +323,17 @@ export function initBookingWizard(root, options = {}) {
     clearError();
 
     scrollStepIntoView();
+
+    // Keyboard users: move focus to the new step's heading (not on first render, to avoid stealing focus).
+    if (focus) {
+      const activeEl = steps.find((el) => el.dataset.wizardStep === activeId);
+      const heading = activeEl?.querySelector('h2');
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.classList.add('focus:outline-none');
+        heading.focus({ preventScroll: true });
+      }
+    }
   }
 
   function populateDeviceOptions(serviceValue) {
@@ -335,18 +353,23 @@ export function initBookingWizard(root, options = {}) {
     refreshDevicePicker();
   }
 
+  let lastServiceForDevices = '';
+
   function applyServiceChange() {
     const service = serviceSelect?.value;
     if (!service) {
+      lastServiceForDevices = '';
       rebuildStepPlan();
       return;
     }
     const rule = getServiceRule(service);
     rebuildStepPlan();
 
-    if (rule.mode !== 'fixed') {
+    // Only rebuild the device list when the service really changed, so re-tapping keeps the chosen device.
+    if (rule.mode !== 'fixed' && service !== lastServiceForDevices) {
       populateDeviceOptions(service);
     }
+    lastServiceForDevices = service;
   }
 
   function validateStep(id) {
@@ -454,7 +477,7 @@ export function initBookingWizard(root, options = {}) {
     qa('[data-wizard-back]').forEach((btn) => {
       btn.addEventListener('click', () => {
         clearTimeout(autoAdvanceTimer);
-        if (stepIndex > 0) showStep(stepIndex - 1);
+        if (stepIndex > 0) showStep(stepIndex - 1, { focus: true });
       });
     });
 
@@ -463,7 +486,7 @@ export function initBookingWizard(root, options = {}) {
       if (!jumpBtn) return;
       clearTimeout(autoAdvanceTimer);
       const stepId = jumpBtn.getAttribute('data-wizard-jump');
-      if (stepId) showStep(stepIndexForId(stepId));
+      if (stepId) showStep(stepIndexForId(stepId), { focus: true });
     });
   }
 
@@ -617,6 +640,11 @@ export function initBookingWizard(root, options = {}) {
         ...collectPayload(),
         ...details.normalized,
       };
+      if (visitMode === 'branch') {
+        // The address fields are hidden for branch visits; never send what was typed for a doorstep visit.
+        payload.address = '';
+        payload.landmark = '';
+      }
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending…';
