@@ -34,6 +34,8 @@ export const PAYMENT_PAGE = {
   /** Branch visit (free, no online payment). */
   branchVisit: {
     title: 'Free diagnosis at our Korattur branch',
+    body:
+      'Bring your device to our Korattur branch during your chosen slot. We diagnose it for free, explain our findings and give you a quotation before any repair.',
     nextSteps: [
       'We would appreciate your confirmation through WhatsApp or call',
       'Walk in during your chosen slot',

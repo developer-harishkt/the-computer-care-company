@@ -570,17 +570,19 @@ export function initBookingWizard(root, options = {}) {
 
     applyVisitModeSuccessCopy(root, visitMode === 'branch');
 
+    successPanel?.classList.remove('hidden');
+    paymentBlock?.classList.add('hidden');
+
+    // Refresh the pay UI first: its reset sets the default "Booking saved" heading,
+    // which the no-fee panel below must be able to override.
+    paymentContext = { payload, bookingKey };
+    visitFeePayment?.refresh(payload, bookingKey);
+
     if (fee && fee.amountInr > 0) {
       root.dataset.payState = 'unpaid';
     } else {
       setBookingSuccessReceivedPanel(root);
     }
-
-    successPanel?.classList.remove('hidden');
-    paymentBlock?.classList.add('hidden');
-
-    paymentContext = { payload, bookingKey };
-    visitFeePayment?.refresh(payload, bookingKey);
 
     scrollSuccessPanelIntoView();
   }

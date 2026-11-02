@@ -159,10 +159,14 @@ export function setBookingSuccessReceivedPanel(root) {
  */
 export function applyVisitModeSuccessCopy(root, branch) {
   const visitTitle = root.querySelector('#booking-trust-visit-title');
+  const visitBody = root.querySelector('#booking-trust-visit-body');
   const nextSteps = root.querySelector('#booking-success-next-steps');
   const lines = branch ? PAYMENT_PAGE.branchVisit.nextSteps : PAYMENT_PAGE.nextSteps;
   if (visitTitle) {
     visitTitle.textContent = branch ? PAYMENT_PAGE.branchVisit.title : PAYMENT_PAGE.visitAssessment.title;
+  }
+  if (visitBody) {
+    visitBody.textContent = branch ? PAYMENT_PAGE.branchVisit.body : PAYMENT_PAGE.visitAssessment.body;
   }
   if (nextSteps) nextSteps.innerHTML = lines.map((line) => `<li>${line}</li>`).join('');
 }
