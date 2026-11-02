@@ -111,27 +111,23 @@
             <p class="text-sm text-slate-500 mb-4">We’ll tailor the next questions based on this. <span class="text-slate-400">(* required)</span></p>
             <select id="service-type" name="service" required class="sr-only" tabindex="-1" aria-hidden="true">
                 <option value="" disabled selected>Select a service</option>
-                <optgroup label="Visit &amp; servicing">
-                    <option value="Standard diagnostics / check-up">Standard diagnostics / check-up</option>
-                    <option value="Laptop or desktop servicing (cleaning)">Laptop or desktop servicing (cleaning)</option>
+                <optgroup label="Diagnosis &amp; Repairs" data-quote="Repair before replacement">
+                    <option value="Standard diagnosis / Unknown problems">Standard diagnosis / Unknown problems</option>
+                    <option value="Hardware repair &amp; maintenance">Hardware repair &amp; maintenance (laptop, desktop &amp; printer)</option>
+                    <option value="OS &amp; software care">OS &amp; software care</option>
+                    <option value="Network &amp; security">Network &amp; security (network, virus removal &amp; CCTV)</option>
+                    <option value="Backup &amp; recovery">Backup &amp; recovery</option>
                 </optgroup>
-                <optgroup label="Software">
-                    <option value="OS installations & Fixes">OS installations &amp; Fixes</option>
-                    <option value="Virus removal &amp; security">Virus removal &amp; security</option>
-                    <option value="Software setups">Software setups</option>
-                </optgroup>
-                <optgroup label="Hardware &amp; upgrades">
-                    <option value="Hardware repair (screen, battery, keyboard, etc.)">Hardware repair (screen, battery, keyboard, etc.)</option>
-                    <option value="Component install (RAM / SSD / GPU)">Component install (RAM / SSD / GPU)</option>
-                    <option value="Custom PC build / upgrade consultation">Custom PC build / upgrade consultation</option>
-                    <option value="Data recovery assessment">Data recovery assessment</option>
-                </optgroup>
-                <optgroup label="Other services">
-                    <option value="Printer setup or repair">Printer setup or repair</option>
-                    <option value="Wi-Fi / network setup">Wi-Fi / network setup</option>
+                <optgroup label="New Systems &amp; Infrastructure" data-quote="Care before cost">
+                    <option value="Custom PC">Custom PC</option>
+                    <option value="Storage / NAS setup">Storage / NAS setup</option>
+                    <option value="Network setup">Network setup</option>
                     <option value="CCTV installation">CCTV installation</option>
-                    <option value="Corporate / AMC enquiry">Corporate / AMC enquiry</option>
-                    <option value="Other">Other</option>
+                    <option value="Server build">Server build</option>
+                </optgroup>
+                <optgroup label="Business &amp; Personal Care" data-quote="Complete care">
+                    <option value="Subscriptions">Subscriptions</option>
+                    <option value="AMC &amp; corporate solutions">AMC &amp; corporate solutions</option>
                 </optgroup>
             </select>
             <div id="service-picker" class="space-y-4" aria-live="polite"></div>

@@ -59,6 +59,15 @@ export function mountGroupedChoicePicker(container, selectEl, { onChange } = {})
       });
 
       section.appendChild(grid);
+
+      const quote = group.dataset.quote;
+      if (quote) {
+        const q = document.createElement('p');
+        q.className = 'text-xs italic text-slate-500 pt-1';
+        q.textContent = `“${quote}”`;
+        section.appendChild(q);
+      }
+
       container.appendChild(section);
     });
   }

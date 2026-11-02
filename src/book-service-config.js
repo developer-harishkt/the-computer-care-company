@@ -1,19 +1,20 @@
 /** Device handling per service value (must match option values in book.html). */
 export const SERVICE_RULES = {
-  'Standard diagnostics / check-up': { mode: 'choose', group: 'all' },
-  'Laptop or desktop servicing (cleaning)': { mode: 'choose', group: 'all' },
-  'OS installations & Fixes': { mode: 'choose', group: 'computers' },
-  'Virus removal & security': { mode: 'choose', group: 'computers' },
-  'Software setups': { mode: 'choose', group: 'computers' },
-  'Hardware repair (screen, battery, keyboard, etc.)': { mode: 'choose', group: 'all' },
-  'Component install (RAM / SSD / GPU)': { mode: 'choose', group: 'computers' },
-  'Custom PC build / upgrade consultation': { mode: 'choose', group: 'desktops' },
-  'Data recovery assessment': { mode: 'choose', group: 'computers' },
-  'Printer setup or repair': { mode: 'fixed', fixedLabel: 'Printer / scanner (on-site)' },
-  'Wi-Fi / network setup': { mode: 'fixed', fixedLabel: 'Home or office Wi‑Fi / network' },
+  // Diagnosis & Repairs
+  'Standard diagnosis / Unknown problems': { mode: 'choose', group: 'all' },
+  'Hardware repair & maintenance': { mode: 'choose', group: 'hardware' },
+  'OS & software care': { mode: 'choose', group: 'computers' },
+  'Network & security': { mode: 'choose', group: 'netsec' },
+  'Backup & recovery': { mode: 'choose', group: 'computers' },
+  // New Systems & Infrastructure
+  'Custom PC': { mode: 'choose', group: 'desktops' },
+  'Storage / NAS setup': { mode: 'fixed', fixedLabel: 'Storage / NAS' },
+  'Network setup': { mode: 'fixed', fixedLabel: 'Home or office Wi‑Fi / network' },
   'CCTV installation': { mode: 'fixed', fixedLabel: 'CCTV / security cameras' },
-  'Corporate / AMC enquiry': { mode: 'fixed', fixedLabel: 'Business — multiple devices' },
-  Other: { mode: 'choose', group: 'all' },
+  'Server build': { mode: 'fixed', fixedLabel: 'Server' },
+  // Business & Personal Care
+  Subscriptions: { mode: 'fixed', fixedLabel: 'Subscription plan' },
+  'AMC & corporate solutions': { mode: 'fixed', fixedLabel: 'Business — multiple devices' },
 };
 
 export const DEVICE_OPTIONS = {
@@ -32,6 +33,23 @@ export const DEVICE_OPTIONS = {
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
   ],
+  hardware: [
+    { value: 'Windows laptop', label: 'Windows laptop' },
+    { value: 'MacBook / Apple laptop', label: 'MacBook / Apple laptop' },
+    { value: 'Gaming laptop', label: 'Gaming laptop' },
+    { value: 'Desktop PC', label: 'Desktop PC' },
+    { value: 'All-in-one desktop', label: 'All-in-one desktop' },
+    { value: 'Printer / scanner', label: 'Printer / scanner' },
+    { value: 'Other', label: 'Other / not sure' },
+  ],
+  netsec: [
+    { value: 'Windows laptop', label: 'Windows laptop' },
+    { value: 'MacBook / Apple laptop', label: 'MacBook / Apple laptop' },
+    { value: 'Desktop PC', label: 'Desktop PC' },
+    { value: 'Home or office Wi‑Fi / network', label: 'Wi‑Fi / network' },
+    { value: 'CCTV / security cameras', label: 'CCTV / security cameras' },
+    { value: 'Other', label: 'Other / not sure' },
+  ],
   desktops: [
     { value: 'Desktop PC', label: 'Desktop PC (tower)' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
@@ -39,14 +57,31 @@ export const DEVICE_OPTIONS = {
   ],
 };
 
+/** Old service names (before the Nov 2026 regroup) → new names. */
 const LEGACY_SERVICE_ALIASES = {
-  'Software / OS issue': 'OS installations & Fixes',
-  'Application setup': 'Software setups',
+  'Standard diagnostics / check-up': 'Standard diagnosis / Unknown problems',
+  'Laptop or desktop servicing (cleaning)': 'Hardware repair & maintenance',
+  'Hardware repair (screen, battery, keyboard, etc.)': 'Hardware repair & maintenance',
+  'Component install (RAM / SSD / GPU)': 'Hardware repair & maintenance',
+  'Printer setup or repair': 'Hardware repair & maintenance',
+  'OS installations & Fixes': 'OS & software care',
+  'Software setups': 'OS & software care',
+  'Software / OS issue': 'OS & software care',
+  'Application setup': 'OS & software care',
+  'Virus removal & security': 'Network & security',
+  'Data recovery assessment': 'Backup & recovery',
+  'Custom PC build / upgrade consultation': 'Custom PC',
+  'Wi-Fi / network setup': 'Network setup',
+  'Corporate / AMC enquiry': 'AMC & corporate solutions',
+  Other: 'Standard diagnosis / Unknown problems',
 };
 
+export function normalizeService(serviceValue) {
+  return LEGACY_SERVICE_ALIASES[serviceValue] || serviceValue;
+}
+
 export function getServiceRule(serviceValue) {
-  const key = LEGACY_SERVICE_ALIASES[serviceValue] || serviceValue;
-  return SERVICE_RULES[key] || { mode: 'choose', group: 'all' };
+  return SERVICE_RULES[normalizeService(serviceValue)] || { mode: 'choose', group: 'all' };
 }
 
 export function resolveDeviceForPayload(serviceValue, deviceSelectValue, fixedDisplay) {
@@ -55,40 +90,20 @@ export function resolveDeviceForPayload(serviceValue, deviceSelectValue, fixedDi
   return deviceSelectValue || fixedDisplay || 'Not specified';
 }
 
-/** On-site visit / booking fee in INR (align with docs/pricing; repair parts extra). */
-const CLEANING_FEE_BY_DEVICE = {
-  'Desktop PC': 599,
-  'MacBook / Apple laptop': 999,
-  'Gaming laptop': 999,
-  'Windows laptop': 699,
-  'All-in-one desktop': 1099,
-  Other: 699,
-  'Other / not sure': 699,
-};
-
-const DEFAULT_VISIT_FEE_INR = 199;
-const COMPONENT_INSTALL_FEE_INR = 600;
+/** On-site visit fee in INR (parts and repair work quoted after inspection). Must match Code.gs. */
+export const DEFAULT_VISIT_FEE_INR = 189;
 
 /** Services with no online visit fee (sales follow-up). */
-const NO_ONLINE_FEE_SERVICES = new Set(['Corporate / AMC enquiry']);
+const NO_ONLINE_FEE_SERVICES = new Set(['Subscriptions', 'AMC & corporate solutions']);
 
 /**
  * @param {string | undefined} service
- * @param {string | undefined} device Resolved device label for payload
+ * @param {string | undefined} _device Kept for call-site compatibility; the fee no longer depends on device.
  * @returns {{ amountInr: number, label: string } | null} null = skip payment step
  */
-export function getVisitFee(service, device) {
-  if (!service || NO_ONLINE_FEE_SERVICES.has(service)) return null;
-
-  if (service === 'Laptop or desktop servicing (cleaning)') {
-    const amountInr = CLEANING_FEE_BY_DEVICE[device] ?? 699;
-    return { amountInr, label: 'Servicing visit fee' };
-  }
-
-  if (service === 'Component install (RAM / SSD / GPU)') {
-    return { amountInr: COMPONENT_INSTALL_FEE_INR, label: 'Component install visit fee' };
-  }
-
+export function getVisitFee(service, _device) {
+  const key = normalizeService(service);
+  if (!key || NO_ONLINE_FEE_SERVICES.has(key)) return null;
   return { amountInr: DEFAULT_VISIT_FEE_INR, label: 'Visit / diagnostics fee' };
 }
 

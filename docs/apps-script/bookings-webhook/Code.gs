@@ -15,33 +15,13 @@ const PAY_STATUS_PAID = 'Paid';
 
 const SHEET_ID = '1zBWeTr-8X0ghQ7hi1HKmrkVpf9QOIDbxGLfZcj2XbUQ';
 
-const DEFAULT_VISIT_FEE_INR = 199;
-const COMPONENT_INSTALL_FEE_INR = 600;
+const DEFAULT_VISIT_FEE_INR = 189;
+// Must match NO_ONLINE_FEE_SERVICES in src/book-service-config.js (old names kept for older rows).
+const NO_ONLINE_FEE_SERVICES = ['Subscriptions', 'AMC & corporate solutions', 'Corporate / AMC enquiry'];
 
 function getVisitFeePaise(service, device) {
   const s = service ? String(service).trim() : '';
-  const d = device ? String(device).trim() : '';
-
-  if (!s || s === 'Corporate / AMC enquiry') return 0;
-
-  if (s === 'Laptop or desktop servicing (cleaning)') {
-    const map = {
-      'Desktop PC': 599,
-      'MacBook / Apple laptop': 999,
-      'Gaming laptop': 999,
-      'Windows laptop': 699,
-      'All-in-one desktop': 1099,
-      'Other': 699,
-      'Other / not sure': 699,
-    };
-    const inr = map[d] || 699;
-    return inr * 100;
-  }
-
-  if (s === 'Component install (RAM / SSD / GPU)') {
-    return COMPONENT_INSTALL_FEE_INR * 100;
-  }
-
+  if (!s || NO_ONLINE_FEE_SERVICES.indexOf(s) !== -1) return 0;
   return DEFAULT_VISIT_FEE_INR * 100;
 }
 

@@ -65,7 +65,7 @@ After editing `Code.gs` here, paste into the bound Apps Script project and **Dep
 | `create-order` | `service`, `device`, `bookingKey` | `{ status, orderId, amountPaise, currency }` |
 | `verify-payment` | `bookingKey`, `razorpay_order_id`, `razorpay_payment_id`, `razorpay_signature` | `{ status }` — sets **J** Paid, **K** order id, **L** payment id |
 
-Visit fees (INR, server-enforced): **₹199** default visit/diagnostics; **₹600** component install; **₹599–1099** device-based for servicing/cleaning; **Corporate / AMC** — no online fee.
+Visit fees (INR, server-enforced): **₹189** visit/diagnostics fee for every doorstep service; **Subscriptions** and **AMC & corporate solutions** — no online fee. Branch visits are free and skip payment. Keep in sync with `src/book-service-config.js`, and redeploy the web app after editing Code.gs.
 
 Test payments: [Razorpay test cards](https://razorpay.com/docs/payments/payments/test-card-upi-details/).
 
