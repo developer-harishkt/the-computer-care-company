@@ -53,6 +53,24 @@ function escapeHtml(text) {
  */
 export function populateBookingSummary(summaryEl, payload, options = {}) {
   if (!summaryEl) return;
+  if (options.branch) {
+    const branchRows = [
+      { label: 'Visit', value: 'Korattur branch (free diagnosis)' },
+      { label: 'Slot', value: payload.time || '—' },
+      { label: 'Name', value: payload.name },
+    ];
+    summaryEl.innerHTML = branchRows
+      .filter((row) => row.value)
+      .map(
+        (row) => `
+    <div class="booking-success-summary__row">
+      <dt class="booking-success-summary__label">${row.label}</dt>
+      <dd class="booking-success-summary__value">${escapeHtml(String(row.value))}</dd>
+    </div>`,
+      )
+      .join('');
+    return;
+  }
   const rows = [{ label: 'Service', value: payload.service }];
   if (options.showDevice !== false && payload.device) {
     rows.push({ label: 'Device', value: payload.device });
@@ -132,6 +150,21 @@ export function setBookingSuccessReceivedPanel(root) {
   q('#booking-success-consent')?.classList.add('hidden');
   const heading = q('#booking-success-heading');
   if (heading) heading.textContent = 'Booking received';
+}
+
+/**
+ * Swap visit-specific success copy between doorstep and branch bookings.
+ * @param {HTMLElement} root
+ * @param {boolean} branch
+ */
+export function applyVisitModeSuccessCopy(root, branch) {
+  const visitTitle = root.querySelector('#booking-trust-visit-title');
+  const nextSteps = root.querySelector('#booking-success-next-steps');
+  const lines = branch ? PAYMENT_PAGE.branchVisit.nextSteps : PAYMENT_PAGE.nextSteps;
+  if (visitTitle) {
+    visitTitle.textContent = branch ? PAYMENT_PAGE.branchVisit.title : PAYMENT_PAGE.visitAssessment.title;
+  }
+  if (nextSteps) nextSteps.innerHTML = lines.map((line) => `<li>${line}</li>`).join('');
 }
 
 /** Fill success panel copy (once per wizard mount). */

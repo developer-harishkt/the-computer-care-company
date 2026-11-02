@@ -94,7 +94,11 @@ export function resolveDeviceForPayload(serviceValue, deviceSelectValue, fixedDi
 export const DEFAULT_VISIT_FEE_INR = 189;
 
 /** Services with no online visit fee (sales follow-up). */
-const NO_ONLINE_FEE_SERVICES = new Set(['Subscriptions', 'AMC & corporate solutions']);
+const NO_ONLINE_FEE_SERVICES = new Set([
+  'Subscriptions',
+  'AMC & corporate solutions',
+  'Branch visit (free diagnosis)',
+]);
 
 /**
  * @param {string | undefined} service

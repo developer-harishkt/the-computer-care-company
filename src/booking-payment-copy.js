@@ -31,6 +31,15 @@ export const PAYMENT_PAGE = {
     'Our technician arrives in your selected slot',
     'We diagnose first and quote before any repair',
   ],
+  /** Branch visit (free, no online payment). */
+  branchVisit: {
+    title: 'Free diagnosis at our Korattur branch',
+    nextSteps: [
+      'We would appreciate your confirmation through WhatsApp or call',
+      'Walk in during your chosen slot',
+      'We diagnose for free and quote before any repair',
+    ],
+  },
   contact: {
     email: 'thecomputercarecompany@gmail.com',
     phone: '+91 70104 81012',

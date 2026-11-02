@@ -17,7 +17,12 @@ const SHEET_ID = '1zBWeTr-8X0ghQ7hi1HKmrkVpf9QOIDbxGLfZcj2XbUQ';
 
 const DEFAULT_VISIT_FEE_INR = 189;
 // Must match NO_ONLINE_FEE_SERVICES in src/book-service-config.js (old names kept for older rows).
-const NO_ONLINE_FEE_SERVICES = ['Subscriptions', 'AMC & corporate solutions', 'Corporate / AMC enquiry'];
+const NO_ONLINE_FEE_SERVICES = [
+  'Subscriptions',
+  'AMC & corporate solutions',
+  'Branch visit (free diagnosis)',
+  'Corporate / AMC enquiry',
+];
 
 function getVisitFeePaise(service, device) {
   const s = service ? String(service).trim() : '';
@@ -394,7 +399,7 @@ function handleWebsiteWizardPost(sheet, data) {
   const name = (data.name && String(data.name).trim()) || '';
   const email = (data.email && String(data.email).trim()) || '';
   if (!name) return jsonResponse({ error: 'Missing name' });
-  if (!email) return jsonResponse({ error: 'Missing email' });
+  // Email is optional on the website (warranty record only); sendHtmlEmail skips empty emails.
 
   const dateOnly = (data.date && String(data.date).trim()) || new Date().toLocaleDateString('en-IN');
   const timeOnly = (data.time && String(data.time).trim()) || new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });

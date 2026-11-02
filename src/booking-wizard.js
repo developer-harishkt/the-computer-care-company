@@ -18,7 +18,7 @@ import {
 import { validateBookingDetails } from './booking-form-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { initVisitFeePayment } from './booking-payment.js';
-import { initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
+import { applyVisitModeSuccessCopy, initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
 
 /**
  * @param {HTMLElement} root
@@ -71,7 +71,16 @@ export function initBookingWizard(root, options = {}) {
 
   const steps = [...qa('[data-wizard-step]')];
   let stepIndex = 0;
-  let stepPlan = ['service', 'device', 'schedule', 'details'];
+  let stepPlan = ['mode', 'service', 'device', 'schedule', 'details'];
+
+  /** 'doorstep' | 'branch' | '' — first choice in the flow. */
+  let visitMode = '';
+  let branchSlot = '';
+  const BRANCH_SERVICE = 'Branch visit (free diagnosis)';
+  const doorstepCard = q('[data-visit-mode="doorstep"]');
+  const branchCard = q('[data-visit-mode-card="branch"]');
+  const branchSlotBtns = [...qa('[data-branch-slot]')];
+  const detailsAddress = q('#details-address');
 
   function scrollStepIntoView() {
     const scrollHost = root.closest('#booking-modal-mount');
@@ -157,11 +166,33 @@ export function initBookingWizard(root, options = {}) {
   }
 
   function rebuildStepPlan() {
-    const service = serviceSelect?.value;
-    const rule = getServiceRule(service);
-    stepPlan = rule.mode === 'fixed'
-      ? ['service', 'schedule', 'details']
-      : ['service', 'device', 'schedule', 'details'];
+    if (visitMode === 'branch') {
+      stepPlan = ['mode', 'details'];
+    } else {
+      const service = serviceSelect?.value;
+      const rule = getServiceRule(service);
+      stepPlan = rule.mode === 'fixed'
+        ? ['mode', 'service', 'schedule', 'details']
+        : ['mode', 'service', 'device', 'schedule', 'details'];
+    }
+    detailsAddress?.classList.toggle('hidden', visitMode === 'branch');
+  }
+
+  function renderVisitMode() {
+    doorstepCard?.setAttribute('aria-pressed', String(visitMode === 'doorstep'));
+    if (branchCard) branchCard.dataset.active = String(visitMode === 'branch');
+    branchSlotBtns.forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(visitMode === 'branch' && btn.dataset.branchSlot === branchSlot));
+    });
+  }
+
+  function setVisitMode(mode, slot = '') {
+    visitMode = mode;
+    branchSlot = mode === 'branch' ? slot : '';
+    rebuildStepPlan();
+    renderVisitMode();
+    updateSelectionTrail();
+    clearError();
   }
 
   function currentStepId() {
@@ -198,7 +229,12 @@ export function initBookingWizard(root, options = {}) {
     if (!selectionTrail) return;
 
     const items = [];
-    const service = serviceSelect?.value;
+    if (visitMode === 'branch' && branchSlot) {
+      items.push({ step: 'mode', label: 'Visit', value: `Branch · ${truncateLabel(branchSlot, 24)}` });
+    } else if (visitMode === 'doorstep') {
+      items.push({ step: 'mode', label: 'Visit', value: 'Doorstep' });
+    }
+    const service = visitMode === 'branch' ? '' : serviceSelect?.value;
     if (service) {
       items.push({ step: 'service', label: 'Service', value: truncateLabel(service) });
     }
@@ -208,7 +244,7 @@ export function initBookingWizard(root, options = {}) {
       items.push({ step: 'device', label: 'Device', value: truncateLabel(deviceSelect.value) });
     }
 
-    if (hasScheduleSelection()) {
+    if (visitMode !== 'branch' && hasScheduleSelection()) {
       items.push({
         step: 'schedule',
         label: 'Visit',
@@ -240,6 +276,7 @@ export function initBookingWizard(root, options = {}) {
   function updateProgress() {
     const id = currentStepId();
     const labels = {
+      mode: 'Doorstep or branch',
       service: 'What you need',
       device: 'Your device',
       schedule: 'When we visit',
@@ -286,7 +323,10 @@ export function initBookingWizard(root, options = {}) {
 
   function applyServiceChange() {
     const service = serviceSelect?.value;
-    if (!service) return;
+    if (!service) {
+      rebuildStepPlan();
+      return;
+    }
     const rule = getServiceRule(service);
     rebuildStepPlan();
 
@@ -296,6 +336,10 @@ export function initBookingWizard(root, options = {}) {
   }
 
   function validateStep(id) {
+    if (id === 'mode') {
+      if (!visitMode) return 'Choose a doorstep visit or a branch visit to continue.';
+      if (visitMode === 'branch' && !branchSlot) return 'Pick a morning or afternoon slot for your branch visit.';
+    }
     if (id === 'service') {
       if (!serviceSelect?.value) return 'Please choose a service to continue.';
     }
@@ -315,7 +359,7 @@ export function initBookingWizard(root, options = {}) {
         address: q('#address-line')?.value,
         landmark: q('#landmark')?.value,
         notes: q('#notes')?.value,
-      });
+      }, { requireAddress: visitMode !== 'branch' });
       if (!result.ok) {
         return { message: result.message, fieldId: result.fieldId };
       }
@@ -338,6 +382,20 @@ export function initBookingWizard(root, options = {}) {
   }
 
   function collectPayload() {
+    if (visitMode === 'branch') {
+      return {
+        service: BRANCH_SERVICE,
+        device: 'Brought to Korattur branch',
+        date: 'Branch walk-in',
+        time: branchSlot,
+        name: q('#full-name')?.value.trim(),
+        email: q('#email')?.value.trim(),
+        phone: q('#phone')?.value.trim(),
+        address: '',
+        landmark: '',
+        notes: q('#notes')?.value.trim(),
+      };
+    }
     const service = serviceSelect?.value;
     const device = resolveDeviceForPayload(service, deviceSelect?.value);
     return {
@@ -352,6 +410,19 @@ export function initBookingWizard(root, options = {}) {
       landmark: q('#landmark')?.value.trim(),
       notes: q('#notes')?.value.trim(),
     };
+  }
+
+  function bindVisitModeButtons() {
+    doorstepCard?.addEventListener('click', () => {
+      setVisitMode('doorstep');
+      scheduleAutoAdvance('mode');
+    });
+    branchSlotBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setVisitMode('branch', btn.dataset.branchSlot || '');
+        scheduleAutoAdvance('mode');
+      });
+    });
   }
 
   function bindWizardButtons() {
@@ -440,6 +511,7 @@ export function initBookingWizard(root, options = {}) {
     });
   });
 
+  bindVisitModeButtons();
   bindWizardButtons();
   applyServiceChange();
   showStep(0);
@@ -478,8 +550,11 @@ export function initBookingWizard(root, options = {}) {
     resetBookingSuccessPanelUi(root);
     const rule = getServiceRule(payload.service);
     populateBookingSummary(successSummary, payload, {
-      showDevice: rule.mode !== 'fixed',
+      showDevice: visitMode !== 'branch' && rule.mode !== 'fixed',
+      branch: visitMode === 'branch',
     });
+
+    applyVisitModeSuccessCopy(root, visitMode === 'branch');
 
     if (fee && fee.amountInr > 0) {
       root.dataset.payState = 'unpaid';
@@ -516,7 +591,7 @@ export function initBookingWizard(root, options = {}) {
         address: q('#address-line')?.value,
         landmark: q('#landmark')?.value,
         notes: q('#notes')?.value,
-      });
+      }, { requireAddress: visitMode !== 'branch' });
       if (!details.ok) {
         showError(details.message, details.fieldId);
         return;
@@ -553,6 +628,9 @@ export function initBookingWizard(root, options = {}) {
       serviceSelect.value = '';
     }
     clearTimeout(autoAdvanceTimer);
+    visitMode = '';
+    branchSlot = '';
+    renderVisitMode();
     if (context === 'modal' || context === 'page') {
       intro?.classList.add('hidden');
     } else {

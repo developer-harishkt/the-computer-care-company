@@ -92,7 +92,7 @@ export function validateNotes(notes) {
  * @param {{ name?: string, email?: string, phone?: string, address?: string, landmark?: string, notes?: string }} fields
  * @returns {{ ok: true, normalized: { name: string, email: string, phone: string, address: string, landmark: string, notes: string } } | { ok: false, message: string, fieldId?: string }}
  */
-export function validateBookingDetails(fields) {
+export function validateBookingDetails(fields, { requireAddress = true } = {}) {
   const nameErr = validateName(fields.name);
   if (nameErr) return { ok: false, message: nameErr, fieldId: 'full-name' };
 
@@ -102,7 +102,7 @@ export function validateBookingDetails(fields) {
   const emailErr = validateEmail(fields.email);
   if (emailErr) return { ok: false, message: emailErr, fieldId: 'email' };
 
-  const addressErr = validateAddress(fields.address);
+  const addressErr = requireAddress ? validateAddress(fields.address) : null;
   if (addressErr) return { ok: false, message: addressErr, fieldId: 'address-line' };
 
   const landmarkErr = validateLandmark(fields.landmark);

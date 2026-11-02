@@ -33,6 +33,31 @@
            text-slate-700 hover:bg-slate-50 transition-colors min-h-[3rem] sm:min-h-[2.75rem] px-4;
   }
 
+  /* Doorstep / branch choice — same border, hover and active treatment as the service chips */
+  .visit-mode-card {
+    @apply block w-full text-left rounded-xl border border-slate-200 bg-white p-4 transition-all duration-200
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400;
+  }
+
+  button.visit-mode-card {
+    @apply hover:border-blue-300 hover:bg-blue-50/50;
+  }
+
+  .visit-mode-card[aria-pressed='true'],
+  .visit-mode-card[data-active='true'] {
+    @apply border-blue-600 bg-blue-50 shadow-sm;
+  }
+
+  .branch-slot-btn {
+    @apply w-full text-left rounded-lg border border-slate-200 bg-white px-3 py-3 text-[13px] sm:text-sm font-semibold
+           leading-snug text-slate-800 transition-all duration-200 min-h-[44px]
+           hover:border-blue-300 hover:bg-blue-50/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400;
+  }
+
+  .branch-slot-btn[aria-pressed='true'] {
+    @apply border-blue-600 bg-blue-50 text-blue-900 shadow-sm;
+  }
+
   .book-label-required::after {
     content: ' *';
     @apply text-red-600 font-bold;
