@@ -4,7 +4,6 @@ import {
   getVisitFee,
   resolveDeviceForPayload,
 } from './book-service-config.js';
-import { initAddressSearch } from './address-search.js';
 import {
   mountFlatChoicePicker,
   mountGroupedChoicePicker,
@@ -432,15 +431,6 @@ export function initBookingWizard(root, options = {}) {
       },
     });
   }
-
-  initAddressSearch(
-    q('#address-search'),
-    q('#address-suggestions'),
-    (line) => {
-      const lineInput = q('#address-line');
-      if (lineInput) lineInput.value = line;
-    },
-  );
 
   detailFieldIds.forEach((id) => {
     const el = q(`#${id}`);
