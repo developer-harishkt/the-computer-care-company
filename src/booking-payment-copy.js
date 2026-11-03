@@ -18,7 +18,7 @@ export const PAYMENT_PAGE = {
   },
   /** TODO(owner): Confirm GST wording and whether visit fee adjusts against repair. */
   visitFeeHint:
-    'Visit / diagnostics fee only — parts and extra repair work are quoted after inspection.',
+    'Diagnostic fee only — parts and extra repair work are quoted after inspection.',
   razorpayHint: 'Secure payment by Razorpay · UPI, cards, netbanking',
   consentLine:
     'By paying you agree to our Terms and Cancellation Policy (10% charge applies to cancellations after payment).',

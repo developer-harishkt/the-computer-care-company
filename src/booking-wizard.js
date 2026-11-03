@@ -280,7 +280,7 @@ export function initBookingWizard(root, options = {}) {
       const fee = getVisitFee(effectiveService(), deviceSelect?.value);
       items.push({
         step: 'service',
-        label: 'Visit fee',
+        label: 'Diagnostic fee',
         value: fee ? formatInr(fee.amountInr) : 'No online fee',
       });
     }

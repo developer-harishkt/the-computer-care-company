@@ -4,7 +4,7 @@ const MODAL_HEADERS = {
   booking: { title: 'Book your visit', subtitle: 'On-site service · Chennai' },
   'saved-unpaid': {
     title: 'Complete your booking',
-    subtitle: 'Pay the visit fee to confirm',
+    subtitle: 'Pay the diagnostic fee to confirm',
   },
   paid: { title: 'Booking confirmed', subtitle: 'On-site service · Chennai' },
   received: {

@@ -30,7 +30,7 @@ export function showPaymentReceivedNotice(details = {}) {
   const name = details.customerName?.trim();
   const keyLine = key
     ? `Reference: ${key.length > 24 ? `${key.slice(0, 22)}…` : key}`
-    : 'Your visit fee is recorded.';
+    : 'Your diagnostic fee is recorded.';
 
   const notice = document.createElement('div');
   notice.id = 'booking-payment-received-notice';

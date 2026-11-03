@@ -130,7 +130,7 @@ export function getVisitFee(service, device) {
   }
   const key = normalizeService(service);
   if (!key || NO_ONLINE_FEE_SERVICES.has(key)) return null;
-  return { amountInr: DEFAULT_VISIT_FEE_INR, label: 'Visit / diagnostics fee' };
+  return { amountInr: DEFAULT_VISIT_FEE_INR, label: 'Diagnostic fee' };
 }
 
 export function formatInr(amount) {
