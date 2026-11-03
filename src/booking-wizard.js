@@ -616,7 +616,7 @@ export function initBookingWizard(root, options = {}) {
     }
   }
 
-  function showBookingSuccess(payload, bookingKey) {
+  function showBookingSuccess(payload, bookingKey, { alreadyPaid = false } = {}) {
     intro?.classList.add('hidden');
     const fee = getVisitFee(payload.service, payload.device);
     const headerVariant =
@@ -642,6 +642,7 @@ export function initBookingWizard(root, options = {}) {
 
     if (fee && fee.amountInr > 0) {
       root.dataset.payState = 'unpaid';
+      if (alreadyPaid) visitFeePayment?.markAlreadyPaid(payload, bookingKey);
     } else {
       setBookingSuccessReceivedPanel(root);
     }
@@ -701,7 +702,7 @@ export function initBookingWizard(root, options = {}) {
         return;
       }
 
-      showBookingSuccess(payload, result.bookingKey || '');
+      showBookingSuccess(payload, result.bookingKey || '', { alreadyPaid: result.alreadyPaid });
     });
   }
 

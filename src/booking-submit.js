@@ -82,7 +82,8 @@ export async function submitBookingToSheet(payload) {
   if (result.data?.status === 'success') {
     const bookingKey =
       result.data.bookingKey || buildBookingKeyFromPayload(payload);
-    return { ok: true, bookingKey };
+    // Newer Code.gs: this exact booking is already paid (e.g. resent after a reload).
+    return { ok: true, bookingKey, alreadyPaid: result.data.alreadyPaid === true };
   }
 
   return {
@@ -104,6 +105,10 @@ export async function createVisitFeeOrder({ service, device, bookingKey }) {
   });
 
   if (!result.ok) return result;
+
+  if (result.data?.status === 'already-paid') {
+    return { ok: false, alreadyPaid: true, message: 'This booking is already paid.' };
+  }
 
   if (result.data?.status === 'success' && result.data.orderId) {
     return {

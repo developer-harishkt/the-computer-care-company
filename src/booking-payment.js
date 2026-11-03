@@ -342,6 +342,13 @@ export function initVisitFeePayment(root, hooks) {
       return;
     }
 
+    if (orderResult.alreadyPaid) {
+      // Server says this booking is already paid: never open a second checkout.
+      releasePayAttempt(defaultLabel);
+      applyPaidSuccessUi(root, payload, bookingKey);
+      return;
+    }
+
     if (!orderResult.ok) {
       completeCheckoutSession(session, { message: orderResult.message });
       payBtn.textContent = defaultLabel;
@@ -494,6 +501,11 @@ export function initVisitFeePayment(root, hooks) {
   });
 
   return {
+    /** Booking was already paid (server said so on submit): show the paid state, no Pay button. */
+    markAlreadyPaid(payload, bookingKey) {
+      block.classList.remove('hidden');
+      applyPaidSuccessUi(root, payload, bookingKey);
+    },
     refresh(payload, bookingKey) {
       const fee = getVisitFee(payload.service, payload.device);
       resetPayUi();

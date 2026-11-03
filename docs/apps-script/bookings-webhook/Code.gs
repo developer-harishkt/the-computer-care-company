@@ -201,7 +201,27 @@ function createRazorpayOrder(amountPaise, receipt, service, device) {
   return JSON.parse(body);
 }
 
-function handleCreateOrder(data) {
+/**
+ * True if any row with this booking reference is already marked Paid.
+ * Guards against a second Razorpay order (and a second payment) for the same booking,
+ * e.g. after the customer reloads the page or the first confirmation reply was lost.
+ */
+function isBookingAlreadyPaid(sheet, bookingKey) {
+  if (!bookingKey) return false;
+  const last = sheet.getLastRow();
+  if (last < 2) return false;
+  const width = COL_BOOKING_REF - COL_PAYMENT_STATUS + 1;
+  const refIdx = COL_BOOKING_REF - COL_PAYMENT_STATUS;
+  const values = sheet.getRange(2, COL_PAYMENT_STATUS, last - 1, width).getValues();
+  for (let i = values.length - 1; i >= 0; i--) {
+    if (String(values[i][refIdx]) === String(bookingKey) && String(values[i][0]) === PAY_STATUS_PAID) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function handleCreateOrder(sheet, data) {
   try {
     const service = data.service && String(data.service).trim();
     const device = data.device && String(data.device).trim();
@@ -218,6 +238,9 @@ function handleCreateOrder(data) {
     }
     if (!data.bookingKey) {
       return jsonResponse({ error: 'Missing booking reference' });
+    }
+    if (isBookingAlreadyPaid(sheet, data.bookingKey)) {
+      return jsonResponse({ status: 'already-paid' });
     }
 
     const order = createRazorpayOrder(amountPaise, data.bookingKey, service, device);
@@ -395,7 +418,7 @@ function buildWizardIssue(data) {
 
 function handleWebsiteWizardPost(sheet, data) {
   if (data.action === 'create-order') {
-    return handleCreateOrder(data);
+    return handleCreateOrder(sheet, data);
   }
   if (data.action === 'verify-payment') {
     return handleVerifyPayment(sheet, data);
@@ -432,6 +455,11 @@ function handleWebsiteWizardPost(sheet, data) {
   const bookingKey = buildBookingKey(name, email, phone, dateOnly, timeOnly);
   const service = data.service && String(data.service).trim();
   const device = data.device && String(data.device).trim();
+
+  // Same booking sent again after it was paid (e.g. page reload): don't add a duplicate row.
+  if (isBookingAlreadyPaid(sheet, bookingKey)) {
+    return jsonResponse({ status: 'success', bookingKey: bookingKey, alreadyPaid: true });
+  }
 
   appendBookingsRow(sheet, dateOnly, timeOnly, name, email, phone, address, issue, {
     paymentStatus: paymentStatusForWizardBooking(service, device),
