@@ -256,3 +256,12 @@ export function whatsAppMessage(service, task) {
   if (task === OTHER_TASK) return `Hi, I'd like help with ${service} — something not listed: `;
   return `Hi, I'd like help with: ${service} – ${task}`;
 }
+
+/*
+ * After the customer's details are saved (Karthik, Modifications 3-11-26):
+ * Subscriptions → Subscription details page; AMC → WhatsApp.
+ */
+export const AFTER_BOOKING_REDIRECTS = {
+  Subscriptions: { kind: 'page', url: '/subscriptions', label: 'our subscription plans' },
+  'AMC & corporate solutions': { kind: 'whatsapp', label: 'WhatsApp' },
+};

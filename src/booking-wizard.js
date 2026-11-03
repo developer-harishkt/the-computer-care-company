@@ -13,6 +13,7 @@ import {
   WHATSAPP_ONLY_SERVICES,
   whatsAppMessage,
   whatsAppUrl,
+  AFTER_BOOKING_REDIRECTS,
 } from './book-service-config.js';
 import {
   mountFlatChoicePicker,
@@ -840,10 +841,32 @@ export function initBookingWizard(root, options = {}) {
       }
 
       showBookingSuccess(payload, result.bookingKey || '', { alreadyPaid: result.alreadyPaid });
+      redirectAfterBooking(payload);
     });
   }
 
+  /** Subscriptions → subscription details page; AMC → WhatsApp (after the details are saved). */
+  const REDIRECT_DELAY_MS = 2500;
+  let redirectTimer = null;
+  function redirectAfterBooking(payload) {
+    const rule = visitMode === 'branch' ? null : AFTER_BOOKING_REDIRECTS[payload.service];
+    if (!rule) return;
+    const url = rule.kind === 'whatsapp'
+      ? whatsAppUrl(`Hi, I just sent an enquiry for ${payload.service} on your website (name: ${payload.name}). Let's discuss.`)
+      : rule.url;
+    const note = q('#booking-success-redirect');
+    if (note) {
+      note.innerHTML = `Request received. Taking you to ${rule.label}&hellip; <a href="${url}" class="underline font-semibold">Go now</a>`;
+      note.classList.remove('hidden');
+    }
+    clearTimeout(redirectTimer);
+    // Same-tab navigation: a new tab opened after the network request would be blocked as a pop-up.
+    redirectTimer = setTimeout(() => window.location.assign(url), REDIRECT_DELAY_MS);
+  }
+
   function reset() {
+    clearTimeout(redirectTimer);
+    q('#booking-success-redirect')?.classList.add('hidden');
     form?.reset();
     if (serviceSelect) {
       serviceSelect.value = '';
