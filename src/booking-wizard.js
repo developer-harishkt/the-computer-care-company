@@ -7,6 +7,12 @@ import {
   formatInr,
   getVisitFee,
   resolveDeviceForPayload,
+  getServiceTasks,
+  isWhatsAppTask,
+  OTHER_TASK,
+  WHATSAPP_ONLY_SERVICES,
+  whatsAppMessage,
+  whatsAppUrl,
 } from './book-service-config.js';
 import {
   mountFlatChoicePicker,
@@ -72,6 +78,66 @@ export function initBookingWizard(root, options = {}) {
 
   let refreshDevicePicker = () => {};
   let refreshServicePicker = () => {};
+  let refreshTaskPicker = () => {};
+
+  /* "What would you like us to take care of?" step (see SERVICE_TASKS). */
+  const taskSelect = q('#task-type');
+  const taskPickerEl = q('#task-picker');
+  const taskQuestion = q('#task-question');
+  const taskHint = q('#task-hint');
+  const taskFootnote = q('#task-footnote');
+  const taskWhatsAppNote = q('#task-whatsapp-note');
+  const serviceWhatsAppNote = q('#service-whatsapp-note');
+  const deviceWhatsAppNote = q('#device-whatsapp-note');
+  const HARDWARE_OTHER_DEVICE = 'Other';
+
+  /** Opens WhatsApp in a new tab (falls back to this tab if blocked). Must run inside the tap handler. */
+  function openWhatsApp(message, noteEl) {
+    const url = whatsAppUrl(message);
+    const win = window.open(url, '_blank', 'noopener');
+    if (!win) window.location.href = url;
+    if (noteEl) {
+      noteEl.innerHTML = `We&rsquo;ll continue this on WhatsApp. <a href="${url}" target="_blank" rel="noopener" class="underline font-semibold">Open WhatsApp</a> if it didn&rsquo;t open, or choose another option.`;
+      noteEl.classList.remove('hidden');
+    }
+  }
+
+  function hideWhatsAppNotes() {
+    [taskWhatsAppNote, serviceWhatsAppNote, deviceWhatsAppNote].forEach((el) => el?.classList.add('hidden'));
+  }
+
+  function currentTask() {
+    return taskSelect?.value || '';
+  }
+
+  function populateTaskOptions(serviceValue) {
+    if (!taskSelect) return;
+    const cfg = getServiceTasks(serviceValue);
+    taskSelect.innerHTML = '';
+    if (!cfg) {
+      refreshTaskPicker();
+      return;
+    }
+    [...cfg.options, OTHER_TASK].forEach((label) => {
+      const opt = document.createElement('option');
+      opt.value = label;
+      opt.textContent = label;
+      taskSelect.appendChild(opt);
+    });
+    taskSelect.value = '';
+    if (taskQuestion) taskQuestion.textContent = cfg.question;
+    if (taskHint) {
+      taskHint.textContent = cfg.whatsappOnly
+        ? 'Pick what you have in mind — we’ll plan it with you on WhatsApp.'
+        : 'Pick the closest fit.';
+    }
+    if (taskFootnote) {
+      taskFootnote.textContent = cfg.whatsappOnly
+        ? 'Every option opens WhatsApp'
+        : 'Tap an option to continue · “Other” opens WhatsApp';
+    }
+    refreshTaskPicker();
+  }
 
   const steps = [...qa('[data-wizard-step]')];
   let stepIndex = 0;
@@ -195,9 +261,17 @@ export function initBookingWizard(root, options = {}) {
     } else {
       const service = serviceSelect?.value;
       const rule = getServiceRule(service);
-      stepPlan = rule.mode === 'fixed'
-        ? ['mode', 'service', 'schedule', 'details']
-        : ['mode', 'service', 'device', 'schedule', 'details'];
+      const tasks = getServiceTasks(service);
+      if (WHATSAPP_ONLY_SERVICES.has(service)) {
+        stepPlan = ['mode', 'service'];
+      } else if (tasks?.whatsappOnly) {
+        stepPlan = ['mode', 'service', 'task'];
+      } else {
+        stepPlan = rule.mode === 'fixed'
+          ? ['mode', 'service', 'schedule', 'details']
+          : ['mode', 'service', 'device', 'schedule', 'details'];
+        if (tasks) stepPlan.splice(2, 0, 'task');
+      }
     }
     detailsAddress?.classList.toggle('hidden', visitMode === 'branch');
   }
@@ -270,6 +344,9 @@ export function initBookingWizard(root, options = {}) {
       const serviceLabel = service === HARDWARE_SERVICE && JOB_LABELS[jobType] ? JOB_LABELS[jobType] : service;
       items.push({ step: 'service', label: 'Service', value: truncateLabel(serviceLabel) });
     }
+    if (service && getServiceTasks(service) && currentTask() && !isWhatsAppTask(service, currentTask())) {
+      items.push({ step: 'task', label: 'Need', value: truncateLabel(currentTask()) });
+    }
 
     const rule = service ? getServiceRule(service) : null;
     if (rule && rule.mode !== 'fixed' && deviceSelect?.value) {
@@ -319,12 +396,16 @@ export function initBookingWizard(root, options = {}) {
     const labels = {
       mode: 'Doorstep or branch',
       service: 'What you need',
+      task: 'The details',
       device: 'Your device',
       schedule: 'When we visit',
       details: 'Where & contact',
     };
     // A paid doorstep booking has one more step after "Send request": paying the visit fee.
-    const fee = visitMode === 'doorstep' ? getVisitFee(effectiveService(), deviceSelect?.value) : null;
+    // WhatsApp-only flows (no "details" step) never reach payment.
+    const fee = visitMode === 'doorstep' && stepPlan.includes('details')
+      ? getVisitFee(effectiveService(), deviceSelect?.value)
+      : null;
     const total = stepPlan.length + (fee ? 1 : 0);
     const label = id === 'details' ? 'Contact · send request' : labels[id];
     if (progressLabel) {
@@ -384,6 +465,8 @@ export function initBookingWizard(root, options = {}) {
     if (!service) {
       lastServiceForDevices = '';
       jobType = 'repair';
+      populateTaskOptions('');
+      hideWhatsAppNotes();
       renderJobType();
       rebuildStepPlan();
       return;
@@ -395,7 +478,11 @@ export function initBookingWizard(root, options = {}) {
     if (rule.mode !== 'fixed' && service !== lastServiceForDevices) {
       populateDeviceOptions(service);
     }
-    if (service !== lastServiceForDevices) jobType = 'repair';
+    if (service !== lastServiceForDevices) {
+      jobType = 'repair';
+      populateTaskOptions(service);
+      hideWhatsAppNotes();
+    }
     renderJobType();
     lastServiceForDevices = service;
   }
@@ -407,9 +494,22 @@ export function initBookingWizard(root, options = {}) {
     }
     if (id === 'service') {
       if (!serviceSelect?.value) return 'Please choose a service to continue.';
+      if (WHATSAPP_ONLY_SERVICES.has(serviceSelect.value)) {
+        return 'We plan this with you on WhatsApp — or choose another service.';
+      }
+    }
+    if (id === 'task') {
+      const service = serviceSelect?.value;
+      if (!currentTask()) return 'Please choose what you’d like us to take care of.';
+      if (isWhatsAppTask(service, currentTask())) {
+        return 'This one continues on WhatsApp — or choose another option.';
+      }
     }
     if (id === 'device') {
       if (!deviceSelect?.value) return 'Please tell us which device we should expect.';
+      if (serviceSelect?.value === HARDWARE_SERVICE && deviceSelect.value === HARDWARE_OTHER_DEVICE) {
+        return 'Other devices continue on WhatsApp — or choose a device from the list.';
+      }
     }
     if (id === 'schedule') {
       if (!hasScheduleSelection()) {
@@ -536,16 +636,43 @@ export function initBookingWizard(root, options = {}) {
 
   if (servicePickerEl && serviceSelect) {
     refreshServicePicker = mountGroupedChoicePicker(servicePickerEl, serviceSelect, {
-      onChange: () => {
+      onChange: (value) => {
         applyServiceChange();
+        updateProgress();
+        if (WHATSAPP_ONLY_SERVICES.has(value)) {
+          openWhatsApp(whatsAppMessage(value), serviceWhatsAppNote);
+          return;
+        }
         if (currentStepId() === 'service') scheduleAutoAdvance('service');
+      },
+    });
+  }
+
+  if (taskPickerEl && taskSelect) {
+    refreshTaskPicker = mountFlatChoicePicker(taskPickerEl, taskSelect, {
+      ariaLabel: 'What you need',
+      onChange: (value) => {
+        const service = serviceSelect?.value;
+        clearError();
+        updateSelectionTrail();
+        if (isWhatsAppTask(service, value)) {
+          openWhatsApp(whatsAppMessage(service, value), taskWhatsAppNote);
+          return;
+        }
+        taskWhatsAppNote?.classList.add('hidden');
+        if (currentStepId() === 'task') scheduleAutoAdvance('task');
       },
     });
   }
 
   if (devicePickerEl && deviceSelect) {
     refreshDevicePicker = mountFlatChoicePicker(devicePickerEl, deviceSelect, {
-      onChange: () => {
+      onChange: (value) => {
+        if (serviceSelect?.value === HARDWARE_SERVICE && value === HARDWARE_OTHER_DEVICE) {
+          openWhatsApp(`Hi, I need hardware repair for a device not in your list: `, deviceWhatsAppNote);
+          return;
+        }
+        deviceWhatsAppNote?.classList.add('hidden');
         if (currentStepId() === 'device') scheduleAutoAdvance('device');
       },
     });
@@ -684,6 +811,9 @@ export function initBookingWizard(root, options = {}) {
         // The address fields are hidden for branch visits; never send what was typed for a doorstep visit.
         payload.address = '';
         payload.landmark = '';
+      } else if (getServiceTasks(payload.service) && currentTask()) {
+        // Code.gs shows notes in the booking's Issue column, so the chosen need travels with the booking.
+        payload.notes = payload.notes ? `${currentTask()} — ${payload.notes}` : currentTask();
       }
       if (submitBtn) {
         submitBtn.disabled = true;

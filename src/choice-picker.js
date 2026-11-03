@@ -79,7 +79,7 @@ export function mountGroupedChoicePicker(container, selectEl, { onChange } = {})
 /**
  * Flat chip grid from all enabled <option>s in a select.
  */
-export function mountFlatChoicePicker(container, selectEl, { onChange } = {}) {
+export function mountFlatChoicePicker(container, selectEl, { onChange, ariaLabel = 'Device type' } = {}) {
   if (!container || !selectEl) return () => {};
 
   function render() {
@@ -89,7 +89,7 @@ export function mountFlatChoicePicker(container, selectEl, { onChange } = {}) {
     const grid = document.createElement('div');
     grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2';
     grid.setAttribute('role', 'listbox');
-    grid.setAttribute('aria-label', 'Device type');
+    grid.setAttribute('aria-label', ariaLabel);
 
     [...selectEl.options].forEach((opt) => {
       if (!opt.value) return;

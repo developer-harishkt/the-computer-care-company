@@ -166,6 +166,22 @@
             <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
         </div>
         <p class="text-center text-xs text-slate-400">Tap a service to continue</p>
+        <p id="service-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
+    </div>
+
+    <!-- What would you like us to take care of? / What are we building? (per service, see SERVICE_TASKS) -->
+    <div id="step-task" data-wizard-step="task" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1"><span id="task-question">What would you like us to take care of?</span> <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p id="task-hint" class="text-sm text-slate-500 mb-4">Pick the closest fit.</p>
+            <select id="task-type" class="sr-only" tabindex="-1" aria-hidden="true"></select>
+            <div id="task-picker"></div>
+        </div>
+        <p id="task-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p id="task-footnote" class="text-center text-xs text-slate-400">Tap an option to continue</p>
     </div>
 
     <div id="step-device" data-wizard-step="device" class="hidden space-y-6">
@@ -183,6 +199,7 @@
             <select id="device-type" name="device" class="sr-only" tabindex="-1" aria-hidden="true"></select>
             <div id="device-picker"></div>
         </div>
+        <p id="device-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
         <div class="flex flex-col-reverse sm:flex-row gap-3">
             <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
         </div>

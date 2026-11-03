@@ -150,3 +150,109 @@ export function formatInr(amount) {
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
+/* ── "What would you like us to take care of?" (Karthik, Modifications 3-11-26) ──────────────
+ * An extra step after the service. "Other" is added to every list and always continues on WhatsApp.
+ * whatsappOnly: every option continues on WhatsApp (no online booking for these yet).
+ * The chosen option is saved in the booking notes, so Code.gs needs no change.
+ */
+export const WHATSAPP_NUMBER = '917010481012';
+export const OTHER_TASK = 'Other';
+
+const TAKE_CARE = 'What would you like us to take care of?';
+const BUILDING = 'What are we building for you today?';
+
+export const SERVICE_TASKS = {
+  'OS & software care': {
+    question: TAKE_CARE,
+    options: [
+      'OS Inspection & Fixes',
+      'OS Installation, Upgrades & Migration',
+      'OS Customisation & Dual Boot',
+      'OS Maintenance & Cleanup',
+      'Software Installation & Setup',
+    ],
+  },
+  'Network & security': {
+    question: TAKE_CARE,
+    options: [
+      'Network Setup & Configuration',
+      'Wi-Fi & Mesh Setup',
+      'Network Troubleshooting & Support',
+      'Network Optimisation & Expansion',
+      'Network Security Configuration',
+    ],
+  },
+  'Backup & recovery': {
+    question: TAKE_CARE,
+    options: [
+      'SSD / Hard Disk & NAS Services',
+      'System, External & Cloud Backup',
+      'Data Migration & Transfer',
+      'Backup Restoration',
+      'Data Recovery & Assessment',
+    ],
+  },
+  'Custom PC': {
+    question: BUILDING,
+    whatsappOnly: true,
+    options: [
+      'Budget, System & Mini PC Builds',
+      'Gaming & Water-Cooled Builds',
+      'Creator, Professional & AI Workstations',
+      'Custom Keyboards & Keycaps',
+      'Speakers, Monitors & Audio Interfaces',
+      'Microphones, DACs & Audio Accessories',
+    ],
+  },
+  'Storage / NAS setup': {
+    question: BUILDING,
+    whatsappOnly: true,
+    options: ['NAS installation & setup', 'Custom NAS Build'],
+  },
+  'Network setup': {
+    question: BUILDING,
+    whatsappOnly: true,
+    options: [
+      'Structured Cabling & Ethernet Setup',
+      'Network Rack & Switch Installation',
+      'Wireless Access Point Installation',
+      'Firewall & VPN Configuration',
+      'Multi-WAN & Internet Failover Setup',
+    ],
+  },
+  'CCTV installation': {
+    question: BUILDING,
+    whatsappOnly: true,
+    options: [
+      'IP Camera & PoE Networking',
+      'Smart CCTV & Mobile App Configuration',
+      'Camera Upgrades & System Expansion',
+      'NVR/DVR & Storage Management',
+    ],
+  },
+};
+
+/** Services that go straight to WhatsApp when tapped. */
+export const WHATSAPP_ONLY_SERVICES = new Set(['Server build']);
+
+export function getServiceTasks(serviceValue) {
+  return SERVICE_TASKS[serviceValue] || null;
+}
+
+/** True when this task choice must continue on WhatsApp instead of the booking form. */
+export function isWhatsAppTask(serviceValue, task) {
+  const cfg = getServiceTasks(serviceValue);
+  return Boolean(cfg && task && (cfg.whatsappOnly || task === OTHER_TASK));
+}
+
+export function whatsAppUrl(message) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+/** Prefilled WhatsApp message for a service (+ optional task / device). */
+export function whatsAppMessage(service, task) {
+  if (!task) return `Hi, I'd like to enquire about: ${service}`;
+  if (task === OTHER_TASK) return `Hi, I'd like help with ${service} — something not listed: `;
+  return `Hi, I'd like help with: ${service} – ${task}`;
+}
