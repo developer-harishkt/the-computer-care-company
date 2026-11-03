@@ -86,11 +86,11 @@ export function initBookingWizard(root, options = {}) {
   const branchSlotBtns = [...qa('[data-branch-slot]')];
   const detailsAddress = q('#details-address');
 
-  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (by device) | 'install' (₹600). */
+  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (₹549–699 by device) | 'install' (from ₹259). */
   let jobType = 'repair';
   const jobTypeWrap = q('#job-type-wrap');
   const jobTypeBtns = [...qa('[data-job-type]')];
-  const JOB_LABELS = { cleaning: 'Servicing & cleaning', install: 'RAM / SSD / GPU install' };
+  const JOB_LABELS = { cleaning: 'Service', install: 'All component installation' };
 
   /** Service name sent to the Sheet and used for the fee (cleaning / install keep their old names and prices). */
   function effectiveService() {
@@ -280,7 +280,7 @@ export function initBookingWizard(root, options = {}) {
       const fee = getVisitFee(effectiveService(), deviceSelect?.value);
       items.push({
         step: 'service',
-        label: 'Diagnostic fee',
+        label: fee?.label || 'Diagnostic fee',
         value: fee ? formatInr(fee.amountInr) : 'No online fee',
       });
     }

@@ -25,20 +25,22 @@ const NO_ONLINE_FEE_SERVICES = [
   'Corporate / AMC enquiry',
 ];
 
-const COMPONENT_INSTALL_FEE_INR = 600;
+// Service ₹549–699, components from ₹259 (Modifications 3-11-26). ASSUMED split until Karthik confirms:
+// Desktop ₹549, every other device ₹699; components ₹259 online. Must match src/book-service-config.js.
+const COMPONENT_INSTALL_FEE_INR = 259;
 
 function getVisitFeePaise(service, device) {
   const s = service ? String(service).trim() : '';
   const d = device ? String(device).trim() : '';
   if (!s || NO_ONLINE_FEE_SERVICES.indexOf(s) !== -1) return 0;
-  // Hardware jobs keep their own prices (must match src/book-service-config.js).
+  // Hardware jobs have their own prices (must match src/book-service-config.js).
   if (s === 'Laptop or desktop servicing (cleaning)') {
     const map = {
-      'Desktop PC': 599,
-      'MacBook / Apple laptop': 999,
-      'Gaming laptop': 999,
+      'Desktop PC': 549,
+      'MacBook / Apple laptop': 699,
+      'Gaming laptop': 699,
       'Windows laptop': 699,
-      'All-in-one desktop': 1099,
+      'All-in-one desktop': 699,
       'Other': 699,
       'Other / not sure': 699,
     };

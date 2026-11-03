@@ -1,4 +1,5 @@
 import { formatInr, getVisitFee } from './book-service-config.js';
+import { PAYMENT_PAGE } from './booking-payment-copy.js';
 import { createVisitFeeOrder, verifyVisitFeePayment } from './booking-submit.js';
 import { setModalBookingHeaderPaid, setBookingSuccessPaidPanel } from './booking-success-ui.js';
 import {
@@ -521,6 +522,16 @@ export function initVisitFeePayment(root, hooks) {
         return;
       }
       if (payService) payService.textContent = payload.service || 'On-site visit';
+      const feeLabel = root.querySelector('.booking-success-fee-row__label');
+      if (feeLabel) feeLabel.textContent = fee.label || 'Diagnostic fee';
+      // Service / component jobs are not a diagnostic fee, so drop "Diagnostic fee only" from the hint.
+      // Set every time: the same popup can be reused for a different job.
+      if (feeHint) {
+        feeHint.textContent =
+          fee.label && fee.label !== 'Diagnostic fee'
+            ? 'Parts and extra repair work are quoted after inspection.'
+            : PAYMENT_PAGE.visitFeeHint;
+      }
       if (payAmount) payAmount.textContent = formatInr(fee.amountInr);
       payBtn.textContent = `Pay ${formatInr(fee.amountInr)} to confirm your slot`;
     },

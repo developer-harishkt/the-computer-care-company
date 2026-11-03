@@ -98,21 +98,26 @@ export function resolveDeviceForPayload(serviceValue, deviceSelectValue, fixedDi
 /** On-site visit fee in INR (parts and repair work quoted after inspection). Must match Code.gs. */
 export const DEFAULT_VISIT_FEE_INR = 189;
 
-/** Hardware jobs keep their own (pre-Nov 2026) prices. Sent under these names; Code.gs prices them the same way. */
+/** Hardware jobs have their own prices. Sent under these names; Code.gs prices them the same way. */
 export const HARDWARE_SERVICE = 'Hardware repair & maintenance';
 export const CLEANING_SERVICE = 'Laptop or desktop servicing (cleaning)';
 export const COMPONENT_INSTALL_SERVICE = 'Component install (RAM / SSD / GPU)';
 
+/*
+ * Service ₹549–699 and component installation from ₹259 (Karthik, Modifications 3-11-26).
+ * ASSUMED until Karthik confirms the split: Desktop ₹549, every other device ₹699; components ₹259 online,
+ * extra parts quoted on the visit. Must match Code.gs getVisitFeePaise().
+ */
 const CLEANING_FEE_BY_DEVICE = {
-  'Desktop PC': 599,
-  'MacBook / Apple laptop': 999,
-  'Gaming laptop': 999,
+  'Desktop PC': 549,
+  'MacBook / Apple laptop': 699,
+  'Gaming laptop': 699,
   'Windows laptop': 699,
-  'All-in-one desktop': 1099,
+  'All-in-one desktop': 699,
   Other: 699,
   'Other / not sure': 699,
 };
-const COMPONENT_INSTALL_FEE_INR = 600;
+const COMPONENT_INSTALL_FEE_INR = 259;
 
 /** Services with no online visit fee (sales follow-up). */
 const NO_ONLINE_FEE_SERVICES = new Set([
@@ -128,10 +133,10 @@ const NO_ONLINE_FEE_SERVICES = new Set([
  */
 export function getVisitFee(service, device) {
   if (service === CLEANING_SERVICE) {
-    return { amountInr: CLEANING_FEE_BY_DEVICE[device] ?? 699, label: 'Servicing visit fee' };
+    return { amountInr: CLEANING_FEE_BY_DEVICE[device] ?? 699, label: 'Service fee' };
   }
   if (service === COMPONENT_INSTALL_SERVICE) {
-    return { amountInr: COMPONENT_INSTALL_FEE_INR, label: 'Component install visit fee' };
+    return { amountInr: COMPONENT_INSTALL_FEE_INR, label: 'Component installation fee' };
   }
   const key = normalizeService(service);
   if (!key || NO_ONLINE_FEE_SERVICES.has(key)) return null;
