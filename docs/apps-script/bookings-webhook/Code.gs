@@ -24,9 +24,28 @@ const NO_ONLINE_FEE_SERVICES = [
   'Corporate / AMC enquiry',
 ];
 
+const COMPONENT_INSTALL_FEE_INR = 600;
+
 function getVisitFeePaise(service, device) {
   const s = service ? String(service).trim() : '';
+  const d = device ? String(device).trim() : '';
   if (!s || NO_ONLINE_FEE_SERVICES.indexOf(s) !== -1) return 0;
+  // Hardware jobs keep their own prices (must match src/book-service-config.js).
+  if (s === 'Laptop or desktop servicing (cleaning)') {
+    const map = {
+      'Desktop PC': 599,
+      'MacBook / Apple laptop': 999,
+      'Gaming laptop': 999,
+      'Windows laptop': 699,
+      'All-in-one desktop': 1099,
+      'Other': 699,
+      'Other / not sure': 699,
+    };
+    return (map[d] || 699) * 100;
+  }
+  if (s === 'Component install (RAM / SSD / GPU)') {
+    return COMPONENT_INSTALL_FEE_INR * 100;
+  }
   return DEFAULT_VISIT_FEE_INR * 100;
 }
 

@@ -1,4 +1,7 @@
 import {
+  CLEANING_SERVICE,
+  COMPONENT_INSTALL_SERVICE,
+  HARDWARE_SERVICE,
   DEVICE_OPTIONS,
   getServiceRule,
   formatInr,
@@ -82,6 +85,26 @@ export function initBookingWizard(root, options = {}) {
   const branchCard = q('[data-visit-mode-card="branch"]');
   const branchSlotBtns = [...qa('[data-branch-slot]')];
   const detailsAddress = q('#details-address');
+
+  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (by device) | 'install' (₹600). */
+  let jobType = 'repair';
+  const jobTypeWrap = q('#job-type-wrap');
+  const jobTypeBtns = [...qa('[data-job-type]')];
+  const JOB_LABELS = { cleaning: 'Servicing & cleaning', install: 'RAM / SSD / GPU install' };
+
+  /** Service name sent to the Sheet and used for the fee (cleaning / install keep their old names and prices). */
+  function effectiveService() {
+    const service = serviceSelect?.value;
+    if (service !== HARDWARE_SERVICE) return service;
+    if (jobType === 'cleaning') return CLEANING_SERVICE;
+    if (jobType === 'install') return COMPONENT_INSTALL_SERVICE;
+    return service;
+  }
+
+  function renderJobType() {
+    jobTypeWrap?.classList.toggle('hidden', serviceSelect?.value !== HARDWARE_SERVICE);
+    jobTypeBtns.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.jobType === jobType)));
+  }
 
   function scrollStepIntoView() {
     const scrollHost = root.closest('#booking-modal-mount');
@@ -244,7 +267,8 @@ export function initBookingWizard(root, options = {}) {
     }
     const service = visitMode === 'branch' ? '' : serviceSelect?.value;
     if (service) {
-      items.push({ step: 'service', label: 'Service', value: truncateLabel(service) });
+      const serviceLabel = service === HARDWARE_SERVICE && JOB_LABELS[jobType] ? JOB_LABELS[jobType] : service;
+      items.push({ step: 'service', label: 'Service', value: truncateLabel(serviceLabel) });
     }
 
     const rule = service ? getServiceRule(service) : null;
@@ -253,7 +277,7 @@ export function initBookingWizard(root, options = {}) {
     }
 
     if (visitMode === 'doorstep' && service) {
-      const fee = getVisitFee(service, deviceSelect?.value);
+      const fee = getVisitFee(effectiveService(), deviceSelect?.value);
       items.push({
         step: 'service',
         label: 'Visit fee',
@@ -300,7 +324,7 @@ export function initBookingWizard(root, options = {}) {
       details: 'Where & contact',
     };
     // A paid doorstep booking has one more step after "Send request": paying the visit fee.
-    const fee = visitMode === 'doorstep' ? getVisitFee(serviceSelect?.value, deviceSelect?.value) : null;
+    const fee = visitMode === 'doorstep' ? getVisitFee(effectiveService(), deviceSelect?.value) : null;
     const total = stepPlan.length + (fee ? 1 : 0);
     const label = id === 'details' ? 'Contact · send request' : labels[id];
     if (progressLabel) {
@@ -359,6 +383,8 @@ export function initBookingWizard(root, options = {}) {
     const service = serviceSelect?.value;
     if (!service) {
       lastServiceForDevices = '';
+      jobType = 'repair';
+      renderJobType();
       rebuildStepPlan();
       return;
     }
@@ -369,6 +395,8 @@ export function initBookingWizard(root, options = {}) {
     if (rule.mode !== 'fixed' && service !== lastServiceForDevices) {
       populateDeviceOptions(service);
     }
+    if (service !== lastServiceForDevices) jobType = 'repair';
+    renderJobType();
     lastServiceForDevices = service;
   }
 
@@ -433,7 +461,7 @@ export function initBookingWizard(root, options = {}) {
         notes: q('#notes')?.value.trim(),
       };
     }
-    const service = serviceSelect?.value;
+    const service = effectiveService();
     const device = resolveDeviceForPayload(service, deviceSelect?.value);
     return {
       service,
@@ -458,6 +486,16 @@ export function initBookingWizard(root, options = {}) {
       btn.addEventListener('click', () => {
         setVisitMode('branch', btn.dataset.branchSlot || '');
         scheduleAutoAdvance('mode');
+      });
+    });
+  }
+
+  function bindJobTypeButtons() {
+    jobTypeBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        jobType = btn.dataset.jobType || 'repair';
+        renderJobType();
+        updateSelectionTrail();
       });
     });
   }
@@ -549,6 +587,7 @@ export function initBookingWizard(root, options = {}) {
   });
 
   bindVisitModeButtons();
+  bindJobTypeButtons();
   bindWizardButtons();
   applyServiceChange();
   showStep(0);

@@ -171,6 +171,14 @@
         <div>
             <h2 class="text-lg font-bold text-slate-900 mb-1">Which device is this for? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
             <p class="text-sm text-slate-500 mb-4">Options match your service — pick the closest fit.</p>
+            <div id="job-type-wrap" class="hidden mb-5">
+                <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Type of hardware job">
+                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / not sure <span class="block text-xs font-normal text-slate-500">₹189 visit</span></button>
+                    <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Servicing &amp; cleaning <span class="block text-xs font-normal text-slate-500">₹599&ndash;1,099 by device</span></button>
+                    <button type="button" data-job-type="install" aria-pressed="false" class="branch-slot-btn">RAM / SSD / GPU install <span class="block text-xs font-normal text-slate-500">₹600</span></button>
+                </div>
+            </div>
             <select id="device-type" name="device" class="sr-only" tabindex="-1" aria-hidden="true"></select>
             <div id="device-picker"></div>
         </div>
