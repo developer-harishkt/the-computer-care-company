@@ -37,3 +37,7 @@
   from = "/schedule-visit"
   to = "/schedule-visit.html"
   status = 200
+[[redirects]]
+  from = "/grievance"
+  to = "/grievance.html"
+  status = 200

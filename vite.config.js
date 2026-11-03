@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
           terms: 'terms.html',
           about: 'about.html',
           subscriptions: 'subscriptions.html',
+          grievance: 'grievance.html',
         },
       },
     },
