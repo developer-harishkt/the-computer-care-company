@@ -5,7 +5,7 @@ export const SERVICE_RULES = {
   'Hardware repair & maintenance': { mode: 'choose', group: 'hardware' },
   'OS & software care': { mode: 'choose', group: 'computers' },
   'Network & security': { mode: 'choose', group: 'netsec' },
-  'Backup & recovery': { mode: 'choose', group: 'computers' },
+  'Backup & recovery': { mode: 'choose', group: 'backup' },
   // New Systems & Infrastructure
   'Custom PC': { mode: 'choose', group: 'desktops' },
   'Storage / NAS setup': { mode: 'fixed', fixedLabel: 'Storage / NAS' },
@@ -17,10 +17,10 @@ export const SERVICE_RULES = {
   'AMC & corporate solutions': { mode: 'fixed', fixedLabel: 'Business — multiple devices' },
 };
 
+/** Apple/Mac: OS & software and Network & security only (Karthik, Modifications 3-11-26). */
 export const DEVICE_OPTIONS = {
   all: [
     { value: 'Windows laptop', label: 'Windows laptop' },
-    { value: 'MacBook / Apple laptop', label: 'MacBook / Apple laptop' },
     { value: 'Gaming laptop', label: 'Gaming laptop' },
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
@@ -33,14 +33,19 @@ export const DEVICE_OPTIONS = {
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
   ],
+  backup: [
+    { value: 'Windows laptop', label: 'Windows laptop' },
+    { value: 'Gaming laptop', label: 'Gaming laptop' },
+    { value: 'Desktop PC', label: 'Desktop PC' },
+    { value: 'All-in-one desktop', label: 'All-in-one desktop' },
+  ],
   hardware: [
     { value: 'Windows laptop', label: 'Windows laptop' },
-    { value: 'MacBook / Apple laptop', label: 'MacBook / Apple laptop' },
     { value: 'Gaming laptop', label: 'Gaming laptop' },
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
     { value: 'Printer / scanner', label: 'Printer / scanner' },
-    { value: 'Other', label: 'Other / not sure' },
+    { value: 'Other', label: 'Other' },
   ],
   netsec: [
     { value: 'Windows laptop', label: 'Windows laptop' },
