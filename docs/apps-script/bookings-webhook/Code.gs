@@ -1,6 +1,7 @@
 const COL_NAME = 3;   // C
 const COL_EMAIL = 4;  // D
 const COL_PHONE = 5;  // E
+const COL_ADDRESS = 6; // F
 const COL_ISSUE = 7;  // G
 const COL_STATUS = 8; // H
 const COL_SEND = 9;   // I
@@ -98,44 +99,43 @@ function timesLikelyMatch(cellValue, timeFromKey) {
   return String(cellValue).trim() === String(timeFromKey).trim();
 }
 
-function rowMatchesBookingParts(sheet, row, parts) {
-  const name = String(sheet.getRange(row, COL_NAME).getValue());
-  const email = String(sheet.getRange(row, COL_EMAIL).getValue());
-  const phone = String(sheet.getRange(row, COL_PHONE).getValue());
-  const date = sheet.getRange(row, 1).getValue();
-  const time = sheet.getRange(row, 2).getValue();
+/** All booking rows (from row 2) as values, read in one call. Columns A..M. */
+function readBookingRows(sheet) {
+  const last = sheet.getLastRow();
+  if (last < 2) return [];
+  return sheet.getRange(2, 1, last - 1, COL_BOOKING_REF).getValues();
+}
+
+function rowValuesMatchBookingParts(row, parts) {
   return (
-    name === parts.name &&
-    email === parts.email &&
-    phone === parts.phone &&
-    cellDateToIso(date) === String(parts.date).trim() &&
-    timesLikelyMatch(time, parts.time)
+    String(row[COL_NAME - 1]) === parts.name &&
+    String(row[COL_EMAIL - 1]) === parts.email &&
+    String(row[COL_PHONE - 1]) === parts.phone &&
+    cellDateToIso(row[0]) === String(parts.date).trim() &&
+    timesLikelyMatch(row[1], parts.time)
   );
 }
 
-function findBookingRow(sheet, bookingKey) {
+/**
+ * Sheet row number for a booking reference, or 0.
+ * Reads the sheet once (a cell-by-cell loop was very slow on a large sheet).
+ */
+function findBookingRow(sheet, bookingKey, rowsOpt) {
   if (!bookingKey) return 0;
-  const last = sheet.getLastRow();
-  for (let r = last; r >= 2; r--) {
-    const ref = sheet.getRange(r, COL_BOOKING_REF).getValue();
-    if (String(ref) === String(bookingKey)) {
-      return r;
-    }
+  const rows = rowsOpt || readBookingRows(sheet);
+  const key = String(bookingKey);
+  for (let i = rows.length - 1; i >= 0; i--) {
+    if (String(rows[i][COL_BOOKING_REF - 1]) === key) return i + 2;
   }
   // Legacy rows before column M (ref embedded in column G)
-  const needle = 'ref:' + bookingKey;
-  for (let r = last; r >= 2; r--) {
-    const issue = sheet.getRange(r, COL_ISSUE).getValue();
-    if (String(issue).indexOf(needle) !== -1) {
-      return r;
-    }
+  const needle = 'ref:' + key;
+  for (let i = rows.length - 1; i >= 0; i--) {
+    if (String(rows[i][COL_ISSUE - 1]).indexOf(needle) !== -1) return i + 2;
   }
-  const parts = decodeBookingKeyParts(bookingKey);
+  const parts = decodeBookingKeyParts(key);
   if (parts) {
-    for (let r = last; r >= 2; r--) {
-      if (rowMatchesBookingParts(sheet, r, parts)) {
-        return r;
-      }
+    for (let i = rows.length - 1; i >= 0; i--) {
+      if (rowValuesMatchBookingParts(rows[i], parts)) return i + 2;
     }
   }
   return 0;
@@ -364,36 +364,37 @@ function appendBookingsRow(sheet, dateOnly, timeOnly, name, email, phone, addres
   const razorpayPayment = meta.razorpayPayment || '';
   const bookingRef = meta.bookingRef || '';
 
+  // appendRow is atomic, so write the booking first: it must never be lost because a lock was busy.
+  sheet.appendRow([
+    dateOnly,
+    timeOnly,
+    name,
+    email,
+    phone,
+    address,
+    issue,
+    'Product Received',
+    false,
+    paymentStatus,
+    razorpayOrder,
+    razorpayPayment,
+    bookingRef,
+  ]);
+
+  // Row formatting (checkbox, status dropdown) is best effort and must not fail the booking.
   const lock = LockService.getScriptLock();
+  if (!lock.tryLock(10000)) return;
   try {
-    lock.waitLock(5000);
-
-    sheet.appendRow([
-      dateOnly,
-      timeOnly,
-      name,
-      email,
-      phone,
-      address,
-      issue,
-      'Product Received',
-      false,
-      paymentStatus,
-      razorpayOrder,
-      razorpayPayment,
-      bookingRef,
-    ]);
     SpreadsheetApp.flush();
-
-    const newRow = sheet.getLastRow();
+    const newRow = (bookingRef && findBookingRow(sheet, bookingRef)) || sheet.getLastRow();
     sheet.getRange(newRow, COL_SEND).insertCheckboxes();
     sheet.getRange(2, COL_STATUS).copyTo(
       sheet.getRange(newRow, COL_STATUS),
       SpreadsheetApp.CopyPasteType.PASTE_DATA_VALIDATION,
       false,
     );
-  } catch (lockError) {
-    // Proceed normally if lock fails
+  } catch (formatError) {
+    // Formatting only; the booking row is already saved.
   } finally {
     lock.releaseLock();
   }
@@ -459,6 +460,20 @@ function handleWebsiteWizardPost(sheet, data) {
   // Same booking sent again after it was paid (e.g. page reload): don't add a duplicate row.
   if (isBookingAlreadyPaid(sheet, bookingKey)) {
     return jsonResponse({ status: 'success', bookingKey: bookingKey, alreadyPaid: true });
+  }
+
+  // Same booking sent again before payment (e.g. the website retried after a slow reply):
+  // update that row with the latest details instead of adding a duplicate.
+  const rows = readBookingRows(sheet);
+  for (let i = rows.length - 1; i >= 0; i--) {
+    if (String(rows[i][COL_BOOKING_REF - 1]) === String(bookingKey)) {
+      const r = i + 2;
+      sheet.getRange(r, COL_EMAIL).setValue(email);
+      sheet.getRange(r, COL_PHONE).setValue(phone);
+      sheet.getRange(r, COL_ADDRESS).setValue(address);
+      sheet.getRange(r, COL_ISSUE).setValue(issue);
+      return jsonResponse({ status: 'success', bookingKey: bookingKey });
+    }
   }
 
   appendBookingsRow(sheet, dateOnly, timeOnly, name, email, phone, address, issue, {

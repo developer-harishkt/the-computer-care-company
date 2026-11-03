@@ -690,8 +690,15 @@ export function initBookingWizard(root, options = {}) {
         submitBtn.textContent = 'Sending…';
       }
 
-      const result = await submitBookingToSheet(payload);
+      const slowHint = q('#submit-slow-hint');
+      const result = await submitBookingToSheet(payload, {
+        onSlow: () => {
+          if (submitBtn) submitBtn.textContent = 'Still sending…';
+          slowHint?.classList.remove('hidden');
+        },
+      });
 
+      slowHint?.classList.add('hidden');
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = submitBtnDefaultLabel;
