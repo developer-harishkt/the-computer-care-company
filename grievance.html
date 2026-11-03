@@ -25,17 +25,60 @@
 
     <!-- HEADER -->
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3 min-w-0 md:shrink-0">
-                <a href="/" class="flex items-center gap-3">
-                    <img src="/logo.png" alt="The Computer Care Company" class="h-8 w-auto shrink-0" />
-                    <span class="font-black text-base leading-tight sm:text-lg md:text-xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+            <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
+            <a href="/" class="flex items-center gap-3 min-w-0 md:shrink-0 hover:opacity-90 transition-opacity">
+                <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
+                <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+            </a>
+
+            <!-- DESKTOP NAV + CTA — equal gaps between every item -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+                <a href="/book" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(37,99,235,0.35)]
+                          active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition-all duration-150">
+                    Book us
                 </a>
             </div>
-            <nav class="hidden md:flex ml-auto gap-6 text-sm font-medium text-slate-600">
-                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-                <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
-                <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
+                    aria-controls="mobile-menu" aria-expanded="false"
+                    class="md:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                           hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
+                <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
+                <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/subscriptions" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Contact</a>
+                <div class="border-t border-slate-200 my-3"></div>
+                <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
+                <a href="/book" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition-all duration-150">
+                    Book us
+                </a>
             </nav>
         </div>
     </header>
@@ -129,5 +172,6 @@
         </div>
     </footer>
 
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
