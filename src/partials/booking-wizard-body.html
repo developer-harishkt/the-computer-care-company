@@ -34,13 +34,14 @@
                 <span id="booking-pay-amount" class="booking-success-fee-row__amount tabular-nums"></span>
             </div>
             <p class="booking-success-fee-note" id="booking-visit-fee-hint">Visit / diagnostics fee only — parts and extra repair work are quoted after inspection.</p>
-            <p class="booking-success-fee-note">Your slot is confirmed once the visit fee is paid. If you skip payment, we&rsquo;ll WhatsApp you to confirm.</p>
+            <p id="booking-pay-skip-note" class="booking-success-fee-note">Your slot is confirmed once the visit fee is paid. If you skip payment, we&rsquo;ll WhatsApp you to confirm.</p>
 
             <div class="booking-success-pay-sticky">
                 <p id="booking-payment-error" class="booking-success-pay-alert hidden" role="alert" aria-live="polite">
                     <svg class="booking-success-pay-alert__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span class="booking-success-pay-alert__text"></span>
                 </p>
+                <p id="booking-payment-pending" class="booking-success-pay-done hidden" role="status" aria-live="polite"></p>
                 <p id="booking-payment-done" class="booking-success-pay-done hidden" aria-live="polite">
                     Payment received — you’re all set.
                 </p>

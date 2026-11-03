@@ -11,6 +11,12 @@ const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID;
 const CHECKOUT_CLOSE_SETTLE_MS = 750;
 /** Ignore Razorpay modal.ondismiss briefly after open (spurious dismiss breaks iframe load). */
 const CHECKOUT_OPEN_DISMISS_GRACE_MS = 900;
+/** After Razorpay reports success: retry server confirmation at these delays before showing "payment received". */
+const VERIFY_RETRY_DELAYS_MS = [3000, 8000];
+/** One more silent confirmation attempt in the background after giving up in the UI. */
+const VERIFY_BACKGROUND_RETRY_MS = 30000;
+
+const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
 function loadRazorpayCheckout() {
   return new Promise((resolve, reject) => {
@@ -62,6 +68,7 @@ function applyPaidSuccessUi(root, payload, bookingKey) {
   const setPayActionVisible = (visible) => {
     payBtn?.classList.toggle('hidden', !visible);
     feeHint?.classList.toggle('hidden', !visible);
+    root.querySelector('#booking-pay-skip-note')?.classList.toggle('hidden', !visible);
     if (razorpayHint?.textContent?.trim()) {
       razorpayHint.classList.toggle('hidden', !visible);
     }
@@ -94,14 +101,23 @@ export function initVisitFeePayment(root, hooks) {
   const feeHint = q('#booking-visit-fee-hint');
   const payBtn = q('#pay-visit-fee');
   const doneEl = q('#booking-payment-done');
+  const pendingEl = q('#booking-payment-pending');
   const errEl = q('#booking-payment-error');
   const razorpayHint = q('#booking-razorpay-hint');
 
   if (!block || !payBtn) return;
 
+  /**
+   * Bookings Razorpay reported as paid but our server has not confirmed yet.
+   * Pay stays blocked for these so a customer is never asked to pay twice.
+   * @type {Set<string>}
+   */
+  const paidAwaitingConfirmation = new Set();
+
   const setPayActionVisible = (visible) => {
     payBtn.classList.toggle('hidden', !visible);
     feeHint?.classList.toggle('hidden', !visible);
+    root.querySelector('#booking-pay-skip-note')?.classList.toggle('hidden', !visible);
     if (razorpayHint?.textContent?.trim()) {
       razorpayHint.classList.toggle('hidden', !visible);
     }
@@ -169,8 +185,21 @@ export function initVisitFeePayment(root, hooks) {
     setBookingPaymentLock(false);
   };
 
+  /** Paid in Razorpay, but our server did not confirm: reassure, block Pay, point to WhatsApp. */
+  const showPaidAwaitingConfirmation = (paymentId) => {
+    if (errEl) errEl.classList.add('hidden');
+    setPayActionVisible(false);
+    payBtn.disabled = true;
+    if (pendingEl) {
+      const id = paymentId ? ` (payment ID ${paymentId})` : '';
+      pendingEl.textContent = `Payment received${id}. Please don’t pay again — we’re confirming it and will confirm your visit on WhatsApp.`;
+      pendingEl.classList.remove('hidden');
+    }
+  };
+
   const resetPayUi = () => {
     if (doneEl) doneEl.classList.add('hidden');
+    if (pendingEl) pendingEl.classList.add('hidden');
     if (errEl) {
       errEl.classList.add('hidden');
       const textEl = errEl.querySelector('.booking-success-pay-alert__text');
@@ -266,6 +295,7 @@ export function initVisitFeePayment(root, hooks) {
     if (payFlowActive) return;
 
     const { payload, bookingKey } = hooks.getContext();
+    if (paidAwaitingConfirmation.has(bookingKey)) return;
     const fee = getVisitFee(payload.service, payload.device);
     if (!fee) return;
 
@@ -381,24 +411,39 @@ export function initVisitFeePayment(root, hooks) {
           'Confirming payment — please don’t close this page.',
         );
 
-        const verified = await verifyVisitFeePayment({
+        // Razorpay has taken the money at this point. Never offer "Pay" again for this booking.
+        paidAwaitingConfirmation.add(bookingKey);
+        const verifyParams = {
           bookingKey,
           razorpay_order_id: response.razorpay_order_id,
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_signature: response.razorpay_signature,
-        });
+        };
+
+        let verified = await verifyVisitFeePayment(verifyParams);
+        for (const delay of VERIFY_RETRY_DELAYS_MS) {
+          if (verified.ok) break;
+          await sleep(delay);
+          verified = await verifyVisitFeePayment(verifyParams);
+        }
 
         payFlowActive = false;
         setBookingPaymentLock(false);
 
         if (!verified.ok) {
-          showPayError(verified.message);
-          payBtn.disabled = false;
-          payBtn.textContent = defaultLabel;
-          setPayActionVisible(true);
+          showPaidAwaitingConfirmation(response.razorpay_payment_id);
+          window.setTimeout(async () => {
+            const retry = await verifyVisitFeePayment(verifyParams);
+            if (retry.ok && paidAwaitingConfirmation.has(bookingKey)) {
+              paidAwaitingConfirmation.delete(bookingKey);
+              pendingEl?.classList.add('hidden');
+              applyPaidSuccessUi(root, payload, bookingKey);
+            }
+          }, VERIFY_BACKGROUND_RETRY_MS);
           return;
         }
 
+        paidAwaitingConfirmation.delete(bookingKey);
         applyPaidSuccessUi(root, payload, bookingKey);
         payBtn.disabled = false;
       },
@@ -459,6 +504,10 @@ export function initVisitFeePayment(root, hooks) {
       }
 
       block.classList.remove('hidden');
+      if (paidAwaitingConfirmation.has(bookingKey)) {
+        showPaidAwaitingConfirmation('');
+        return;
+      }
       if (payService) payService.textContent = payload.service || 'On-site visit';
       if (payAmount) payAmount.textContent = formatInr(fee.amountInr);
       payBtn.textContent = `Pay ${formatInr(fee.amountInr)} to confirm your slot`;
