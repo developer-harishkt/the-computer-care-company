@@ -89,6 +89,12 @@ if (!dialog || !mount) {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       openBookingModal();
+      // "Our Care" cards open the booking already on their service (Second Modification).
+      const service = trigger.dataset.bookService;
+      if (service && wizardApi?.startWith) {
+        wizardApi.reset();
+        wizardApi.startWith(service, { device: trigger.dataset.bookDevice });
+      }
     });
   });
 

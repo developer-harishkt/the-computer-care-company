@@ -935,5 +935,25 @@ export function initBookingWizard(root, options = {}) {
     if (scrollHost) scrollHost.scrollTop = 0;
   }
 
-  return { reset, showStep };
+  /**
+   * Start a doorstep booking on a given service (homepage "Our Care" cards, /book?service=…),
+   * then open the step after the service (its options, or the device step). Unknown services are ignored.
+   * @param {string} service
+   * @param {{ device?: string }} [opts]
+   */
+  function startWith(service, { device = '' } = {}) {
+    if (!service || !serviceSelect || ![...serviceSelect.options].some((o) => o.value === service)) return;
+    setVisitMode('doorstep');
+    serviceSelect.value = service;
+    applyServiceChange();
+    if (device && deviceSelect && [...deviceSelect.options].some((o) => o.value === device)) {
+      deviceSelect.value = device;
+    }
+    refreshServicePicker();
+    refreshDevicePicker();
+    const next = stepPlan[stepPlan.indexOf('service') + 1] || 'service';
+    showStep(stepIndexForId(next));
+  }
+
+  return { reset, showStep, startWith };
 }
