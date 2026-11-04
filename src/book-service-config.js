@@ -105,18 +105,21 @@ export const CLEANING_SERVICE = 'Laptop or desktop servicing (cleaning)';
 export const COMPONENT_INSTALL_SERVICE = 'Component install (RAM / SSD / GPU)';
 
 /*
- * Service ₹549–699 and component installation from ₹259 (Karthik, Modifications 3-11-26).
- * ASSUMED until Karthik confirms the split: Desktop ₹549, every other device ₹699; components ₹259 online,
- * extra parts quoted on the visit. Must match Code.gs getVisitFeePaise().
+ * Service price by device (Karthik, Second Modification for V1): Laptop ₹549, Desktop ₹599, Gaming ₹699,
+ * All-in-one ₹1,299. Components ₹259 online (confirmed), extra parts quoted on the visit.
+ * ASSUMED until Karthik confirms: Printer / scanner ₹549 (lowest, so "Service from ₹549" stays true).
+ * Must match Code.gs getVisitFeePaise().
  */
+const SERVICE_FEE_FALLBACK_INR = 549;
 const CLEANING_FEE_BY_DEVICE = {
-  'Desktop PC': 549,
-  'MacBook / Apple laptop': 699,
+  'Windows laptop': 549,
+  'Desktop PC': 599,
   'Gaming laptop': 699,
-  'Windows laptop': 699,
-  'All-in-one desktop': 699,
-  Other: 699,
-  'Other / not sure': 699,
+  'All-in-one desktop': 1299,
+  'Printer / scanner': 549,
+  'MacBook / Apple laptop': 549,
+  Other: 549,
+  'Other / not sure': 549,
 };
 const COMPONENT_INSTALL_FEE_INR = 259;
 
@@ -134,7 +137,7 @@ const NO_ONLINE_FEE_SERVICES = new Set([
  */
 export function getVisitFee(service, device) {
   if (service === CLEANING_SERVICE) {
-    return { amountInr: CLEANING_FEE_BY_DEVICE[device] ?? 699, label: 'Service fee' };
+    return { amountInr: CLEANING_FEE_BY_DEVICE[device] ?? SERVICE_FEE_FALLBACK_INR, label: 'Service fee' };
   }
   if (service === COMPONENT_INSTALL_SERVICE) {
     return { amountInr: COMPONENT_INSTALL_FEE_INR, label: 'Component installation fee' };

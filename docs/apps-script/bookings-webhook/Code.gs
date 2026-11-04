@@ -25,8 +25,8 @@ const NO_ONLINE_FEE_SERVICES = [
   'Corporate / AMC enquiry',
 ];
 
-// Service ₹549–699, components from ₹259 (Modifications 3-11-26). ASSUMED split until Karthik confirms:
-// Desktop ₹549, every other device ₹699; components ₹259 online. Must match src/book-service-config.js.
+// Service by device (Second Modification for V1): Laptop ₹549, Desktop ₹599, Gaming ₹699, All-in-one ₹1,299.
+// Components ₹259 online. ASSUMED until Karthik confirms: Printer / scanner ₹549. Must match src/book-service-config.js.
 const COMPONENT_INSTALL_FEE_INR = 259;
 
 function getVisitFeePaise(service, device) {
@@ -36,15 +36,16 @@ function getVisitFeePaise(service, device) {
   // Hardware jobs have their own prices (must match src/book-service-config.js).
   if (s === 'Laptop or desktop servicing (cleaning)') {
     const map = {
-      'Desktop PC': 549,
-      'MacBook / Apple laptop': 699,
+      'Windows laptop': 549,
+      'Desktop PC': 599,
       'Gaming laptop': 699,
-      'Windows laptop': 699,
-      'All-in-one desktop': 699,
-      'Other': 699,
-      'Other / not sure': 699,
+      'All-in-one desktop': 1299,
+      'Printer / scanner': 549,
+      'MacBook / Apple laptop': 549,
+      'Other': 549,
+      'Other / not sure': 549,
     };
-    return (map[d] || 699) * 100;
+    return (map[d] || 549) * 100;
   }
   if (s === 'Component install (RAM / SSD / GPU)') {
     return COMPONENT_INSTALL_FEE_INR * 100;

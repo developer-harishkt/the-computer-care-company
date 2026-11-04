@@ -153,7 +153,7 @@ export function initBookingWizard(root, options = {}) {
   const branchSlotBtns = [...qa('[data-branch-slot]')];
   const detailsAddress = q('#details-address');
 
-  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (₹549–699 by device) | 'install' (from ₹259). */
+  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (₹549–1,299 by device) | 'install' (from ₹259). */
   let jobType = 'repair';
   const jobTypeWrap = q('#job-type-wrap');
   const jobTypeBtns = [...qa('[data-job-type]')];
