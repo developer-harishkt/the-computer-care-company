@@ -8,7 +8,7 @@ export const SERVICE_RULES = {
   'Network & security': { mode: 'fixed', fixedLabel: 'Not asked' },
   'Backup & recovery': { mode: 'fixed', fixedLabel: 'Not asked' },
   // New Systems & Infrastructure
-  'Custom PC': { mode: 'choose', group: 'desktops' },
+  'Custom PC': { mode: 'fixed', fixedLabel: 'Custom build' },
   'Storage / NAS setup': { mode: 'fixed', fixedLabel: 'Storage / NAS' },
   'Network setup': { mode: 'fixed', fixedLabel: 'Home or office Wi‑Fi / network' },
   'CCTV installation': { mode: 'fixed', fixedLabel: 'CCTV / security cameras' },
@@ -127,6 +127,12 @@ const COMPONENT_INSTALL_FEE_INR = 259;
 const NO_ONLINE_FEE_SERVICES = new Set([
   'Subscriptions',
   'AMC & corporate solutions',
+  // Enquiries planned on WhatsApp (Second Modification): no online fee. Must match Code.gs.
+  'Custom PC',
+  'Storage / NAS setup',
+  'Network setup',
+  'CCTV installation',
+  'Server build',
   'Branch visit (free diagnosis)',
 ]);
 
@@ -157,7 +163,7 @@ export function formatInr(amount) {
 
 /* ── "What would you like us to take care of?" (Karthik, Modifications 3-11-26) ──────────────
  * An extra step after the service. "Other" is added to every list and always continues on WhatsApp.
- * whatsappOnly: every option continues on WhatsApp (no online booking for these yet).
+ * For LEAD_SERVICES every option (incl. Other) goes to a contact-details step, then WhatsApp.
  * The chosen option is saved in the booking notes, so Code.gs needs no change.
  */
 export const WHATSAPP_NUMBER = '917010481012';
@@ -199,7 +205,6 @@ export const SERVICE_TASKS = {
   },
   'Custom PC': {
     question: BUILDING,
-    whatsappOnly: true,
     options: [
       'Budget, System & Mini PC Builds',
       'Gaming & Water-Cooled Builds',
@@ -211,12 +216,10 @@ export const SERVICE_TASKS = {
   },
   'Storage / NAS setup': {
     question: BUILDING,
-    whatsappOnly: true,
     options: ['NAS installation & setup', 'Custom NAS Build'],
   },
   'Network setup': {
     question: BUILDING,
-    whatsappOnly: true,
     options: [
       'Structured Cabling & Ethernet Setup',
       'Network Rack & Switch Installation',
@@ -227,7 +230,6 @@ export const SERVICE_TASKS = {
   },
   'CCTV installation': {
     question: BUILDING,
-    whatsappOnly: true,
     options: [
       'IP Camera & PoE Networking',
       'Smart CCTV & Mobile App Configuration',
@@ -237,8 +239,24 @@ export const SERVICE_TASKS = {
   },
 };
 
-/** Services that go straight to WhatsApp when tapped. */
-export const WHATSAPP_ONLY_SERVICES = new Set(['Server build']);
+/** Services that go straight to WhatsApp when tapped (none since Second Modification: details are asked first). */
+export const WHATSAPP_ONLY_SERVICES = new Set();
+
+/**
+ * "Lead" services (Second Modification): ask contact details only (no visit time, no address, no payment),
+ * save the enquiry to the bookings sheet, then continue on WhatsApp.
+ */
+export const LEAD_SERVICES = new Set([
+  'Custom PC',
+  'Storage / NAS setup',
+  'Network setup',
+  'CCTV installation',
+  'Server build',
+  'AMC & corporate solutions',
+]);
+
+/** Services that open a page instead of the booking flow. */
+export const SERVICE_PAGE_REDIRECTS = { Subscriptions: '/subscriptions' };
 
 export function getServiceTasks(serviceValue) {
   return SERVICE_TASKS[serviceValue] || null;
@@ -247,7 +265,7 @@ export function getServiceTasks(serviceValue) {
 /** True when this task choice must continue on WhatsApp instead of the booking form. */
 export function isWhatsAppTask(serviceValue, task) {
   const cfg = getServiceTasks(serviceValue);
-  return Boolean(cfg && task && (cfg.whatsappOnly || task === OTHER_TASK));
+  return Boolean(cfg && task === OTHER_TASK && !LEAD_SERVICES.has(serviceValue));
 }
 
 export function whatsAppUrl(message) {
@@ -261,11 +279,7 @@ export function whatsAppMessage(service, task) {
   return `Hi, I'd like help with: ${service} – ${task}`;
 }
 
-/*
- * After the customer's details are saved (Karthik, Modifications 3-11-26):
- * Subscriptions → Subscription details page; AMC → WhatsApp.
- */
-export const AFTER_BOOKING_REDIRECTS = {
-  Subscriptions: { kind: 'page', url: '/subscriptions', label: 'our subscription plans' },
-  'AMC & corporate solutions': { kind: 'whatsapp', label: 'WhatsApp' },
-};
+/* After the customer's details are saved: lead services continue on WhatsApp (Second Modification). */
+export const AFTER_BOOKING_REDIRECTS = Object.fromEntries(
+  [...LEAD_SERVICES].map((s) => [s, { kind: 'whatsapp', label: 'WhatsApp' }]),
+);

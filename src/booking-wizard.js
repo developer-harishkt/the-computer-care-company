@@ -14,6 +14,8 @@ import {
   whatsAppMessage,
   whatsAppUrl,
   AFTER_BOOKING_REDIRECTS,
+  LEAD_SERVICES,
+  SERVICE_PAGE_REDIRECTS,
 } from './book-service-config.js';
 import {
   mountFlatChoicePicker,
@@ -127,14 +129,15 @@ export function initBookingWizard(root, options = {}) {
     });
     taskSelect.value = '';
     if (taskQuestion) taskQuestion.textContent = cfg.question;
+    const lead = LEAD_SERVICES.has(serviceValue);
     if (taskHint) {
-      taskHint.textContent = cfg.whatsappOnly
+      taskHint.textContent = lead
         ? 'Pick what you have in mind — we’ll plan it with you on WhatsApp.'
         : 'Pick the closest fit.';
     }
     if (taskFootnote) {
-      taskFootnote.textContent = cfg.whatsappOnly
-        ? 'Every option opens WhatsApp'
+      taskFootnote.textContent = lead
+        ? 'Tap an option to continue'
         : 'Tap an option to continue · “Other” opens WhatsApp';
     }
     refreshTaskPicker();
@@ -272,10 +275,11 @@ export function initBookingWizard(root, options = {}) {
       const service = serviceSelect?.value;
       const rule = getServiceRule(service);
       const tasks = getServiceTasks(service);
-      if (WHATSAPP_ONLY_SERVICES.has(service)) {
+      if (WHATSAPP_ONLY_SERVICES.has(service) || SERVICE_PAGE_REDIRECTS[service]) {
         stepPlan = ['mode', 'service'];
-      } else if (tasks?.whatsappOnly) {
-        stepPlan = ['mode', 'service', 'task'];
+      } else if (LEAD_SERVICES.has(service)) {
+        // Enquiry: contact details only (no device, visit time or address), then WhatsApp.
+        stepPlan = tasks ? ['mode', 'service', 'task', 'details'] : ['mode', 'service', 'details'];
       } else {
         stepPlan = rule.mode === 'fixed'
           ? ['mode', 'service', 'schedule', 'details']
@@ -283,7 +287,24 @@ export function initBookingWizard(root, options = {}) {
         if (tasks) stepPlan.splice(2, 0, 'task');
       }
     }
-    detailsAddress?.classList.toggle('hidden', visitMode === 'branch');
+    detailsAddress?.classList.toggle('hidden', !needsAddress());
+    updateSubmitLabel();
+  }
+
+  /** Lead enquiries (Second Modification) skip the visit, so no address is asked. */
+  function isLeadBooking() {
+    return visitMode !== 'branch' && LEAD_SERVICES.has(serviceSelect?.value);
+  }
+
+  function needsAddress() {
+    return visitMode !== 'branch' && !isLeadBooking();
+  }
+
+  function updateSubmitLabel() {
+    const btn = q('#submit-booking');
+    if (btn && !btn.disabled) {
+      btn.textContent = isLeadBooking() ? 'Send & continue on WhatsApp' : 'Send booking request';
+    }
   }
 
   function renderVisitMode() {
@@ -363,12 +384,13 @@ export function initBookingWizard(root, options = {}) {
       items.push({ step: 'device', label: 'Device', value: truncateLabel(deviceSelect.value) });
     }
 
-    if (visitMode === 'doorstep' && service) {
-      const fee = getVisitFee(effectiveService(), deviceSelect?.value);
+    // Enquiries (no online fee) show no fee chip instead of "Diagnostic fee: No online fee".
+    const trailFee = visitMode === 'doorstep' && service ? getVisitFee(effectiveService(), deviceSelect?.value) : null;
+    if (trailFee) {
       items.push({
         step: 'service',
-        label: fee?.label || 'Diagnostic fee',
-        value: fee ? formatInr(fee.amountInr) : 'No online fee',
+        label: trailFee.label || 'Diagnostic fee',
+        value: formatInr(trailFee.amountInr),
       });
     }
 
@@ -534,7 +556,7 @@ export function initBookingWizard(root, options = {}) {
         address: q('#address-line')?.value,
         landmark: q('#landmark')?.value,
         notes: q('#notes')?.value,
-      }, { requireAddress: visitMode !== 'branch' });
+      }, { requireAddress: needsAddress() });
       if (!result.ok) {
         return { message: result.message, fieldId: result.fieldId };
       }
@@ -653,6 +675,11 @@ export function initBookingWizard(root, options = {}) {
           openWhatsApp(whatsAppMessage(value), serviceWhatsAppNote);
           return;
         }
+        if (SERVICE_PAGE_REDIRECTS[value]) {
+          // Subscriptions: no visit page; the plans page has its own enquiry form (Second Modification).
+          window.location.assign(SERVICE_PAGE_REDIRECTS[value]);
+          return;
+        }
         if (currentStepId() === 'service') scheduleAutoAdvance('service');
       },
     });
@@ -735,7 +762,6 @@ export function initBookingWizard(root, options = {}) {
   });
 
   const submitBtn = q('#submit-booking');
-  const submitBtnDefaultLabel = submitBtn?.textContent?.trim() || 'Send booking request';
 
   initBookingSuccessCopy(root);
 
@@ -807,7 +833,7 @@ export function initBookingWizard(root, options = {}) {
         address: q('#address-line')?.value,
         landmark: q('#landmark')?.value,
         notes: q('#notes')?.value,
-      }, { requireAddress: visitMode !== 'branch' });
+      }, { requireAddress: needsAddress() });
       if (!details.ok) {
         showError(details.message, details.fieldId);
         return;
@@ -825,6 +851,13 @@ export function initBookingWizard(root, options = {}) {
         // Code.gs shows notes in the booking's Issue column, so the chosen need travels with the booking.
         payload.notes = payload.notes ? `${currentTask()} — ${payload.notes}` : currentTask();
       }
+      if (isLeadBooking()) {
+        // Enquiries ask no address or visit time; the server stamps the submission time.
+        payload.address = '';
+        payload.landmark = '';
+        payload.date = '';
+        payload.time = '';
+      }
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending…';
@@ -841,7 +874,7 @@ export function initBookingWizard(root, options = {}) {
       slowHint?.classList.add('hidden');
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = submitBtnDefaultLabel;
+        updateSubmitLabel();
       }
 
       if (!result.ok) {
@@ -854,14 +887,15 @@ export function initBookingWizard(root, options = {}) {
     });
   }
 
-  /** Subscriptions → subscription details page; AMC → WhatsApp (after the details are saved). */
+  /** Lead enquiries (Custom PC, NAS, Network setup, CCTV, Server build, AMC) → WhatsApp after the details are saved. */
   const REDIRECT_DELAY_MS = 2500;
   let redirectTimer = null;
   function redirectAfterBooking(payload) {
     const rule = visitMode === 'branch' ? null : AFTER_BOOKING_REDIRECTS[payload.service];
     if (!rule) return;
+    const need = getServiceTasks(payload.service) && currentTask() ? ` – ${currentTask()}` : '';
     const url = rule.kind === 'whatsapp'
-      ? whatsAppUrl(`Hi, I just sent an enquiry for ${payload.service} on your website (name: ${payload.name}). Let's discuss.`)
+      ? whatsAppUrl(`Hi, I just sent an enquiry for ${payload.service}${need} on your website (name: ${payload.name}). Let's discuss.`)
       : rule.url;
     const note = q('#booking-success-redirect');
     if (note) {
