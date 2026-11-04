@@ -115,7 +115,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button type="button" data-visit-mode="doorstep" aria-pressed="false" class="visit-mode-card">
                     <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-blue-600">We come to you</span>
-                    <span class="block text-base font-black text-slate-900 mt-1">Doorstep service</span>
+                    <span class="block text-base font-black text-slate-900 mt-1">Get service at Home</span>
                     <span class="mt-3 block space-y-1 text-sm text-slate-600">
                         <span class="flex justify-between gap-3"><span>Standard diagnosis</span><span class="font-semibold text-slate-900">₹189</span></span>
                         <span class="flex justify-between gap-3"><span>RAM issue</span><span class="font-semibold text-slate-900">₹189</span></span>
@@ -187,7 +187,7 @@
 
     <div id="step-device" data-wizard-step="device" class="hidden space-y-6">
         <div>
-            <h2 class="text-lg font-bold text-slate-900 mb-1">Which device would you like us to take care of? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <h2 class="text-lg font-bold text-slate-900 mb-1"><span id="device-question">Which device would you like us to take care of?</span> <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
             <p class="text-sm text-slate-500 mb-4">Options match your service — pick the closest fit.</p>
             <div id="job-type-wrap" class="hidden mb-5">
                 <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
@@ -198,6 +198,7 @@
                 </div>
             </div>
             <select id="device-type" name="device" class="sr-only" tabindex="-1" aria-hidden="true"></select>
+            <p id="device-sublabel" class="hidden text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Your device</p>
             <div id="device-picker"></div>
         </div>
         <p id="device-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>

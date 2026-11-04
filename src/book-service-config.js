@@ -4,8 +4,9 @@ export const SERVICE_RULES = {
   'Standard diagnosis / Unknown problems': { mode: 'choose', group: 'all' },
   'Hardware repair & maintenance': { mode: 'choose', group: 'hardware' },
   'OS & software care': { mode: 'choose', group: 'computers' },
-  'Network & security': { mode: 'choose', group: 'netsec' },
-  'Backup & recovery': { mode: 'choose', group: 'backup' },
+  // No device step (Second Modification): the need is asked in the task step instead.
+  'Network & security': { mode: 'fixed', fixedLabel: 'Not asked' },
+  'Backup & recovery': { mode: 'fixed', fixedLabel: 'Not asked' },
   // New Systems & Infrastructure
   'Custom PC': { mode: 'choose', group: 'desktops' },
   'Storage / NAS setup': { mode: 'fixed', fixedLabel: 'Storage / NAS' },
@@ -24,7 +25,7 @@ export const DEVICE_OPTIONS = {
     { value: 'Gaming laptop', label: 'Gaming laptop' },
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
-    { value: 'Other', label: 'Other / not sure' },
+    { value: 'Other', label: 'Other' },
   ],
   computers: [
     { value: 'Windows laptop', label: 'Windows laptop' },
@@ -53,7 +54,7 @@ export const DEVICE_OPTIONS = {
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'Home or office Wi‑Fi / network', label: 'Wi‑Fi / network' },
     { value: 'CCTV / security cameras', label: 'CCTV / security cameras' },
-    { value: 'Other', label: 'Other / not sure' },
+    { value: 'Other', label: 'Other' },
   ],
   desktops: [
     { value: 'Desktop PC', label: 'Desktop PC (tower)' },

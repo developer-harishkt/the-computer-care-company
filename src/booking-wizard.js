@@ -168,9 +168,18 @@ export function initBookingWizard(root, options = {}) {
     return service;
   }
 
+  const deviceQuestion = q('#device-question');
   function renderJobType() {
-    jobTypeWrap?.classList.toggle('hidden', serviceSelect?.value !== HARDWARE_SERVICE);
+    const isHardware = serviceSelect?.value === HARDWARE_SERVICE;
+    jobTypeWrap?.classList.toggle('hidden', !isHardware);
     jobTypeBtns.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.jobType === jobType)));
+    // Hardware asks about the job and the device on one page (Second Modification).
+    if (deviceQuestion) {
+      deviceQuestion.textContent = isHardware
+        ? 'What would you like us to take care of?'
+        : 'Which device would you like us to take care of?';
+    }
+    q('#device-sublabel')?.classList.toggle('hidden', !isHardware);
   }
 
   function scrollStepIntoView() {
