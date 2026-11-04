@@ -23,6 +23,12 @@ const NO_ONLINE_FEE_SERVICES = [
   'AMC & corporate solutions',
   'Branch visit (free diagnosis)',
   'Corporate / AMC enquiry',
+  // Enquiries planned on WhatsApp (Second Modification): saved as "Not required", never "Pending".
+  'Custom PC',
+  'Storage / NAS setup',
+  'Network setup',
+  'CCTV installation',
+  'Server build',
 ];
 
 // Service by device (Second Modification for V1): Laptop ₹549, Desktop ₹599, Gaming ₹699, All-in-one ₹1,299.
