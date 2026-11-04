@@ -27,13 +27,13 @@
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
             <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
-            <a href="/" class="flex items-center gap-3 min-w-0 md:shrink-0 hover:opacity-90 transition-opacity">
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
                 <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
             </a>
 
             <!-- DESKTOP NAV + CTA — equal gaps between every item -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
                 <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
                 <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
@@ -44,14 +44,14 @@
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </div>
 
             <!-- MOBILE MENU TOGGLE -->
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -64,7 +64,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
                 <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
@@ -77,7 +77,7 @@
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </nav>
         </div>
@@ -95,18 +95,11 @@
                     </p>
                 </div>
 
-                <details open class="group bg-white border border-slate-200/80 rounded-2xl
-                                 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]
-                                 hover:border-blue-300 hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_12px_28px_rgba(15,23,42,0.10)]
-                                 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden">
-                    <summary class="flex cursor-pointer items-center justify-between gap-4 p-6 md:p-8 text-slate-900 font-bold text-lg md:text-xl transition-colors hover:bg-blue-50/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/40 focus-visible:ring-inset rounded-2xl">
-                        How our grievance &amp; redressal process works
-                        <span class="shrink-0 transition duration-300 group-open:-rotate-180 text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                        </span>
-                    </summary>
+                <div class="bg-white border border-slate-200/80 rounded-2xl
+                                 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]">
+                    <h2 class="p-6 md:p-8 pb-0 md:pb-0 text-slate-900 font-bold text-lg md:text-xl">How our grievance &amp; redressal process works</h2>
 
-                    <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 space-y-10">
+                    <div class="px-6 md:px-8 pb-8 md:pb-10 pt-6 space-y-10">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
 
@@ -155,7 +148,7 @@
                         </div>
 
                     </div>
-                </details>
+                </div>
 
             </div>
         </section>
@@ -167,7 +160,7 @@
             <p class="text-sm text-slate-600">©️ The Computer Care Company. All rights reserved.</p>
             <p class="text-xs text-slate-500 mt-2">
                 <a href="/" class="text-blue-700 hover:underline">← Back to homepage</a>
-                · <a href="/book" class="text-blue-700 hover:underline">Book us</a>
+                · <a href="/book" class="text-blue-700 hover:underline">Book your care</a>
             </p>
         </div>
     </footer>

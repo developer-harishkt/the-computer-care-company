@@ -19,13 +19,13 @@
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
             <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
-            <a href="/" class="flex items-center gap-3 min-w-0 md:shrink-0 hover:opacity-90 transition-opacity">
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
                 <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
             </a>
 
             <!-- DESKTOP NAV + CTA — equal gaps between every item -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
                 <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
                 <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
@@ -36,14 +36,14 @@
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </div>
 
             <!-- MOBILE MENU TOGGLE -->
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -56,7 +56,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
                 <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
@@ -69,7 +69,7 @@
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </nav>
         </div>
@@ -77,10 +77,10 @@
 
     <!-- MAIN CONTENT -->
     <main class="flex-grow">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-            <article class="space-y-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <article>
 
-                <header class="mb-4">
+                <header class="mb-10">
                     <p class="text-xs font-mono font-semibold text-blue-600 uppercase tracking-wide mb-2">Service Terms & Conditions</p>
                     <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-4 uppercase leading-tight">Terms of Service</h1>
                     <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mb-4">
@@ -93,6 +93,10 @@
                         These Service Terms explain the conditions under which we provide our services. Please read them before confirming a booking or authorising repair work.
                     </p>
                 </header>
+
+                <!-- Whole content in one tile, like Grievance & Redressal -->
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 md:p-10 space-y-10
+                            shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]">
 
                 <!-- Section 1 -->
                 <section class="space-y-4">
@@ -460,6 +464,7 @@
                     </p>
                 </section>
 
+                </div>
             </article>
         </div>
     </main>

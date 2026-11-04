@@ -98,13 +98,13 @@
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
             <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
-            <a href="/" class="flex items-center gap-3 min-w-0 md:shrink-0 hover:opacity-90 transition-opacity">
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
                 <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
             </a>
 
             <!-- DESKTOP NAV + CTA — equal gaps between every item -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="#" class="text-blue-600">Home</a>
                 <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
                 <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
@@ -115,14 +115,14 @@
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </div>
 
             <!-- MOBILE MENU TOGGLE -->
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -135,7 +135,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="#" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
                 <a href="#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
@@ -148,7 +148,7 @@
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </nav>
         </div>
@@ -184,7 +184,7 @@
                                   hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 active:shadow-none
                                   focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                                   flex items-center justify-center gap-2 transition-all duration-300">
-                            Book us
+                            Book your care
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                         <a href="tel:+917010481012" class="bg-white text-slate-800 border border-slate-200 px-8 py-4 rounded-lg font-bold text-center
@@ -1013,7 +1013,7 @@
                     <li><a href="#coverage" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">On-Site Service Coverage</a></li>
                     <li><a href="#faq" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Frequently Asked Questions</a></li>
                     <li><a href="/subscriptions" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Care subscriptions</a></li>
-                    <li><a href="/book" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Book us</a></li>
+                    <li><a href="/book" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Book your care</a></li>
                     <li><a href="/grievance" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Grievance &amp; Redressal</a></li>
                 </ul>
             </div>

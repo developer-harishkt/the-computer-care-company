@@ -26,13 +26,13 @@
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
             <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
-            <a href="/" class="flex items-center gap-3 min-w-0 md:shrink-0 hover:opacity-90 transition-opacity">
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
                 <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
             </a>
 
             <!-- DESKTOP NAV + CTA — equal gaps between every item -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
                 <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
                 <a href="/subscriptions" class="text-blue-600" aria-current="page">Subscriptions</a>
@@ -43,14 +43,14 @@
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </div>
 
             <!-- MOBILE MENU TOGGLE -->
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -63,7 +63,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
                 <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
@@ -76,7 +76,7 @@
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
                           transition-all duration-150">
-                    Book us
+                    Book your care
                 </a>
             </nav>
         </div>
@@ -96,8 +96,9 @@
                 <article class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm flex flex-col">
                     <p class="text-xs font-mono font-bold uppercase tracking-wide text-slate-500 mb-2">For existing PC owners</p>
                     <h2 class="text-2xl font-black text-slate-900 uppercase mb-2">1-Year Care Plan</h2>
-                    <p class="text-3xl font-black text-blue-700 mb-1">Just ₹150<span class="text-base font-semibold text-slate-500">/month</span></p>
-                    <p class="text-sm font-semibold text-slate-700 mb-1">₹1,799 incl. GST <span class="font-normal text-slate-500">· Monthly equivalent · Annual payment</span></p>
+                    <p class="text-2xl font-black text-blue-700">Just ₹150<span class="text-sm font-semibold text-slate-500">/month</span></p>
+                    <p class="text-xs text-slate-500 mb-2">Monthly equivalent · Annual payment</p>
+                    <p class="text-3xl md:text-4xl font-black text-slate-900 mb-1">₹1,799 <span class="text-base font-semibold text-slate-500">incl. GST</span></p>
                     <p class="text-sm text-slate-600 mb-6">Once every 4 months · <strong class="text-slate-800">3 scheduled visits per year</strong></p>
                     <p class="text-slate-700 text-sm leading-relaxed mb-6">
                         Keep your existing computer in good condition with regular preventive maintenance throughout the year.
@@ -116,8 +117,9 @@
                 <article class="bg-white border border-blue-200 rounded-2xl p-8 shadow-md flex flex-col ring-1 ring-blue-100">
                     <p class="text-xs font-mono font-bold uppercase tracking-wide text-blue-700 mb-2">For new PC buyers</p>
                     <h2 class="text-2xl font-black text-slate-900 uppercase mb-2">3-Year Care Plan</h2>
-                    <p class="text-3xl font-black text-blue-700 mb-1">Just ₹117<span class="text-base font-semibold text-slate-500">/month</span></p>
-                    <p class="text-sm font-semibold text-slate-700 mb-1">₹4,199 incl. GST <span class="font-normal text-slate-500">· Monthly equivalent · Three-year upfront payment</span></p>
+                    <p class="text-2xl font-black text-blue-700">Just ₹117<span class="text-sm font-semibold text-slate-500">/month</span></p>
+                    <p class="text-xs text-slate-500 mb-2">Monthly equivalent · Three-year upfront payment</p>
+                    <p class="text-3xl md:text-4xl font-black text-slate-900 mb-1">₹4,199 <span class="text-base font-semibold text-slate-500">incl. GST</span></p>
                     <p class="text-sm text-slate-600 mb-6">Once every 6 months · <strong class="text-slate-800">6 scheduled visits over three years</strong></p>
                     <p class="text-slate-700 text-sm leading-relaxed mb-6">
                         Start your new PC journey with a long-term maintenance schedule designed to keep your computer cared for over the years ahead.
@@ -134,7 +136,8 @@
                     <a href="https://wa.me/917010481012?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20the%203-Year%20Care%20Plan." class="book-btn-primary text-center min-h-[44px] flex items-center justify-center">Enquire on WhatsApp</a>
                 </article>
             </div>
-            <p class="text-sm font-medium text-slate-500 text-center -mt-10 mb-16">&ldquo;Technology needs ongoing care&rdquo;</p>
+            <p class="text-sm font-medium text-slate-500 text-center -mt-10 mb-4">&ldquo;Technology needs ongoing care&rdquo;</p>
+            <p class="text-sm text-slate-600 leading-relaxed text-center max-w-2xl mx-auto mb-16">Subscription visits cover preventive maintenance, installations &amp; re-installations and servicing. Repairs, parts, licences and additional work are quoted separately for your approval.</p>
 
             <section class="mb-16" aria-labelledby="why-care-plan">
                 <p id="why-care-plan" class="text-sm font-mono font-semibold uppercase tracking-wide text-blue-700 mb-3">Computer · Scheduled care · Longer life</p>
@@ -165,10 +168,7 @@
 
             <div class="max-w-3xl space-y-4 text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-10">
                 <p>
-                    Subscription visits cover preventive maintenance and servicing. Repairs, parts, licences and additional work are quoted separately for your approval.
-                </p>
-                <p>
-                    Need a one-off doorstep visit instead? <a href="/book" class="text-blue-700 font-semibold hover:underline">Book us</a> or call <a href="tel:+917010481012" class="text-blue-700 font-semibold hover:underline">+91 70104 81012</a>.
+                    Need a one-off doorstep visit instead? <a href="/book" class="text-blue-700 font-semibold hover:underline">Book your care</a> or call <a href="tel:+917010481012" class="text-blue-700 font-semibold hover:underline">+91 70104 81012</a>.
                 </p>
                 <p class="text-xs text-slate-500">
                     Service area: Chennai, Tamil Nadu · <a href="/terms#cancellations" class="text-blue-700 hover:underline">Cancellation &amp; refund terms</a> apply to paid bookings where relevant.
