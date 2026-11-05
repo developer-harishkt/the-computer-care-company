@@ -3,7 +3,8 @@
  * bookings sheet (same webhook as the booking wizard), then continues on WhatsApp (Second Modification).
  * The buttons stay real WhatsApp links, so they still work if this script fails to load.
  */
-import { validateBookingDetails } from './booking-form-validation.js';
+import { normalizeIndianMobile, validateBookingDetails, validateEmail, validateName } from './booking-form-validation.js';
+import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { whatsAppUrl } from './book-service-config.js';
 
@@ -35,18 +36,14 @@ function showError(message, fieldId) {
   }
   const el = fieldId ? field(fieldId) : null;
   if (el) {
-    el.classList.add('is-invalid');
-    el.setAttribute('aria-invalid', 'true');
+    setFieldError(el, message);
     el.focus();
   }
 }
 
 function clearError() {
   errorEl?.classList.add('hidden');
-  fieldIds.forEach((id) => {
-    field(id)?.classList.remove('is-invalid');
-    field(id)?.removeAttribute('aria-invalid');
-  });
+  fieldIds.forEach((id) => clearFieldError(field(id)));
 }
 
 function openFor(planName) {
@@ -83,7 +80,27 @@ if (dialog && form) {
   });
   dialog.addEventListener('close', () => clearTimeout(redirectTimer));
 
-  fieldIds.forEach((id) => field(id)?.addEventListener('input', clearError));
+  // Each field is checked as soon as it is touched (Third Modification); same rules as Send.
+  attachLiveValidation(
+    [
+      { el: field('plan-name'), validate: validateName },
+      {
+        el: field('plan-phone'),
+        validate: (v) => {
+          const result = normalizeIndianMobile(v);
+          return result.ok ? null : result.message;
+        },
+        eager: eagerPhone,
+      },
+      { el: field('plan-email'), validate: validateEmail },
+    ],
+    {
+      skipBlurFrom: '#plan-enquiry-cancel',
+      onChange: (_el, message) => {
+        if (!message) errorEl?.classList.add('hidden');
+      },
+    },
+  );
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();

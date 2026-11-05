@@ -29,7 +29,16 @@ import {
   initBookingSlots,
   resetBookingSlots,
 } from './booking-slots.js';
-import { validateBookingDetails } from './booking-form-validation.js';
+import {
+  normalizeIndianMobile,
+  validateAddress,
+  validateBookingDetails,
+  validateEmail,
+  validateLandmark,
+  validateName,
+  validateNotes,
+} from './booking-form-validation.js';
+import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { initVisitFeePayment } from './booking-payment.js';
 import { applyVisitModeSuccessCopy, initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
@@ -230,29 +239,22 @@ export function initBookingWizard(root, options = {}) {
   const detailFieldIds = ['full-name', 'phone', 'email', 'address-line', 'landmark', 'notes'];
 
   function clearFieldValidation() {
-    detailFieldIds.forEach((id) => {
-      const el = q(`#${id}`);
-      if (!el) return;
-      el.classList.remove('is-invalid');
-      el.removeAttribute('aria-invalid');
-    });
+    detailFieldIds.forEach((id) => clearFieldError(q(`#${id}`)));
   }
 
-  function markFieldInvalid(fieldId) {
+  function markFieldInvalid(fieldId, message) {
     if (!fieldId) return;
     clearFieldValidation();
-    const el = q(`#${fieldId}`);
-    if (!el) return;
-    el.classList.add('is-invalid');
-    el.setAttribute('aria-invalid', 'true');
+    setFieldError(q(`#${fieldId}`), message);
   }
 
   function showError(message, fieldId) {
     if (!formError) return;
     formError.textContent = message;
+    formError.dataset.fieldId = fieldId || '';
     formError.classList.remove('hidden');
     if (currentStepId() === 'details') {
-      markFieldInvalid(fieldId);
+      markFieldInvalid(fieldId, message);
       focusFieldForDetailsError(message, fieldId);
     }
     const scrollHost = root.closest('#booking-modal-mount');
@@ -766,13 +768,37 @@ export function initBookingWizard(root, options = {}) {
     });
   }
 
-  detailFieldIds.forEach((id) => {
-    const el = q(`#${id}`);
-    el?.addEventListener('input', () => {
-      el.classList.remove('is-invalid');
-      el.removeAttribute('aria-invalid');
-    });
-  });
+  // Contact step: each field is checked as soon as it is touched, with the same rules as Submit (Third Modification).
+  const phoneError = (value) => {
+    const result = normalizeIndianMobile(value);
+    return result.ok ? null : result.message;
+  };
+  attachLiveValidation(
+    [
+      { el: q('#full-name'), validate: validateName },
+      { el: q('#phone'), validate: phoneError, eager: eagerPhone },
+      { el: q('#email'), validate: validateEmail },
+      { el: q('#address-line'), validate: (v) => (needsAddress() ? validateAddress(v) : null) },
+      { el: q('#landmark'), validate: validateLandmark },
+      {
+        el: q('#notes'),
+        validate: (v) => validateNotes(v)
+          || (otherNeedsNote(serviceSelect?.value, currentTask()) && !String(v || '').trim()
+            ? 'Please tell us briefly what you need.'
+            : null),
+      },
+    ],
+    {
+      skipBlurFrom: '[data-wizard-back]',
+      // Once the field named in the top error banner is fixed, hide the banner too.
+      onChange: (el, message) => {
+        if (!message && formError && !formError.classList.contains('hidden') && formError.dataset.fieldId === el.id) {
+          formError.textContent = '';
+          formError.classList.add('hidden');
+        }
+      },
+    },
+  );
 
   bindVisitModeButtons();
   bindJobTypeButtons();

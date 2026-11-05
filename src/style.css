@@ -23,6 +23,11 @@
     @apply border-red-400 focus:border-red-500 focus:ring-red-400/30;
   }
 
+  /* Inline message under a field, shown as soon as the field is touched (src/live-validation.js). */
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-red-600;
+  }
+
   .book-btn-primary {
     @apply inline-flex items-center justify-center bg-blue-600 text-white rounded-lg font-bold text-sm
            hover:bg-blue-700 transition-colors min-h-[3rem] sm:min-h-[2.75rem] px-4;
