@@ -48,7 +48,7 @@ if (!dialog || !mount) {
 } else {
   let wizardApi = null;
 
-  function openBookingModal() {
+  function ensureWizard() {
     if (!wizardApi) {
       wizardApi = mountAndInitBookingWizard(mount, {
         context: 'modal',
@@ -58,6 +58,18 @@ if (!dialog || !mount) {
         },
       });
     }
+  }
+
+  // Build the booking popup while the page is idle, so the first "Book your care" tap opens it instantly
+  // instead of building it on the tap (Third Modification speed pass).
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(ensureWizard, { timeout: 3000 });
+  } else {
+    window.setTimeout(ensureWizard, 1500);
+  }
+
+  function openBookingModal() {
+    ensureWizard();
     if (typeof dialog.show === 'function') {
       dialog.show();
     } else if (typeof dialog.showModal === 'function') {

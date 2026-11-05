@@ -66,7 +66,8 @@ export function initBookingWizard(root, options = {}) {
   const progressWrap = q('#wizard-progress-wrap');
   const selectionTrail = q('#wizard-selection-trail');
 
-  const AUTO_ADVANCE_MS = 360;
+  // Short pause so the tapped choice is seen before the next step (Third Modification speed pass; was 360).
+  const AUTO_ADVANCE_MS = 160;
   let autoAdvanceTimer = null;
 
   const serviceSelect = q('#service-type');

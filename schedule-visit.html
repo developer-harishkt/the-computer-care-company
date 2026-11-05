@@ -16,7 +16,7 @@
 <body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth">
 
     <!-- HEADER / NAVIGATION — light glass bar, no longer competes with the hero -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/70">
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="/" class="flex items-center shrink-0">
                 <img src="/logo.png" alt="The Computer Care Company" class="theme-logo h-12 md:h-16 w-auto object-contain" />
@@ -31,7 +31,7 @@
                           hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_8px_rgba(37,99,235,0.35)]
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
-                          transition-all duration-150">
+                          transition duration-150">
                     Book your care
                 </a>
             </div>
@@ -52,7 +52,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
                 <a href="/#coverage" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Locations</a>
@@ -62,7 +62,7 @@
                           shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
-                          transition-all duration-150">
+                          transition duration-150">
                     Book your care
                 </a>
             </nav>
