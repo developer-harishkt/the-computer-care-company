@@ -1,3 +1,4 @@
+import { whatsAppUrl } from './book-service-config.js';
 /** Shared lock + fallback UI when Razorpay outlives the booking modal. */
 
 let paymentLocked = false;
@@ -41,7 +42,7 @@ export function showPaymentReceivedNotice(details = {}) {
       <p class="booking-payment-received-notice__title">Payment received — you’re all set.</p>
       <p class="booking-payment-received-notice__body">${name ? `${name} · ` : ''}${keyLine} We’ll confirm your visit by phone or WhatsApp.</p>
       <div class="booking-payment-received-notice__actions">
-        <a href="https://wa.me/917010481012" class="booking-payment-received-notice__wa">WhatsApp us</a>
+        <a href="${whatsAppUrl(key ? `Hi, I just booked a visit and paid on your website (Ref: ${key}).` : 'Hi, I just booked a visit and paid on your website.')}" class="booking-payment-received-notice__wa">WhatsApp us</a>
         <button type="button" class="booking-payment-received-notice__dismiss">Dismiss</button>
       </div>
     </div>`;
