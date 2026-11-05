@@ -121,7 +121,8 @@
     @apply fixed inset-0 m-auto overflow-hidden w-[min(100%-1.5rem,42rem)] h-[min(92dvh,880px)] max-h-[min(92dvh,880px)] p-0 rounded-xl border border-slate-200 bg-white shadow-2xl;
     display: flex;
     flex-direction: column;
-    z-index: 50;
+    /* Above the sticky site header (z-50) so the page behind never shows a second logo (Third Modification). */
+    z-index: 70;
   }
 
   /* Non-modal dialog.show() — backdrop on body so Razorpay can stack above the dialog without closing it */
@@ -129,8 +130,9 @@
     content: '';
     position: fixed;
     inset: 0;
-    z-index: 40;
-    @apply bg-slate-900/55 backdrop-blur-[2px];
+    /* Covers the sticky header too; solid (no blur) so it stays light on phones. */
+    z-index: 60;
+    @apply bg-slate-900/85;
   }
 
   #booking-modal.booking-modal--success[open] {
