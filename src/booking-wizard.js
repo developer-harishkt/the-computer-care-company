@@ -9,6 +9,7 @@ import {
   resolveDeviceForPayload,
   getServiceTasks,
   isWhatsAppTask,
+  otherNeedsNote,
   OTHER_TASK,
   WHATSAPP_ONLY_SERVICES,
   whatsAppMessage,
@@ -156,7 +157,7 @@ export function initBookingWizard(root, options = {}) {
   const branchSlotBtns = [...qa('[data-branch-slot]')];
   const detailsAddress = q('#details-address');
 
-  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (₹549–1,299 by device) | 'install' (from ₹259). */
+  /** Hardware repair & maintenance only: 'repair' (₹189) | 'cleaning' (from ₹549, by device) | 'install' (from ₹259). */
   let jobType = 'repair';
   const jobTypeWrap = q('#job-type-wrap');
   const jobTypeBtns = [...qa('[data-job-type]')];
@@ -303,7 +304,26 @@ export function initBookingWizard(root, options = {}) {
   function updateSubmitLabel() {
     const btn = q('#submit-booking');
     if (btn && !btn.disabled) {
-      btn.textContent = isLeadBooking() ? 'Send & continue on WhatsApp' : 'Send booking request';
+      // Paid doorstep bookings go to payment next (Third Modification); enquiries continue on WhatsApp.
+      const fee = visitMode === 'doorstep' && serviceSelect?.value
+        ? getVisitFee(effectiveService(), deviceSelect?.value)
+        : null;
+      btn.textContent = isLeadBooking()
+        ? 'Send & continue on WhatsApp'
+        : fee ? 'Proceed to Payment' : 'Send booking request';
+    }
+    // OS & software "Other": the notes box becomes "what do you need?" and is required.
+    const needNote = otherNeedsNote(serviceSelect?.value, currentTask());
+    const notesLabel = q('#notes-label');
+    const notesEl = q('#notes');
+    if (notesLabel) {
+      notesLabel.innerHTML = needNote
+        ? 'Tell us what you need <span class="text-red-600" aria-hidden="true">*</span>'
+        : 'Anything else we should know?';
+    }
+    if (notesEl) {
+      notesEl.placeholder = needNote ? 'e.g. install a particular app, fix an error message…' : 'Symptoms, urgency, gate code…';
+      notesEl.required = needNote;
     }
   }
 
@@ -458,6 +478,7 @@ export function initBookingWizard(root, options = {}) {
     updateProgress();
     updateSelectionTrail();
     clearError();
+    if (activeId === 'details') updateSubmitLabel();
 
     scrollStepIntoView();
 
@@ -559,6 +580,9 @@ export function initBookingWizard(root, options = {}) {
       }, { requireAddress: needsAddress() });
       if (!result.ok) {
         return { message: result.message, fieldId: result.fieldId };
+      }
+      if (otherNeedsNote(serviceSelect?.value, currentTask()) && !q('#notes')?.value.trim()) {
+        return { message: 'Please tell us briefly what you need.', fieldId: 'notes' };
       }
     }
     return null;

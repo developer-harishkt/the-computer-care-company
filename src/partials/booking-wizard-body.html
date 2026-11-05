@@ -115,13 +115,13 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button type="button" data-visit-mode="doorstep" aria-pressed="false" class="visit-mode-card">
                     <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-blue-600">We come to you</span>
-                    <span class="block text-base font-black text-slate-900 mt-1">Get service at Home</span>
+                    <span class="block text-base font-black text-slate-900 mt-1">Get service at your doorstep</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Home, office, studio etc.</span>
                     <span class="mt-3 block space-y-1 text-sm text-slate-600">
                         <span class="flex justify-between gap-3"><span>Standard diagnosis</span><span class="font-semibold text-slate-900">₹189</span></span>
                         <span class="flex justify-between gap-3"><span>RAM issue</span><span class="font-semibold text-slate-900">₹189</span></span>
                         <span class="flex justify-between gap-3"><span>Slow PC</span><span class="font-semibold text-slate-900">₹189</span></span>
                     </span>
-                    <span class="mt-3 block text-[11px] text-slate-500">Diagnostic fee. Parts and extra repair work are quoted after inspection.</span>
                 </button>
                 <div data-visit-mode-card="branch" class="visit-mode-card">
                     <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-emerald-700">Free diagnosis · Korattur</span>
@@ -193,7 +193,7 @@
                 <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Type of hardware job">
                     <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">₹189 diagnostic fee</span></button>
-                    <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Service <span class="block text-xs font-normal text-slate-500">₹549&ndash;1,299 by device</span></button>
+                    <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Service <span class="block text-xs font-normal text-slate-500">from ₹549</span></button>
                     <button type="button" data-job-type="install" aria-pressed="false" class="branch-slot-btn">All component installation <span class="block text-xs font-normal text-slate-500">from ₹259</span></button>
                 </div>
             </div>
@@ -266,7 +266,7 @@
         </div>
 
         <div>
-            <label for="notes" class="block text-xs font-semibold text-slate-500 mb-1.5">Anything else we should know?</label>
+            <label for="notes" id="notes-label" class="block text-xs font-semibold text-slate-500 mb-1.5">Anything else we should know?</label>
             <textarea id="notes" rows="2" placeholder="Symptoms, urgency, gate code…" class="book-field-area" maxlength="800"></textarea>
         </div>
 

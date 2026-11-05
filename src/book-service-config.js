@@ -162,7 +162,8 @@ export function formatInr(amount) {
 }
 
 /* ── "What would you like us to take care of?" (Karthik, Modifications 3-11-26) ──────────────
- * An extra step after the service. "Other" is added to every list and always continues on WhatsApp.
+ * An extra step after the service. "Other" is added to every list and continues on WhatsApp,
+ * except for OTHER_CONTINUES_SERVICES (Third Modification), where it carries on to the next step.
  * For LEAD_SERVICES every option (incl. Other) goes to a contact-details step, then WhatsApp.
  * The chosen option is saved in the booking notes, so Code.gs needs no change.
  */
@@ -171,6 +172,7 @@ export const OTHER_TASK = 'Other';
 
 const TAKE_CARE = 'What would you like us to take care of?';
 const BUILDING = 'What are we building for you today?';
+const HELPING = 'What are we helping you with today?';
 
 export const SERVICE_TASKS = {
   'OS & software care': {
@@ -206,9 +208,9 @@ export const SERVICE_TASKS = {
   'Custom PC': {
     question: BUILDING,
     options: [
-      'Budget, System & Mini PC Builds',
-      'Gaming & Water-Cooled Builds',
-      'Creator, Professional & AI Workstations',
+      'Budget, System & Mini-PC Builds',
+      'Gaming, Creator & Professional Builds',
+      'AI Workstation & Water-cooled Builds',
       'Custom Keyboards & Keycaps',
       'Speakers, Monitors & Audio Interfaces',
       'Microphones, DACs & Audio Accessories',
@@ -219,7 +221,7 @@ export const SERVICE_TASKS = {
     options: ['NAS installation & setup', 'Custom NAS Build'],
   },
   'Network setup': {
-    question: BUILDING,
+    question: HELPING,
     options: [
       'Structured Cabling & Ethernet Setup',
       'Network Rack & Switch Installation',
@@ -229,7 +231,7 @@ export const SERVICE_TASKS = {
     ],
   },
   'CCTV installation': {
-    question: BUILDING,
+    question: HELPING,
     options: [
       'IP Camera & PoE Networking',
       'Smart CCTV & Mobile App Configuration',
@@ -265,7 +267,20 @@ export function getServiceTasks(serviceValue) {
 /** True when this task choice must continue on WhatsApp instead of the booking form. */
 export function isWhatsAppTask(serviceValue, task) {
   const cfg = getServiceTasks(serviceValue);
-  return Boolean(cfg && task === OTHER_TASK && !LEAD_SERVICES.has(serviceValue));
+  return Boolean(
+    cfg && task === OTHER_TASK && !LEAD_SERVICES.has(serviceValue) && !OTHER_CONTINUES_SERVICES.has(serviceValue),
+  );
+}
+
+/** "Other" on these services continues to the next step like any other option (Third Modification). */
+export const OTHER_CONTINUES_SERVICES = new Set(['OS & software care']);
+
+/**
+ * "Other" that continues in the form: the customer must tell us what they need in the notes.
+ * ASSUMED until Karthik confirms: notes are required here, otherwise the team gets a booking that only says "Other".
+ */
+export function otherNeedsNote(serviceValue, task) {
+  return task === OTHER_TASK && OTHER_CONTINUES_SERVICES.has(serviceValue);
 }
 
 export function whatsAppUrl(message) {
