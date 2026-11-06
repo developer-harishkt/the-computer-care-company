@@ -40,6 +40,7 @@ import {
 } from './booking-form-validation.js';
 import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
+import { track } from './analytics.js';
 import { initVisitFeePayment } from './booking-payment.js';
 import { applyVisitModeSuccessCopy, initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
 
@@ -108,6 +109,7 @@ export function initBookingWizard(root, options = {}) {
   /** Opens WhatsApp in a new tab (falls back to this tab if blocked). Must run inside the tap handler. */
   function openWhatsApp(message, noteEl) {
     const url = whatsAppUrl(message);
+    track('contact_tap', { channel: 'whatsapp', section: 'booking', label: 'Booking hand-off to WhatsApp', ...bookingProps() });
     const win = window.open(url, '_blank', 'noopener');
     if (!win) window.location.href = url;
     if (noteEl) {
@@ -249,8 +251,9 @@ export function initBookingWizard(root, options = {}) {
     setFieldError(q(`#${fieldId}`), message);
   }
 
-  function showError(message, fieldId) {
+  function showError(message, fieldId, { kind = 'validation' } = {}) {
     if (!formError) return;
+    track('booking_error', { kind, field: fieldId || '', message, ...bookingProps() });
     formError.textContent = message;
     formError.dataset.fieldId = fieldId || '';
     formError.classList.remove('hidden');
@@ -458,6 +461,35 @@ export function initBookingWizard(root, options = {}) {
     }
   }
 
+  /* Analytics: one event per step a visitor reaches (the booking funnel). No personal details. */
+  let trackingOn = false;
+  let lastTrackedStep = '';
+
+  function bookingProps() {
+    return {
+      context,
+      step: currentStepId(),
+      visit_mode: visitMode || '',
+      service: visitMode === 'branch' ? BRANCH_SERVICE : serviceSelect?.value || '',
+      device: visitMode === 'branch' ? '' : deviceSelect?.value || '',
+      task: visitMode === 'branch' ? '' : currentTask(),
+    };
+  }
+
+  function trackStep({ force = false } = {}) {
+    if (!trackingOn) return;
+    // The popup is built in the background before anyone opens it: only count steps actually seen.
+    if (context === 'modal' && !root.closest('dialog')?.open) return;
+    const step = currentStepId();
+    if (!force && step === lastTrackedStep) return;
+    lastTrackedStep = step;
+    track('booking_step_viewed', {
+      ...bookingProps(),
+      step_number: stepIndex + 1,
+      total_steps: stepPlan.length,
+    });
+  }
+
   function showStep(index, { focus = false } = {}) {
     stepIndex = index;
     const activeId = currentStepId();
@@ -469,6 +501,7 @@ export function initBookingWizard(root, options = {}) {
     updateSelectionTrail();
     clearError();
     if (activeId === 'details') updateSubmitLabel();
+    trackStep();
 
     scrollStepIntoView();
 
@@ -787,6 +820,7 @@ export function initBookingWizard(root, options = {}) {
   bindWizardButtons();
   applyServiceChange();
   showStep(0);
+  trackingOn = true;
 
   let paymentContext = { payload: {}, bookingKey: '' };
   const visitFeePayment = initVisitFeePayment(root, {
@@ -910,10 +944,18 @@ export function initBookingWizard(root, options = {}) {
       }
 
       if (!result.ok) {
-        showError(result.message);
+        showError(result.message, '', { kind: 'submit_failed' });
         return;
       }
 
+      const submittedFee = getVisitFee(payload.service, payload.device);
+      track('booking_submitted', {
+        ...bookingProps(),
+        step: 'details',
+        lead: isLeadBooking(),
+        fee_inr: submittedFee?.amountInr || 0,
+        already_paid: Boolean(result.alreadyPaid),
+      });
       showBookingSuccess(payload, result.bookingKey || '', { alreadyPaid: result.alreadyPaid });
       redirectAfterBooking(payload);
     });
@@ -940,6 +982,8 @@ export function initBookingWizard(root, options = {}) {
   }
 
   function reset() {
+    trackingOn = false;
+    lastTrackedStep = '';
     clearTimeout(redirectTimer);
     q('#booking-success-redirect')?.classList.add('hidden');
     form?.reset();
@@ -963,6 +1007,7 @@ export function initBookingWizard(root, options = {}) {
     applyServiceChange();
     resetBookingSlots();
     showStep(0);
+    trackingOn = true;
     const scrollHost = root.closest('#booking-modal-mount');
     if (scrollHost) scrollHost.scrollTop = 0;
   }
@@ -989,5 +1034,18 @@ export function initBookingWizard(root, options = {}) {
     showStep(stepIndexForId(next));
   }
 
-  return { reset, showStep, startWith };
+  /** Where the visitor is now: a step id, or 'done' once the booking was sent. */
+  function currentStep() {
+    return successPanel && !successPanel.classList.contains('hidden') ? 'done' : currentStepId();
+  }
+
+  return {
+    reset,
+    showStep,
+    startWith,
+    currentStep,
+    bookingProps,
+    /** Count the step on screen now (the popup was just opened). */
+    trackStep: () => trackStep({ force: true }),
+  };
 }

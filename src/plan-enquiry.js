@@ -7,6 +7,7 @@ import { normalizeIndianMobile, validateBookingDetails, validateEmail, validateN
 import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { whatsAppUrl } from './book-service-config.js';
+import { track } from './analytics.js';
 
 const REDIRECT_DELAY_MS = 2500;
 
@@ -57,6 +58,7 @@ function openFor(planName) {
     submitBtn.textContent = SUBMIT_LABEL;
   }
   dialog.showModal();
+  track('plan_enquiry_opened', { plan: planName });
   field('plan-name')?.focus();
 }
 
@@ -143,12 +145,14 @@ if (dialog && form) {
     );
 
     if (!result.ok) {
+      track('plan_enquiry_failed', { plan });
       submitBtn.disabled = false;
       submitBtn.textContent = SUBMIT_LABEL;
       showError(result.message || 'Could not send. Please try again or WhatsApp us.');
       return;
     }
 
+    track('plan_enquiry_submitted', { plan });
     const url = whatsAppUrl(`Hi, I just sent an enquiry for the ${plan} on your website (name: ${name}). Let's discuss.`);
     if (doneEl) {
       doneEl.innerHTML = `Request received. Taking you to WhatsApp&hellip; <a href="${url}" class="underline font-semibold">Go now</a>`;

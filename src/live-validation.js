@@ -6,6 +6,8 @@
  * Uses the same validators as Submit, so the rules never differ.
  */
 
+import { track } from './analytics.js';
+
 const ERROR_CLASS = 'field-error';
 
 function errorElFor(el) {
@@ -56,8 +58,14 @@ export function hasFieldError(el) {
 export function attachLiveValidation(fields, { onChange, skipBlurFrom } = {}) {
   fields.forEach(({ el, validate, eager }) => {
     if (!el) return;
+    let lastTracked = '';
     const run = () => {
       const message = validate(el.value);
+      // Analytics: which fields trip people up while typing (once per new message, never the value).
+      if (message && message !== lastTracked) {
+        track('form_field_error', { field: el.id, form: el.form?.id || '', message });
+      }
+      lastTracked = message || '';
       if (message) setFieldError(el, message);
       else clearFieldError(el);
       onChange?.(el, message);

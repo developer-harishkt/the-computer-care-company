@@ -1,4 +1,5 @@
 import { mountAndInitBookingWizard } from './booking-wizard-mount.js';
+import { sectionOf, track } from './analytics.js';
 import {
   getBookingPaymentLockMessage,
   isBookingPaymentLocked,
@@ -82,6 +83,11 @@ if (!dialog || !mount) {
   }
 
   function finishCloseBookingModal() {
+    if (dialog.open && wizardApi) {
+      // Where people give up (or finish): the step the popup was on when closed.
+      const step = wizardApi.currentStep();
+      track('booking_closed', { ...wizardApi.bookingProps(), step, completed: step === 'done' });
+    }
     if (dialog.open) {
       dialog.close();
     } else {
@@ -103,9 +109,16 @@ if (!dialog || !mount) {
       openBookingModal();
       // "Our Care" cards open the booking already on their service (Second Modification).
       const service = trigger.dataset.bookService;
+      track('book_opened', {
+        from: sectionOf(trigger),
+        label: (trigger.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60),
+        service: service || '',
+      });
       if (service && wizardApi?.startWith) {
         wizardApi.reset();
         wizardApi.startWith(service, { device: trigger.dataset.bookDevice });
+      } else {
+        wizardApi?.trackStep();
       }
     });
   });

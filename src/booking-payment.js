@@ -1,6 +1,7 @@
 import { formatInr, getVisitFee, whatsAppUrl } from './book-service-config.js';
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
 import { createVisitFeeOrder, verifyVisitFeePayment } from './booking-submit.js';
+import { track } from './analytics.js';
 import { setModalBookingHeaderPaid, setBookingSuccessPaidPanel } from './booking-success-ui.js';
 import {
   getBookingPaymentLockMessage,
@@ -316,6 +317,9 @@ export function initVisitFeePayment(root, hooks) {
     if (paidAwaitingConfirmation.has(bookingKey)) return;
     const fee = getVisitFee(payload.service, payload.device);
     if (!fee) return;
+    // Analytics: the payment funnel (tap Pay → checkout opened → paid / failed / closed). No personal details.
+    const payProps = { service: payload.service || '', fee_inr: fee.amountInr || 0 };
+    track('payment_started', payProps);
 
     if (!RAZORPAY_KEY_ID?.trim()) {
       showPayError('Online payment is not configured yet. We’ll confirm on WhatsApp.');
@@ -350,6 +354,7 @@ export function initVisitFeePayment(root, hooks) {
         bookingKey,
       });
     } catch {
+      track('payment_error', { ...payProps, stage: 'create_order', message: 'network' });
       releasePayAttempt(defaultLabel);
       showPayError('Could not start payment. Try again or pay when we call.');
       return;
@@ -368,6 +373,7 @@ export function initVisitFeePayment(root, hooks) {
     }
 
     if (!orderResult.ok) {
+      track('payment_error', { ...payProps, stage: 'create_order', message: orderResult.message || '' });
       completeCheckoutSession(session, { message: orderResult.message });
       payBtn.textContent = defaultLabel;
       setPayActionVisible(true);
@@ -378,6 +384,7 @@ export function initVisitFeePayment(root, hooks) {
     try {
       Razorpay = await loadRazorpayCheckout();
     } catch {
+      track('payment_error', { ...payProps, stage: 'load_checkout', message: 'Razorpay did not load' });
       completeCheckoutSession(session, {
         message: 'Could not load payment. Check your connection and try again.',
       });
@@ -455,6 +462,7 @@ export function initVisitFeePayment(root, hooks) {
         payFlowActive = false;
         setBookingPaymentLock(false);
 
+        track(verified.ok ? 'payment_succeeded' : 'payment_pending_confirmation', payProps);
         if (!verified.ok) {
           showPaidAwaitingConfirmation(response.razorpay_payment_id);
           window.setTimeout(async () => {
@@ -482,6 +490,7 @@ export function initVisitFeePayment(root, hooks) {
           if (openCheckoutSessionId !== null && openCheckoutSessionId !== session) return;
           if (session !== checkoutSession) return;
 
+          track('payment_closed', { ...payProps, after_failure: sessionFailureMessages.has(session) });
           completeCheckoutSession(session, {
             message:
               sessionFailureMessages.get(session) ||
@@ -511,11 +520,13 @@ export function initVisitFeePayment(root, hooks) {
         event.error?.reason ||
         'Payment failed. Try again or pay when we call.';
 
+      track('payment_failed', { ...payProps, reason: event.error?.reason || '', message: event.error?.description || '' });
       sessionFailureMessages.set(session, reason);
       /* Stay in the same checkout session so a retry in Razorpay can still run handler. */
     });
 
     rzp.open();
+    track('payment_checkout_opened', payProps);
     checkoutOpenedAt.set(session, Date.now());
   });
 
