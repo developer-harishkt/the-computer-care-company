@@ -10,7 +10,7 @@
 
 - **Date:** 2026-11-06 (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
-- **Current focus:** "PRE - FINAL MODIFICATIONS, V1.md" (P1–P4) built and browser-checked; commit per phase + push to preview when asked. User's plan: ship a lean V1 to `main`, add analytics, bring real customers.
+- **Current focus:** PRE-FINAL MODIFICATIONS (P1–P4) committed (`5d669de`…`71c9494`), pushed and **live on the preview** (re-checked in browser). Message sent to Karthik with 2 assumptions to confirm. Next: his answers, then agree the V1 cut-off and merge to `main` (user's plan: lean V1 live → analytics → real customers).
 
 ---
 
@@ -141,6 +141,9 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 - **P3 Payment confirmation:** fee names — Visit & Assessment fee (Standard, Hardware repair, Network & Wifi, PC security), Service fee (OS, Backup; Hardware servicing unchanged), Component installation fee unchanged; note "Note: parts and extra repair work are quoted after inspection." for all; "WhatsApp us" removed (confirmation + payment-received notice + help line); payment failure / gateway error / paid-but-confirming show **Continue on WhatsApp** with the booking ref (user cancelling Razorpay doesn't).
 - **P4 Subscriptions:** refund line removed; intro text smaller; "Computer · Scheduled care · Longer life" block in one centred tile.
 - Prices unchanged; site vs Code.gs verified for 10 services. Sweep 8 pages × 5 widths clean; `vite build` OK.
+- Commits: P1 `5d669de`, P2 `49dd608`, P3 `9e575cb`, P4 `37b39b4`, docs `71c9494` (each clean-built from a fresh clone before push).
+- **Cloudflare hiccup:** first deploy of `71c9494` said "Deploy failed" — log: assets published, then "Failed to publish your Function… Unknown internal error" (repo has no `functions/`). **Retry deployment** in the dashboard fixed it. If it repeats: retry first, then an empty commit.
+- **How phases were committed this time (safe):** after each phase, snapshot the tree with a temp index (`GIT_INDEX_FILE=… git add -A … && git write-tree`), then chain `git commit-tree` per phase and `update-ref`. Includes new files (the 11-05 `git stash create` method missed untracked files and deleted `src/live-validation.js` in `c424dac`, fixed in `ab3d53d`).
 
 ### 2026-11-05 (night) — Third Modification for V1 + speed pass (uncommitted at time of writing)
 
