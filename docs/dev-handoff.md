@@ -8,7 +8,7 @@
 
 ## Last updated
 
-- **Date:** 2026-11-06 evening (IST)
+- **Date:** 2026-11-06 late (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
 - **Current focus:** PostHog analytics live on the preview (`29b7dec`, `8c2cc31`). Karthik answered PRE-FINAL (11-06): PC security ₹189 OK; "Need help?" line → quote; slots need 2 h lead time — both done (see Session log). Next: agree the V1 cut-off and merge to `main` (user's plan: lean V1 live → analytics → real customers; the data is meant to show Karthik what customers actually use).
 
@@ -117,6 +117,8 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 ## Not done / waiting
 
 - **Karthik to confirm (assumed 2026-11-06):** "Soonest" recommended slot only between 8 AM and 9 PM (asked in the sign-off message).
+- **ASSUMED (V1 FINAL CHANGES, user said "take a call"):** "189 & 199" = Hardware *Repair / unknown issue* fee by device — laptops ₹189; Desktop PC, Gaming / Pro Laptop & PC, All-in-one, Printer ₹199 (`HARDWARE_REPAIR_FEE_BY_DEVICE` + Code.gs). Hardware device list keeps "Other" (→ WhatsApp) last. "Last three contents" on Subscriptions = the quote + the two lines under the plan tiles. Footer: name + philosophy stacked beside the logo.
+- **Code.gs changed 2026-11-06 (printer ₹649, repair ₹189/₹199, new device names):** user must redeploy (edit existing deployment → New version), then verify read-only with `create-order`.
 - **PRE-FINAL answers (Karthik, 2026-11-06):** PC security & threat management ₹189 "Visit & Assessment fee" — confirmed. "Need help?" line on the payment confirmation — removed, replaced by the centred quote "Technology needs ongoing care". Slots — earliest bookable time is **2 hours from now** (`MIN_LEAD_MINUTES` in `booking-slots.js`).
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
@@ -145,6 +147,15 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-06 (late) — V1 FINAL CHANGES + footer
+
+- **Booking:** hardware "Your device" order/names: Windows laptop, Desktop PC, **Gaming / Pro Laptop & PC**, All-in-one desktop, **Printer**, Other. Each device chip shows its price under Repair and Service (`priceFor` in `choice-picker.js`). Printer service ₹649. Repair ₹189 (laptops) / ₹199 (others) — ASSUMED. Old device names stay priced. Site = Code.gs for 64 service/device pairs.
+- **Time step:** "24/7 on-site booking · any day, any hour" pill (homepage pill style).
+- **Payment confirmation:** all ₹189-type fees are now "Service fee"; the ✓ lines + "What's included" sit **above** the fee.
+- **Homepage:** Service Hours & Locations moved **below** Contact; Contact Main Branch lost open hours + Get directions; both branch tiles evenly spaced; Upcoming: "Bringing complete computer care closer to you." / "Address and opening hours will be announced soon."; "Some of our prices" repair "from ₹189". Footer: logo with name + philosophy beside it, "Mail – …" / "Phone / WhatsApp – …" inline, light divider above them; 4 columns only from 1280 px (brand full width on tablets) so nothing wraps.
+- **Subscriptions:** roomier plan tiles; quote + "covered" / "quoted separately" lines in one subtle tile (wording unchanged).
+- Tests: sweep 8 pages × 5 widths clean; booking, live validation, payment, slots scripts pass; build OK.
 
 ### 2026-11-06 (evening) — PostHog analytics + Karthik's PRE-FINAL answers
 
