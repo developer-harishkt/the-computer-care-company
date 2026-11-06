@@ -3,9 +3,10 @@ export const SERVICE_RULES = {
   // Diagnosis & Repairs
   'Standard diagnosis / Unknown problems': { mode: 'choose', group: 'all' },
   'Hardware repair & maintenance': { mode: 'choose', group: 'hardware' },
-  'OS & software care': { mode: 'choose', group: 'computers' },
-  // No device step (Second Modification): the need is asked in the task step instead.
-  'Network & security': { mode: 'fixed', fixedLabel: 'Not asked' },
+  // No device step (OS: PRE-FINAL; others: Second Modification): the need is asked in the task step instead.
+  'OS & software care': { mode: 'fixed', fixedLabel: 'Not asked' },
+  'Network & Wifi': { mode: 'fixed', fixedLabel: 'Not asked' },
+  'PC security & threat management': { mode: 'fixed', fixedLabel: 'Not asked' },
   'Backup & recovery': { mode: 'fixed', fixedLabel: 'Not asked' },
   // New Systems & Infrastructure
   'Custom PC': { mode: 'fixed', fixedLabel: 'Custom build' },
@@ -18,7 +19,7 @@ export const SERVICE_RULES = {
   'AMC & corporate solutions': { mode: 'fixed', fixedLabel: 'Business — multiple devices' },
 };
 
-/** Apple/Mac: OS & software and Network & security only (Karthik, Modifications 3-11-26). */
+/** Device lists per group. Apple/Mac only where Karthik allowed it (Modifications 3-11-26). */
 export const DEVICE_OPTIONS = {
   all: [
     { value: 'Windows laptop', label: 'Windows laptop' },
@@ -74,7 +75,9 @@ const LEGACY_SERVICE_ALIASES = {
   'Software setups': 'OS & software care',
   'Software / OS issue': 'OS & software care',
   'Application setup': 'OS & software care',
-  'Virus removal & security': 'Network & security',
+  'Virus removal & security': 'PC security & threat management',
+  // PRE-FINAL: "Network & security" became "Network & Wifi"; PC security is its own category.
+  'Network & security': 'Network & Wifi',
   'Data recovery assessment': 'Backup & recovery',
   'Custom PC build / upgrade consultation': 'Custom PC',
   'Wi-Fi / network setup': 'Network setup',
@@ -185,7 +188,7 @@ export const SERVICE_TASKS = {
       'Software Installation & Setup',
     ],
   },
-  'Network & security': {
+  'Network & Wifi': {
     question: TAKE_CARE,
     options: [
       'Network Setup & Configuration',
@@ -193,6 +196,17 @@ export const SERVICE_TASKS = {
       'Network Troubleshooting & Support',
       'Network Optimisation & Expansion',
       'Network Security Configuration',
+    ],
+  },
+  // New category (PRE-FINAL); no device step. ASSUMED until Karthik confirms: ₹189 visit fee like Network & Wifi.
+  'PC security & threat management': {
+    question: TAKE_CARE,
+    options: [
+      'Antivirus & Firewall Security',
+      'Virus & Malware Protection',
+      'System Security & Optimization',
+      'Browser & Email Security',
+      'Ransomware Protection & Threat Assessment',
     ],
   },
   'Backup & recovery': {

@@ -9,6 +9,7 @@ import {
   resolveDeviceForPayload,
   getServiceTasks,
   isWhatsAppTask,
+  normalizeService,
   OTHER_TASK,
   WHATSAPP_ONLY_SERVICES,
   whatsAppMessage,
@@ -972,7 +973,9 @@ export function initBookingWizard(root, options = {}) {
    * @param {string} service
    * @param {{ device?: string }} [opts]
    */
-  function startWith(service, { device = '' } = {}) {
+  function startWith(rawService, { device = '' } = {}) {
+    // Old links (e.g. /book?service=Network & security) still land on the renamed service.
+    const service = normalizeService(rawService);
     if (!service || !serviceSelect || ![...serviceSelect.options].some((o) => o.value === service)) return;
     setVisitMode('doorstep');
     serviceSelect.value = service;
