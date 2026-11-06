@@ -213,8 +213,8 @@ export function initBookingSuccessCopy(root) {
   }
 
   if (contact) {
-    const { email, phone, phoneTel } = PAYMENT_PAGE.contact;
-    contact.innerHTML = `Need help? <a href="tel:${phoneTel}" class="text-blue-700 font-semibold hover:underline">${phone}</a> · <a href="mailto:${email}" class="text-blue-700 font-semibold hover:underline">Email</a>`;  // No WhatsApp here: on this page WhatsApp is only offered when a payment fails (PRE-FINAL).
+    // Karthik (6 Nov): no "Need help?" line here — our quote, centred, instead.
+    contact.textContent = '\u201CTechnology needs ongoing care\u201D';
   }
 
   q('#booking-copy-reference')?.addEventListener('click', async () => {

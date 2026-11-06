@@ -320,7 +320,7 @@
   }
 
   .booking-success-contact {
-    @apply text-sm text-slate-600 leading-relaxed;
+    @apply text-sm font-medium text-slate-500 leading-relaxed text-center;
   }
 
   .booking-success-actions {
