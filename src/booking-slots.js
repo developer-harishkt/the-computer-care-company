@@ -50,14 +50,26 @@ function parseSlotHour(timeStr) {
   return h;
 }
 
+/** A visit can be booked from 2 hours after "now" (Karthik, 6 Nov: at 4:04 PM the 4:00 PM slot was still offered). */
+export const MIN_LEAD_MINUTES = 120;
+
+/** True when the slot starts less than MIN_LEAD_MINUTES from now (or is already past). */
 function isSlotPast(isoDate, timeStr) {
   if (!isoDate || !timeStr) return false;
-  const now = new Date();
-  const slotDay = new Date(`${isoDate}T00:00:00`);
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  if (slotDay.getTime() > today.getTime()) return false;
-  if (slotDay.getTime() < today.getTime()) return true;
-  return parseSlotHour(timeStr) <= now.getHours();
+  const [y, m, d] = isoDate.split('-').map((n) => parseInt(n, 10));
+  const slotStart = new Date(y, m - 1, d, parseSlotHour(timeStr), 0, 0, 0);
+  return slotStart.getTime() < Date.now() + MIN_LEAD_MINUTES * 60 * 1000;
+}
+
+/** The chosen slot has become too soon (the booking was left open for a while), or was just dropped for that reason. */
+let slotExpired = false;
+export function isSelectedSlotTooSoon() {
+  return slotExpired || Boolean(SLOT.date && SLOT.time && isSlotPast(SLOT.date, SLOT.time));
+}
+
+/** Re-check the slots against the clock: refresh recommendations, disable times now too soon. */
+export function refreshBookingSlots() {
+  uiRefresh();
 }
 
 function formatSelectionSummary(iso, time) {
@@ -130,6 +142,7 @@ let onSlotChange = () => {};
 let uiReset = () => {};
 
 export function setSlotSelection(iso, time) {
+  if (iso && time) slotExpired = false;
   SLOT.date = iso;
   SLOT.time = time;
   onSlotChange();
@@ -151,6 +164,8 @@ export function resetBookingSlots() {
   uiReset();
 }
 
+let uiRefresh = () => {};
+
 export function initBookingSlots({
   primeContainer,
   dateListEl,
@@ -163,8 +178,6 @@ export function initBookingSlots({
 }) {
   onSlotChange = onChange || (() => {});
 
-  const primeSlots = computePrimeSlots();
-  primeContainer.innerHTML = '';
 
   let selectedIso = null;
   let selectedTime = null;
@@ -247,7 +260,12 @@ export function initBookingSlots({
     customPanelEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  primeSlots.forEach((slot) => {
+  function renderPrimeSlots() {
+    primeContainer.innerHTML = '';
+    computePrimeSlots().forEach((slot) => renderPrimeSlot(slot));
+  }
+
+  function renderPrimeSlot(slot) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.dataset.prime = '1';
@@ -265,7 +283,9 @@ export function initBookingSlots({
     `;
     btn.addEventListener('click', () => applySelection(slot.iso, slot.time, { fromPrime: true }));
     primeContainer.appendChild(btn);
-  });
+  }
+
+  renderPrimeSlots();
 
   const today = new Date();
   for (let i = 0; i < SCHEDULE_DAY_COUNT; i += 1) {
@@ -309,10 +329,21 @@ export function initBookingSlots({
   customToggleEl?.addEventListener('click', openCustomPicker);
 
   uiReset = () => {
+    slotExpired = false;
     customMode = false;
     customPanelEl?.classList.add('hidden');
     customToggleEl?.classList.remove('hidden');
     clearSelection();
+    syncUiFromSelection();
+  };
+
+  // The booking popup is built when the page loads and may be opened much later: re-check on every visit to the step.
+  uiRefresh = () => {
+    renderPrimeSlots();
+    if (selectedIso && selectedTime && isSlotPast(selectedIso, selectedTime)) {
+      clearSelection();
+      slotExpired = true;
+    }
     syncUiFromSelection();
   };
 

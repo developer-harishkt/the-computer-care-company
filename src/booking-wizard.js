@@ -27,6 +27,8 @@ import {
   getSelectedTime,
   hasScheduleSelection,
   initBookingSlots,
+  isSelectedSlotTooSoon,
+  refreshBookingSlots,
   resetBookingSlots,
 } from './booking-slots.js';
 import {
@@ -501,6 +503,7 @@ export function initBookingWizard(root, options = {}) {
     updateSelectionTrail();
     clearError();
     if (activeId === 'details') updateSubmitLabel();
+    if (activeId === 'schedule') refreshBookingSlots();
     trackStep();
 
     scrollStepIntoView();
@@ -588,6 +591,10 @@ export function initBookingWizard(root, options = {}) {
       }
     }
     if (id === 'schedule') {
+      if (isSelectedSlotTooSoon()) {
+        refreshBookingSlots();
+        return 'That time is now less than 2 hours away. Please pick another slot.';
+      }
       if (!hasScheduleSelection()) {
         return 'Pick a recommended slot, or tap “Choose date & time” and select when we should visit.';
       }
