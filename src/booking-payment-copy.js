@@ -17,8 +17,7 @@ export const PAYMENT_PAGE = {
       'We believe good service goes beyond the repair itself. Eligible repairs are covered by our 60-day service warranty, covering the specific repair work performed and related issues attributable to that work. The warranty does not automatically cover new or unrelated faults, accidental damage, liquid damage, misuse, or issues arising from unauthorised repairs or modifications. All claims are subject to assessment and the applicable warranty terms. Our goal is to provide dependable repairs and continued support long after your service.',
   },
   /** TODO(owner): Confirm GST wording and whether visit fee adjusts against repair. */
-  visitFeeHint:
-    'Diagnostic fee only — parts and extra repair work are quoted after inspection.',
+  visitFeeHint: 'Note: parts and extra repair work are quoted after inspection.',
   razorpayHint: 'Secure payment by Razorpay · UPI, cards, netbanking',
   consentLine:
     'By paying you agree to our Terms and Cancellation Policy (10% charge applies to cancellations after payment).',

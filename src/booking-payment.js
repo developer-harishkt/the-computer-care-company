@@ -1,4 +1,4 @@
-import { formatInr, getVisitFee } from './book-service-config.js';
+import { formatInr, getVisitFee, whatsAppUrl } from './book-service-config.js';
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
 import { createVisitFeeOrder, verifyVisitFeePayment } from './booking-submit.js';
 import { setModalBookingHeaderPaid, setBookingSuccessPaidPanel } from './booking-success-ui.js';
@@ -169,11 +169,26 @@ export function initVisitFeePayment(root, hooks) {
     sessionCloseWaiters.get(session)?.();
   };
 
-  const showPayError = (message) => {
+  /** WhatsApp link for payment problems (failure, gateway error, delay) — the only WhatsApp on this page (PRE-FINAL). */
+  const paymentHelpLink = (text) => {
+    const ref = hooks.getContext?.()?.bookingKey;
+    const a = document.createElement('a');
+    a.href = whatsAppUrl(`${text}${ref ? ` (Ref: ${ref})` : ''}. Can you help?`);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.className = 'booking-success-pay-alert__wa';
+    a.textContent = 'Continue on WhatsApp';
+    return a;
+  };
+
+  const showPayError = (message, { whatsApp = true } = {}) => {
     if (!errEl) return;
     const textEl = errEl.querySelector('.booking-success-pay-alert__text');
-    if (textEl) textEl.textContent = message;
-    else errEl.textContent = message;
+    const target = textEl || errEl;
+    target.textContent = message;
+    if (whatsApp) {
+      target.append(' ', paymentHelpLink('Hi, my payment for my booking didn’t go through'));
+    }
     errEl.classList.remove('hidden');
   };
 
@@ -194,6 +209,7 @@ export function initVisitFeePayment(root, hooks) {
     if (pendingEl) {
       const id = paymentId ? ` (payment ID ${paymentId})` : '';
       pendingEl.textContent = `Payment received${id}. Please don’t pay again — we’re confirming it and will confirm your visit on WhatsApp.`;
+      pendingEl.append(' ', paymentHelpLink('Hi, I paid for my booking but it is still being confirmed'));
       pendingEl.classList.remove('hidden');
     }
   };
@@ -249,7 +265,7 @@ export function initVisitFeePayment(root, hooks) {
 
   const completeCheckoutSession = (
     session,
-    { message, success = false, restoreDialog = true } = {},
+    { message, success = false, restoreDialog = true, cancelled = false } = {},
   ) => {
     if (endedCheckoutSessions.has(session)) {
       notifySessionSettled(session);
@@ -289,7 +305,8 @@ export function initVisitFeePayment(root, hooks) {
 
     if (success) return;
 
-    if (errorMessage) showPayError(errorMessage);
+    // Closing Razorpay without paying is not a failure, so no WhatsApp link then.
+    if (errorMessage) showPayError(errorMessage, { whatsApp: Boolean(failureFromEvent) || !cancelled });
   };
 
   payBtn.addEventListener('click', async () => {
@@ -469,6 +486,7 @@ export function initVisitFeePayment(root, hooks) {
             message:
               sessionFailureMessages.get(session) ||
               'Payment cancelled. You can tap Pay again when ready.',
+            cancelled: true,
           });
           payBtn.textContent = defaultLabel;
           setPayActionVisible(true);
@@ -523,15 +541,9 @@ export function initVisitFeePayment(root, hooks) {
       }
       if (payService) payService.textContent = payload.service || 'On-site visit';
       const feeLabel = root.querySelector('.booking-success-fee-row__label');
-      if (feeLabel) feeLabel.textContent = fee.label || 'Diagnostic fee';
-      // Service / component jobs are not a diagnostic fee, so drop "Diagnostic fee only" from the hint.
-      // Set every time: the same popup can be reused for a different job.
-      if (feeHint) {
-        feeHint.textContent =
-          fee.label && fee.label !== 'Diagnostic fee'
-            ? 'Parts and extra repair work are quoted after inspection.'
-            : PAYMENT_PAGE.visitFeeHint;
-      }
+      if (feeLabel) feeLabel.textContent = fee.label || 'Visit & Assessment fee';
+      // Same note for every job (PRE-FINAL). Set every time: the same popup can be reused for a different job.
+      if (feeHint) feeHint.textContent = PAYMENT_PAGE.visitFeeHint;
       if (payAmount) payAmount.textContent = formatInr(fee.amountInr);
       payBtn.textContent = `Pay ${formatInr(fee.amountInr)} to confirm your slot`;
     },

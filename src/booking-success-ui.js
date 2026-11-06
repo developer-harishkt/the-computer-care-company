@@ -1,5 +1,4 @@
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
-import { whatsAppUrl } from './book-service-config.js';
 
 const MODAL_HEADERS = {
   booking: { title: 'Book your visit', subtitle: 'On-site service · Chennai' },
@@ -179,15 +178,6 @@ export function applyVisitModeSuccessCopy(root, branch) {
 export function initBookingSuccessCopy(root) {
   const q = (sel) => root.querySelector(sel);
 
-  // WhatsApp links after booking open with a message that includes the booking reference (Third Modification).
-  root.addEventListener('click', (event) => {
-    const link = event.target.closest?.('a[data-booking-wa]');
-    if (!link) return;
-    const ref = q('#booking-success-reference-wrap:not(.hidden) #booking-success-reference')?.textContent?.trim();
-    link.href = whatsAppUrl(ref
-      ? `Hi, I just booked a visit on your website (Ref: ${ref}).`
-      : 'Hi, I just booked a visit on your website.');
-  });
 
   const intro = q('#booking-success-intro');
   const tagline = q('#booking-success-tagline');
@@ -223,8 +213,8 @@ export function initBookingSuccessCopy(root) {
   }
 
   if (contact) {
-    const { email, phone, phoneTel, whatsApp } = PAYMENT_PAGE.contact;
-    contact.innerHTML = `Need help? <a href="tel:${phoneTel}" class="text-blue-700 font-semibold hover:underline">${phone}</a> · <a href="mailto:${email}" class="text-blue-700 font-semibold hover:underline">Email</a> · <a href="https://wa.me/${whatsApp}" data-booking-wa class="text-blue-700 font-semibold hover:underline">WhatsApp</a>`;
+    const { email, phone, phoneTel } = PAYMENT_PAGE.contact;
+    contact.innerHTML = `Need help? <a href="tel:${phoneTel}" class="text-blue-700 font-semibold hover:underline">${phone}</a> · <a href="mailto:${email}" class="text-blue-700 font-semibold hover:underline">Email</a>`;  // No WhatsApp here: on this page WhatsApp is only offered when a payment fails (PRE-FINAL).
   }
 
   q('#booking-copy-reference')?.addEventListener('click', async () => {

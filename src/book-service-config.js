@@ -153,8 +153,21 @@ export function getVisitFee(service, device) {
   }
   const key = normalizeService(service);
   if (!key || NO_ONLINE_FEE_SERVICES.has(key)) return null;
-  return { amountInr: DEFAULT_VISIT_FEE_INR, label: 'Diagnostic fee' };
+  return { amountInr: DEFAULT_VISIT_FEE_INR, label: VISIT_FEE_LABELS[key] || 'Visit & Assessment fee' };
 }
+
+/**
+ * Name of the ₹189 fee on the payment confirmation (Karthik, PRE-FINAL MODIFICATIONS).
+ * ASSUMED until Karthik confirms: PC security & threat management uses "Visit & Assessment fee" like Network & Wifi.
+ */
+const VISIT_FEE_LABELS = {
+  'Standard diagnosis / Unknown problems': 'Visit & Assessment fee',
+  'Hardware repair & maintenance': 'Visit & Assessment fee',
+  'OS & software care': 'Service fee',
+  'Network & Wifi': 'Visit & Assessment fee',
+  'PC security & threat management': 'Visit & Assessment fee',
+  'Backup & recovery': 'Service fee',
+};
 
 export function formatInr(amount) {
   return new Intl.NumberFormat('en-IN', {

@@ -399,7 +399,7 @@ export function initBookingWizard(root, options = {}) {
     if (trailFee) {
       items.push({
         step: 'service',
-        label: trailFee.label || 'Diagnostic fee',
+        label: trailFee.label || 'Visit & Assessment fee',
         value: formatInr(trailFee.amountInr),
       });
     }

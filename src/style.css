@@ -257,6 +257,10 @@
     @apply flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800;
   }
 
+  .booking-success-pay-alert__wa {
+    @apply font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-800 whitespace-nowrap;
+  }
+
   .booking-success-pay-alert__icon {
     @apply shrink-0 mt-0.5 text-red-600;
   }
