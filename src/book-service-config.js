@@ -275,14 +275,6 @@ export function isWhatsAppTask(serviceValue, task) {
 /** "Other" on these services continues to the next step like any other option (Third Modification). */
 export const OTHER_CONTINUES_SERVICES = new Set(['OS & software care']);
 
-/**
- * "Other" that continues in the form: the customer must tell us what they need in the notes.
- * ASSUMED until Karthik confirms: notes are required here, otherwise the team gets a booking that only says "Other".
- */
-export function otherNeedsNote(serviceValue, task) {
-  return task === OTHER_TASK && OTHER_CONTINUES_SERVICES.has(serviceValue);
-}
-
 export function whatsAppUrl(message) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

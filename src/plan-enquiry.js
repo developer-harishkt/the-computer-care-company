@@ -20,7 +20,7 @@ const cancelBtn = document.querySelector('#plan-enquiry-cancel');
 const fieldIds = ['plan-name', 'plan-phone', 'plan-email'];
 /** validateBookingDetails reports the wizard's field ids; map them to this popup's fields. */
 const WIZARD_TO_POPUP_FIELD = { 'full-name': 'plan-name', phone: 'plan-phone', email: 'plan-email' };
-const SUBMIT_LABEL = 'Send & continue on WhatsApp';
+const SUBMIT_LABEL = 'We\u2019re Getting Connected';
 
 let plan = '';
 let redirectTimer = null;

@@ -107,7 +107,7 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
-- **Assumed 2026-11-05 (Third Modification), Karthik to confirm:** OS & software "Other" requires a note ("Tell us what you need"); "Proceed to Payment" only on paid doorstep bookings (enquiries keep "Send & continue on WhatsApp", branch visits keep "Send booking request"); turnaround intro centred ("placed in the middle").
+- **Third Modification answers (Karthik, 2026-11-06):** OS "Other" needs no note (rule removed); button labels: paid doorstep "Proceed to Payment", enquiries "We’re Getting Connected" (also Subscriptions popup), branch "Let’s Book Your Visit"; centred turnaround intro confirmed.
 - **Logo in Google results:** new real favicons (`favicon.ico` was a PNG mislabelled as ICO, served as `image/vnd.microsoft.icon` + `nosniff`). Only helps after merge to `main` + Google recrawl (can take days–weeks; request indexing in Search Console).
 - **V2 (agreed):** cart (₹49 per extra service), WhatsApp approve buttons (needs WhatsApp Business API).
 - Merge `feat/cofounder-feedback` → `main` after Karthik's sign-off (production has no booking code yet).
