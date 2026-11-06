@@ -116,6 +116,7 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 ## Not done / waiting
 
+- **Karthik to confirm (assumed 2026-11-06):** "Soonest" recommended slot only between 8 AM and 9 PM (asked in the sign-off message).
 - **PRE-FINAL answers (Karthik, 2026-11-06):** PC security & threat management ₹189 "Visit & Assessment fee" — confirmed. "Need help?" line on the payment confirmation — removed, replaced by the centred quote "Technology needs ongoing care". Slots — earliest bookable time is **2 hours from now** (`MIN_LEAD_MINUTES` in `booking-slots.js`).
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
@@ -149,6 +150,7 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 
 - **Analytics** (see "Analytics (PostHog)" above): `29b7dec` (setup, events, privacy paragraph), `8c2cc31` (toolbar works on `?analytics=off` browsers). Verified: no PostHog requests on localhost/tests; with `?analytics=test` all events arrive, no name/phone/email/address in any payload or recording, no `wa.me?text`. Speed at 4× CPU: tap → next step 402 → 466 ms; extra ~0.5 s long task while recording starts (after idle).
 - **Slots — 2 h lead time** (Karthik: at 16:04 the 4:00 PM slot was offered): `isSlotPast` now means "starts less than 2 h from now" (recommendations + custom picker). Recommendations are re-computed every time the schedule step is shown (the popup is pre-built at page load). A slot that goes stale while the form is open is refused on Next/Submit with "That time is now less than 2 hours away…". Checked with a fixed clock at 08:30 / 16:04 / 22:30.
+- **Recommended slots:** first card is now the **soonest free slot** (2 h from now, within 8 AM–9 PM — `SOONEST_FROM_HOUR`/`SOONEST_UNTIL_HOUR`, **ASSUMED until Karthik confirms**), then popular times (10, 11 AM, 2, 3, 4 PM) after it. Before, only those popular times were suggested, so after ~2 PM every suggestion was tomorrow. Any hour 24/7 is still pickable under "Choose date & time".
 - **Payment confirmation:** "Need help? phone · Email" line → centred "“Technology needs ongoing care”" (`booking-success-ui.js`, `.booking-success-contact`).
 - Regression: sweep 8 pages × 5 widths clean; booking, live validation and payment scripts pass; `vite build` OK.
 
