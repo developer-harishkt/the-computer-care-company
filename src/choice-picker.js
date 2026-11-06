@@ -79,7 +79,7 @@ export function mountGroupedChoicePicker(container, selectEl, { onChange } = {})
 /**
  * Flat chip grid from all enabled <option>s in a select.
  */
-export function mountFlatChoicePicker(container, selectEl, { onChange, ariaLabel = 'Device type' } = {}) {
+export function mountFlatChoicePicker(container, selectEl, { onChange, ariaLabel = 'Device type', priceFor } = {}) {
   if (!container || !selectEl) return () => {};
 
   function render() {
@@ -100,7 +100,19 @@ export function mountFlatChoicePicker(container, selectEl, { onChange, ariaLabel
       const active = opt.value === selected;
       btn.className = choiceChipClasses(active);
       btn.setAttribute('aria-pressed', String(active));
-      btn.textContent = opt.textContent.trim();
+      // Optional price on the right of the chip (hardware "Service": each device has its own price).
+      const price = priceFor?.(opt.value) || '';
+      if (price) {
+        btn.classList.add('flex', 'items-center', 'justify-between', 'gap-3');
+        const name = document.createElement('span');
+        name.textContent = opt.textContent.trim();
+        const amount = document.createElement('span');
+        amount.className = 'shrink-0 font-bold text-slate-900';
+        amount.textContent = price;
+        btn.append(name, amount);
+      } else {
+        btn.textContent = opt.textContent.trim();
+      }
       btn.addEventListener('click', () => {
         setSelectValue(selectEl, opt.value);
         onChange?.(opt.value);

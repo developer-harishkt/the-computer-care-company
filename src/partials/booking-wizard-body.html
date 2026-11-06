@@ -28,29 +28,7 @@
             <button type="button" id="booking-copy-reference" class="booking-success-reference__copy">Copy</button>
         </div>
 
-        <div id="booking-payment-block" class="hidden booking-success-section booking-success-payment">
-            <span id="booking-pay-service" class="sr-only"></span>
-            <div class="booking-success-fee-row">
-                <span class="booking-success-fee-row__label">Visit &amp; Assessment fee</span>
-                <span id="booking-pay-amount" class="booking-success-fee-row__amount tabular-nums"></span>
-            </div>
-            <p class="booking-success-fee-note" id="booking-visit-fee-hint">Note: parts and extra repair work are quoted after inspection.</p>
-            <p id="booking-pay-skip-note" class="booking-success-fee-note">Your slot is confirmed once the fee is paid. If you skip payment, we&rsquo;ll WhatsApp you to confirm.</p>
-
-            <div class="booking-success-pay-sticky">
-                <p id="booking-payment-error" class="booking-success-pay-alert hidden" role="alert" aria-live="polite">
-                    <svg class="booking-success-pay-alert__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span class="booking-success-pay-alert__text"></span>
-                </p>
-                <p id="booking-payment-pending" class="booking-success-pay-done hidden" role="status" aria-live="polite"></p>
-                <p id="booking-payment-done" class="booking-success-pay-done hidden" aria-live="polite">
-                    Payment received — you’re all set.
-                </p>
-                <button type="button" id="pay-visit-fee" class="book-btn-primary booking-success-pay-btn w-full">Continue to secure payment</button>
-                <p id="booking-razorpay-hint" class="booking-success-pay-sub hidden"></p>
-            </div>
-        </div>
-
+        <!-- V1 FINAL CHANGES: what the fee includes comes first, above the fee -->
         <ul class="booking-success-checklist" aria-label="Included with your visit">
             <li class="booking-success-checklist__item">
                 <svg class="booking-success-checklist__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -69,6 +47,29 @@
                 <p id="booking-trust-warranty-body" class="booking-success-details__para"></p>
             </div>
         </details>
+
+        <div id="booking-payment-block" class="hidden booking-success-section booking-success-payment">
+            <span id="booking-pay-service" class="sr-only"></span>
+            <div class="booking-success-fee-row">
+                <span class="booking-success-fee-row__label">Service fee</span>
+                <span id="booking-pay-amount" class="booking-success-fee-row__amount tabular-nums"></span>
+            </div>
+            <p class="booking-success-fee-note" id="booking-visit-fee-hint">Note: parts and extra repair work are quoted after inspection.</p>
+            <p id="booking-pay-skip-note" class="booking-success-fee-note">Your slot is confirmed once the fee is paid. If you skip payment, we&rsquo;ll WhatsApp you to confirm.</p>
+
+            <div class="booking-success-pay-sticky">
+                <p id="booking-payment-error" class="booking-success-pay-alert hidden" role="alert" aria-live="polite">
+                    <svg class="booking-success-pay-alert__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="booking-success-pay-alert__text"></span>
+                </p>
+                <p id="booking-payment-pending" class="booking-success-pay-done hidden" role="status" aria-live="polite"></p>
+                <p id="booking-payment-done" class="booking-success-pay-done hidden" aria-live="polite">
+                    Payment received — you’re all set.
+                </p>
+                <button type="button" id="pay-visit-fee" class="book-btn-primary booking-success-pay-btn w-full">Continue to secure payment</button>
+                <p id="booking-razorpay-hint" class="booking-success-pay-sub hidden"></p>
+            </div>
+        </div>
 
         <p id="booking-success-consent" class="booking-success-consent"></p>
 
@@ -192,7 +193,7 @@
             <div id="job-type-wrap" class="hidden mb-5">
                 <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Type of hardware job">
-                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">₹189 diagnostic fee</span></button>
+                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">₹189 &amp; ₹199 diagnostic fee</span></button>
                     <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Service <span class="block text-xs font-normal text-slate-500">from ₹549</span></button>
                     <button type="button" data-job-type="install" aria-pressed="false" class="branch-slot-btn">All component installation <span class="block text-xs font-normal text-slate-500">from ₹259</span></button>
                 </div>
@@ -211,7 +212,11 @@
     <div data-wizard-step="schedule" class="hidden space-y-6">
         <div>
             <h2 class="text-lg font-bold text-slate-900 mb-1">When should we visit? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
-            <p class="text-sm text-slate-500 mb-4">Tap a recommended slot, or pick any date and time — we offer 24/7 on-site booking.</p>
+            <p class="text-sm text-slate-500 mb-3">Tap a recommended slot, or pick any date and time.</p>
+            <!-- V1 FINAL CHANGES: 24/7 noticeable, in the same style as the homepage "24/7 doorstep support" pill -->
+            <p class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg mb-5">
+                <span class="w-2 h-2 rounded-full bg-blue-600" aria-hidden="true"></span>24/7 on-site booking &middot; any day, any hour
+            </p>
             <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Recommended</p>
             <div id="prime-slots" class="grid gap-3 sm:grid-cols-1"></div>
             <button type="button" id="schedule-custom-toggle" class="mt-4 w-full text-left rounded-lg border border-dashed border-slate-300 bg-slate-50/80 px-4 py-3 text-sm font-semibold text-blue-700 hover:border-blue-300 hover:bg-blue-50/50 transition-colors min-h-[44px]">

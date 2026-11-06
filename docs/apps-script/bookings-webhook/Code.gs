@@ -44,9 +44,11 @@ function getVisitFeePaise(service, device) {
     const map = {
       'Windows laptop': 549,
       'Desktop PC': 599,
+      'Gaming / Pro Laptop & PC': 699,
       'Gaming laptop': 699,
       'All-in-one desktop': 1299,
-      'Printer / scanner': 549,
+      'Printer': 649,
+      'Printer / scanner': 649,
       'MacBook / Apple laptop': 549,
       'Other': 549,
       'Other / not sure': 549,
@@ -55,6 +57,20 @@ function getVisitFeePaise(service, device) {
   }
   if (s === 'Component install (RAM / SSD / GPU)') {
     return COMPONENT_INSTALL_FEE_INR * 100;
+  }
+  // Hardware "Repair / unknown issue" diagnostic fee by device (V1 FINAL CHANGES; must match src/book-service-config.js).
+  if (s === 'Hardware repair & maintenance') {
+    const repair = {
+      'Windows laptop': 189,
+      'MacBook / Apple laptop': 189,
+      'Gaming laptop': 189,
+      'Desktop PC': 199,
+      'Gaming / Pro Laptop & PC': 199,
+      'All-in-one desktop': 199,
+      'Printer': 199,
+      'Printer / scanner': 199,
+    };
+    return (repair[d] || DEFAULT_VISIT_FEE_INR) * 100;
   }
   return DEFAULT_VISIT_FEE_INR * 100;
 }

@@ -41,12 +41,13 @@ export const DEVICE_OPTIONS = {
     { value: 'Desktop PC', label: 'Desktop PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
   ],
+  // Hardware "Your device" list (Karthik, V1 FINAL CHANGES): this order and these names. "Other" (→ WhatsApp) kept last.
   hardware: [
     { value: 'Windows laptop', label: 'Windows laptop' },
-    { value: 'Gaming laptop', label: 'Gaming laptop' },
     { value: 'Desktop PC', label: 'Desktop PC' },
+    { value: 'Gaming / Pro Laptop & PC', label: 'Gaming / Pro Laptop & PC' },
     { value: 'All-in-one desktop', label: 'All-in-one desktop' },
-    { value: 'Printer / scanner', label: 'Printer / scanner' },
+    { value: 'Printer', label: 'Printer' },
     { value: 'Other', label: 'Other' },
   ],
   netsec: [
@@ -110,21 +111,39 @@ export const COMPONENT_INSTALL_SERVICE = 'Component install (RAM / SSD / GPU)';
 /*
  * Service price by device (Karthik, Second Modification for V1): Laptop ₹549, Desktop ₹599, Gaming ₹699,
  * All-in-one ₹1,299. Components ₹259 online (confirmed), extra parts quoted on the visit.
- * ASSUMED until Karthik confirms: Printer / scanner ₹549 (lowest, so "Service from ₹549" stays true).
- * Must match Code.gs getVisitFeePaise().
+ * V1 FINAL CHANGES: Printer ₹649; "Gaming laptop" is now "Gaming / Pro Laptop & PC" (same ₹699).
+ * Old device names stay priced so older bookings still match. Must match Code.gs getVisitFeePaise().
  */
 const SERVICE_FEE_FALLBACK_INR = 549;
 const CLEANING_FEE_BY_DEVICE = {
   'Windows laptop': 549,
   'Desktop PC': 599,
+  'Gaming / Pro Laptop & PC': 699,
   'Gaming laptop': 699,
   'All-in-one desktop': 1299,
-  'Printer / scanner': 549,
+  Printer: 649,
+  'Printer / scanner': 649,
   'MacBook / Apple laptop': 549,
   Other: 549,
   'Other / not sure': 549,
 };
 const COMPONENT_INSTALL_FEE_INR = 259;
+
+/*
+ * Hardware "Repair / unknown issue" diagnostic fee by device (Karthik, V1 FINAL CHANGES: "189 & 199").
+ * ASSUMED until Karthik confirms: laptops ₹189; desktop, gaming / pro, all-in-one and printer ₹199
+ * (desktops already cost more to service). Must match Code.gs getVisitFeePaise().
+ */
+const HARDWARE_REPAIR_FEE_BY_DEVICE = {
+  'Windows laptop': 189,
+  'MacBook / Apple laptop': 189,
+  'Gaming laptop': 189,
+  'Desktop PC': 199,
+  'Gaming / Pro Laptop & PC': 199,
+  'All-in-one desktop': 199,
+  Printer: 199,
+  'Printer / scanner': 199,
+};
 
 /** Services with no online visit fee (sales follow-up). */
 const NO_ONLINE_FEE_SERVICES = new Set([
@@ -153,21 +172,17 @@ export function getVisitFee(service, device) {
   }
   const key = normalizeService(service);
   if (!key || NO_ONLINE_FEE_SERVICES.has(key)) return null;
-  return { amountInr: DEFAULT_VISIT_FEE_INR, label: VISIT_FEE_LABELS[key] || 'Visit & Assessment fee' };
+  if (key === HARDWARE_SERVICE) {
+    return { amountInr: HARDWARE_REPAIR_FEE_BY_DEVICE[device] ?? DEFAULT_VISIT_FEE_INR, label: VISIT_FEE_LABEL };
+  }
+  return { amountInr: DEFAULT_VISIT_FEE_INR, label: VISIT_FEE_LABEL };
 }
 
 /**
- * Name of the ₹189 fee on the payment confirmation (Karthik, PRE-FINAL MODIFICATIONS).
- * ASSUMED until Karthik confirms: PC security & threat management uses "Visit & Assessment fee" like Network & Wifi.
+ * Name of the ₹189 fee on the payment confirmation. V1 FINAL CHANGES: "Service fee" everywhere
+ * ("as we're giving what's included"). Hardware servicing keeps "Service fee"; component install keeps its own name.
  */
-const VISIT_FEE_LABELS = {
-  'Standard diagnosis / Unknown problems': 'Visit & Assessment fee',
-  'Hardware repair & maintenance': 'Visit & Assessment fee',
-  'OS & software care': 'Service fee',
-  'Network & Wifi': 'Visit & Assessment fee',
-  'PC security & threat management': 'Visit & Assessment fee',
-  'Backup & recovery': 'Service fee',
-};
+const VISIT_FEE_LABEL = 'Service fee';
 
 export function formatInr(amount) {
   return new Intl.NumberFormat('en-IN', {

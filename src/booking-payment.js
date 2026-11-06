@@ -552,7 +552,7 @@ export function initVisitFeePayment(root, hooks) {
       }
       if (payService) payService.textContent = payload.service || 'On-site visit';
       const feeLabel = root.querySelector('.booking-success-fee-row__label');
-      if (feeLabel) feeLabel.textContent = fee.label || 'Visit & Assessment fee';
+      if (feeLabel) feeLabel.textContent = fee.label || 'Service fee';
       // Same note for every job (PRE-FINAL). Set every time: the same popup can be reused for a different job.
       if (feeHint) feeHint.textContent = PAYMENT_PAGE.visitFeeHint;
       if (payAmount) payAmount.textContent = formatInr(fee.amountInr);
