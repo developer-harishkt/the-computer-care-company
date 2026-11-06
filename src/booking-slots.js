@@ -80,27 +80,55 @@ function formatSelectionSummary(iso, time) {
   return `${dayLabel}, ${d.getDate()} ${MONTHS[d.getMonth()]} · ${time}`;
 }
 
-/** Build 3 “prime” recommendations: soonest sensible slots. */
+/**
+ * Hours the "Soonest" recommendation may use (24h clock, inclusive). Customers can still pick any hour,
+ * 24/7, under "Choose date & time". ASSUMED until Karthik confirms: 8 AM – 9 PM.
+ */
+const SOONEST_FROM_HOUR = 8;
+const SOONEST_UNTIL_HOUR = 21;
+/** Popular visit times, in order of preference, for the other recommendations. */
+const POPULAR_TIMES = ['10:00 AM', '02:00 PM', '11:00 AM', '03:00 PM', '04:00 PM'];
+
+/**
+ * Build 3 “prime” recommendations: the soonest bookable slot (2 h from now, within sensible hours),
+ * then popular times after it — so a customer at 4 PM is offered 7 PM today, not only tomorrow.
+ */
 export function computePrimeSlots() {
   const today = new Date();
   const candidates = [];
-  const times = ['10:00 AM', '02:00 PM', '11:00 AM', '03:00 PM', '04:00 PM'];
+  const card = (d, dayOffset, time, badge) => ({
+    iso: dateIso(d),
+    time,
+    title: formatDateLabel(d, dayOffset),
+    dayNum: d.getDate(),
+    month: MONTHS[d.getMonth()],
+    badge,
+  });
 
+  // 1. Soonest: first free hour today or tomorrow within the sensible hours.
+  soonest: for (let dayOffset = 0; dayOffset < 2; dayOffset += 1) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + dayOffset);
+    for (let h = SOONEST_FROM_HOUR; h <= SOONEST_UNTIL_HOUR; h += 1) {
+      const time = ALL_DAY_TIME_SLOTS[h];
+      if (isSlotPast(dateIso(d), time)) continue;
+      candidates.push(card(d, dayOffset, time, 'Soonest'));
+      break soonest;
+    }
+  }
+
+  // 2. Popular times after the soonest slot.
+  const soonestAt = candidates[0] ? `${candidates[0].iso} ${String(parseSlotHour(candidates[0].time)).padStart(2, '0')}` : '';
   for (let dayOffset = 0; dayOffset < SCHEDULE_DAY_COUNT && candidates.length < 3; dayOffset += 1) {
     const d = new Date(today);
     d.setDate(today.getDate() + dayOffset);
     const iso = dateIso(d);
+    const times = POPULAR_TIMES.filter((time) => !isSlotPast(iso, time))
+      .filter((time) => `${iso} ${String(parseSlotHour(time)).padStart(2, '0')}` > soonestAt)
+      .sort((a, b) => parseSlotHour(a) - parseSlotHour(b));
     for (const time of times) {
       if (candidates.length >= 3) break;
-      if (isSlotPast(iso, time)) continue;
-      candidates.push({
-        iso,
-        time,
-        title: formatDateLabel(d, dayOffset),
-        dayNum: d.getDate(),
-        month: MONTHS[d.getMonth()],
-        badge: dayOffset === 0 ? 'Soonest' : dayOffset === 1 ? 'Popular' : 'Flexible',
-      });
+      candidates.push(card(d, dayOffset, time, dayOffset === 0 ? 'Today' : 'Popular'));
     }
   }
   return candidates;
