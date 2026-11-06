@@ -9,7 +9,7 @@ Tick each box in order. Steps marked **(user)** need a dashboard or account only
 ## 1. Before merging
 
 - [ ] **Karthik sign-off on V1** (message sent 6 Nov), including the 8 AM–9 PM "Soonest" slot window.
-- [ ] **Code.gs redeploy (user)** for the V1 FINAL prices (printer ₹649, repair ₹189/₹199) — must be live before go-live; verify with a read-only `create-order`.
+- [x] **Code.gs redeploy (user)** for the V1 FINAL prices (printer ₹649, repair ₹189/₹199) — **done 6 Nov**; read-only `create-order` check matched the site (printer service ₹649, Gaming/Pro service ₹699, desktop repair ₹199, laptop repair ₹189, standard ₹189).
 - [ ] **Razorpay live mode (user) — decided: option A, live keys everywhere** (account is activated). On go-live day: Razorpay Live → API Keys → Generate; Apps Script Script properties `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` = live pair (no redeploy needed, read per request); Cloudflare `VITE_RAZORPAY_KEY_ID` = `rzp_live_…` in **Production and Preview**; then merge. Never paste the secret into chat.
 - [ ] **Cloudflare Production env vars (user):** Pages → project → Settings → Variables and secrets → **Production** (separate from Preview):
   - `VITE_SITE_URL` = `https://thecomputercarecompany.in`
