@@ -8,9 +8,9 @@
 
 ## Last updated
 
-- **Date:** 2026-11-05 (IST)
+- **Date:** 2026-11-06 (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
-- **Current focus:** "Third Modification for V1.md" + 3 extra asks (popup double logo, live field validation, WhatsApp messages) + a speed pass are done **locally, not yet committed** (phases H, A, B, C, F, I, G, D, E — see newest Session log). Next: commit per phase, push to preview.
+- **Current focus:** "PRE - FINAL MODIFICATIONS, V1.md" (P1–P4) built and browser-checked; commit per phase + push to preview when asked. User's plan: ship a lean V1 to `main`, add analytics, bring real customers.
 
 ---
 
@@ -105,6 +105,7 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 ## Not done / waiting
 
+- **Assumed 2026-11-06 (PRE-FINAL), Karthik to confirm:** PC security & threat management = ₹189 "Visit & Assessment fee" (server already charges ₹189 for it, no Code.gs change); the "Need help?" line on the payment confirmation also lost its WhatsApp link (WhatsApp only on payment failure / delay).
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
 - **Third Modification answers (Karthik, 2026-11-06):** OS "Other" needs no note (rule removed); button labels: paid doorstep "Proceed to Payment", enquiries "We’re Getting Connected" (also Subscriptions popup), branch "Let’s Book Your Visit"; centred turnaround intro confirmed.
@@ -132,6 +133,14 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-06 — PRE-FINAL MODIFICATIONS, V1
+
+- **P1 Homepage:** Our Care heading centred; "Onsite Service Coverage" → **Service Hours & Locations**; Main Branch / Upcoming tiles moved into **Contact** (Korattur: phone/WhatsApp, mail, address, pincode, open hours, Get directions; Maduravoyal: "Address to be announced soon"); "Working Hours" heading removed; footer "Our branches" → `#contact`.
+- **P2 Booking:** "Network & security" → **Network & Wifi** (value too; old name kept as alias, old links still work); new **PC security & threat management** category (5 options + Other → WhatsApp, no device step); order Standard → Hardware → OS → Network & Wifi → PC security → Backup; group "Lifetime Care & Business Support", "Subscription / Care plans"; **OS no device step**; homepage PC Security tile opens the new category.
+- **P3 Payment confirmation:** fee names — Visit & Assessment fee (Standard, Hardware repair, Network & Wifi, PC security), Service fee (OS, Backup; Hardware servicing unchanged), Component installation fee unchanged; note "Note: parts and extra repair work are quoted after inspection." for all; "WhatsApp us" removed (confirmation + payment-received notice + help line); payment failure / gateway error / paid-but-confirming show **Continue on WhatsApp** with the booking ref (user cancelling Razorpay doesn't).
+- **P4 Subscriptions:** refund line removed; intro text smaller; "Computer · Scheduled care · Longer life" block in one centred tile.
+- Prices unchanged; site vs Code.gs verified for 10 services. Sweep 8 pages × 5 widths clean; `vite build` OK.
 
 ### 2026-11-05 (night) — Third Modification for V1 + speed pass (uncommitted at time of writing)
 
