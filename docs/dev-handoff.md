@@ -8,9 +8,9 @@
 
 ## Last updated
 
-- **Date:** 2026-11-06 (IST)
+- **Date:** 2026-11-06 evening (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
-- **Current focus:** PRE-FINAL MODIFICATIONS (P1–P4) committed (`5d669de`…`71c9494`), pushed and **live on the preview** (re-checked in browser). Message sent to Karthik with 2 assumptions to confirm. Next: his answers, then agree the V1 cut-off and merge to `main` (user's plan: lean V1 live → analytics → real customers).
+- **Current focus:** PostHog analytics live on the preview (`29b7dec`, `8c2cc31`). Karthik answered PRE-FINAL (11-06): PC security ₹189 OK; "Need help?" line → quote; slots need 2 h lead time — both done (see Session log). Next: agree the V1 cut-off and merge to `main` (user's plan: lean V1 live → analytics → real customers; the data is meant to show Karthik what customers actually use).
 
 ---
 
@@ -75,6 +75,17 @@ Quick check that both tables agree: load `Code.gs` in Node `vm` and compare with
 - After a GAS redeploy, Google can serve the **old version for ~20–60 s** — repeat checks before concluding.
 - Find the preview's webhook URL in the built `booking-wizard-mount-*.js` (search `script.google.com`).
 
+### Analytics (PostHog) — added 2026-11-06
+
+- **Project:** PostHog **US** cloud, project id `714977`, key `phc_qV46…` (public, in `src/analytics.js`; `VITE_POSTHOG_KEY` overrides). Host `https://us.i.posthog.com`. Free plan (1M events + 5K recordings / month).
+- **Code:** `src/analytics.js` (imported by `main.js` on every page). `posthog-js` is loaded on idle (separate ~118 KB gz chunk). `track(name, props)` queues until loaded; no-op when off.
+- **Off** on localhost, `127.0.0.1` and automated browsers (`navigator.webdriver` → Playwright tests never send). Switches: `?analytics=off` (this browser stops, remembered), `?analytics=on` (undo), `?analytics=test` (send anyway, tab-only; events carry `is_test=true`, headless allowed, no compression, events echoed to console as `[tccc-analytics]`).
+- **Toolbar / heatmaps:** PostHog → Settings → **Web analytics domains** (= authorized URLs; preview + `.in` added) → **Launch**. Toolbar is a dark bar at the **bottom centre**. On a browser with `?analytics=off`, Launch still loads PostHog in toolbar-only mode (captures nothing).
+- **Privacy:** replay masks all inputs + `#booking-success-summary`; blocks `#booking-success-redirect`, `#plan-enquiry-done` (wa.me links with the name); `before_send` strips `wa.me/…?text=` everywhere; no `identify`. Privacy Policy §8 paragraph (Last updated 6 Nov 2026).
+- **Events:** `$pageview` / `$pageleave` (scroll depth), autocapture, heatmaps, rage/dead clicks, replay; custom: `section_seen` (5 s on screen), `contact_tap` (channel whatsapp/call/mail/directions/social + section), `book_opened` (from section, service), `booking_step_viewed` (step, step_number, service, device, task, visit_mode, context), `booking_closed` (step, completed), `booking_error` (kind validation/submit_failed, field, message), `form_field_error` (live typing errors), `booking_submitted` (lead, fee_inr), `payment_started` / `payment_checkout_opened` / `payment_succeeded` / `payment_pending_confirmation` / `payment_failed` / `payment_closed` / `payment_error`, `plan_enquiry_opened` / `_submitted` / `_failed`. **Never put personal details in event props.**
+- **PostHog project settings done by the user:** session replay on; test filter `is_test` **is not set** (keep it). Time zone should be **Asia/Kolkata** (was UTC).
+- **Testing:** intercept `us.i.posthog.com` in Playwright with `?analytics=test` (script `an.js` pattern: fulfil `/flags` yourself, decode `/e/` bodies). `$pageleave` is sent on unload, so a test only sees it by calling the unload handler. A real check from the preview with `?analytics=test` returned 200 from PostHog.
+
 ### Env vars (Vite — baked at **build** time)
 
 | Variable | Production | Preview |
@@ -105,7 +116,7 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 ## Not done / waiting
 
-- **Assumed 2026-11-06 (PRE-FINAL), Karthik to confirm:** PC security & threat management = ₹189 "Visit & Assessment fee" (server already charges ₹189 for it, no Code.gs change); the "Need help?" line on the payment confirmation also lost its WhatsApp link (WhatsApp only on payment failure / delay).
+- **PRE-FINAL answers (Karthik, 2026-11-06):** PC security & threat management ₹189 "Visit & Assessment fee" — confirmed. "Need help?" line on the payment confirmation — removed, replaced by the centred quote "Technology needs ongoing care". Slots — earliest bookable time is **2 hours from now** (`MIN_LEAD_MINUTES` in `booking-slots.js`).
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
 - **Third Modification answers (Karthik, 2026-11-06):** OS "Other" needs no note (rule removed); button labels: paid doorstep "Proceed to Payment", enquiries "We’re Getting Connected" (also Subscriptions popup), branch "Let’s Book Your Visit"; centred turnaround intro confirmed.
@@ -133,6 +144,13 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-06 (evening) — PostHog analytics + Karthik's PRE-FINAL answers
+
+- **Analytics** (see "Analytics (PostHog)" above): `29b7dec` (setup, events, privacy paragraph), `8c2cc31` (toolbar works on `?analytics=off` browsers). Verified: no PostHog requests on localhost/tests; with `?analytics=test` all events arrive, no name/phone/email/address in any payload or recording, no `wa.me?text`. Speed at 4× CPU: tap → next step 402 → 466 ms; extra ~0.5 s long task while recording starts (after idle).
+- **Slots — 2 h lead time** (Karthik: at 16:04 the 4:00 PM slot was offered): `isSlotPast` now means "starts less than 2 h from now" (recommendations + custom picker). Recommendations are re-computed every time the schedule step is shown (the popup is pre-built at page load). A slot that goes stale while the form is open is refused on Next/Submit with "That time is now less than 2 hours away…". Checked with a fixed clock at 08:30 / 16:04 / 22:30.
+- **Payment confirmation:** "Need help? phone · Email" line → centred "“Technology needs ongoing care”" (`booking-success-ui.js`, `.booking-success-contact`).
+- Regression: sweep 8 pages × 5 widths clean; booking, live validation and payment scripts pass; `vite build` OK.
 
 ### 2026-11-06 — PRE-FINAL MODIFICATIONS, V1
 
