@@ -11,6 +11,8 @@
  *   ?analytics=off  → this browser stops sending (use on your own phone/laptop so you don't count yourself)
  *   ?analytics=on   → undo that
  *   ?analytics=test → send even from localhost / automated browsers; events carry is_test=true
+ * Opening the site with PostHog's "Launch" (toolbar, heatmaps) always loads PostHog so the toolbar shows,
+ * but a browser set to ?analytics=off still records nothing.
  *
  * posthog-js is loaded after the page is idle so it never slows the first paint or the first tap;
  * calls made before it loads are queued.
@@ -47,9 +49,13 @@ function readModeFromUrl() {
   if (mode === 'test') storage('session')?.setItem(TEST_KEY, '1');
 }
 
+function isOptedOut() {
+  return storage('local')?.getItem(OFF_KEY) === '1';
+}
+
 function shouldRun() {
   readModeFromUrl();
-  if (storage('local')?.getItem(OFF_KEY) === '1') return false;
+  if (isOptedOut()) return false;
   testMode = storage('session')?.getItem(TEST_KEY) === '1';
   if (testMode) return true;
   const host = window.location.hostname;
@@ -77,6 +83,35 @@ function beforeSend(event) {
   // Test mode only: echo each event to the console so a check can see events sent while leaving a page.
   if (testMode && event.event !== '$snapshot') console.debug('[tccc-analytics]', event.event, JSON.stringify(event.properties || {}));
   return event;
+}
+
+/** Opened via PostHog's "Launch" (toolbar / heatmaps), now or earlier in this browser. */
+function toolbarRequested() {
+  const hash = window.location.hash || '';
+  if (hash.includes('__posthog=')) return true;
+  return Boolean(storage('local')?.getItem('_postHogToolbarParams'));
+}
+
+/** Analytics is off in this browser, but the PostHog toolbar was launched: load it without recording anything. */
+async function loadToolbarOnly() {
+  try {
+    const { default: ph } = await import('posthog-js');
+    ph.init(POSTHOG_KEY, {
+      api_host: POSTHOG_HOST,
+      defaults: '2026-08-30',
+      opt_out_capturing_by_default: true,
+      autocapture: false,
+      capture_pageview: false,
+      capture_pageleave: false,
+      disable_session_recording: true,
+      disable_surveys: true,
+      disable_product_tours: true,
+      disable_conversations: true,
+      disable_web_experiments: true,
+    });
+  } catch {
+    /* toolbar is a nice-to-have */
+  }
 }
 
 async function load() {
@@ -229,7 +264,10 @@ function watchSectionsSeen() {
 
 function start() {
   enabled = shouldRun();
-  if (!enabled) return;
+  if (!enabled) {
+    if (isOptedOut() && toolbarRequested()) void loadToolbarOnly();
+    return;
+  }
   watchContactTaps();
   watchSectionsSeen();
   const go = () => void load();
