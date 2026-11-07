@@ -88,10 +88,13 @@ const SOONEST_FROM_HOUR = 8;
 const SOONEST_UNTIL_HOUR = 21;
 /** Popular visit times, in order of preference, for the other recommendations. */
 const POPULAR_TIMES = ['10:00 AM', '02:00 PM', '11:00 AM', '03:00 PM', '04:00 PM'];
+/** Karthik (7 Nov): a late-night option as the 4th recommendation. */
+const LATE_NIGHT_TIME = '10:00 PM';
 
 /**
- * Build 3 “prime” recommendations: the soonest bookable slot (2 h from now, within sensible hours),
- * then popular times after it — so a customer at 4 PM is offered 7 PM today, not only tomorrow.
+ * Build 4 “prime” recommendations: the soonest bookable slot (2 h from now, within sensible hours),
+ * then popular times after it — so a customer at 4 PM is offered 7 PM today, not only tomorrow —
+ * then a late-night 10 PM slot.
  */
 export function computePrimeSlots() {
   const today = new Date();
@@ -131,6 +134,22 @@ export function computePrimeSlots() {
       candidates.push(card(d, dayOffset, time, dayOffset === 0 ? 'Today' : 'Popular'));
     }
   }
+
+  // 3. Late night (4th card): 10 PM today if it's still 2+ hours away, else 10 PM tomorrow.
+  for (let dayOffset = 0; dayOffset < 2; dayOffset += 1) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + dayOffset);
+    if (isSlotPast(dateIso(d), LATE_NIGHT_TIME)) continue;
+    candidates.push(card(d, dayOffset, LATE_NIGHT_TIME, 'Late night'));
+    break;
+  }
+
+  // In time order. If 10 PM tonight comes before the "soonest" (e.g. at 7:30 PM), that card isn't the soonest any more.
+  const at = (c) => `${c.iso} ${String(parseSlotHour(c.time)).padStart(2, '0')}`;
+  candidates.sort((a, b) => (at(a) < at(b) ? -1 : at(a) > at(b) ? 1 : 0));
+  candidates.forEach((c, i) => {
+    if (c.badge === 'Soonest' && i > 0) c.badge = c.title.startsWith('Today') ? 'Today' : 'Tomorrow';
+  });
   return candidates;
 }
 

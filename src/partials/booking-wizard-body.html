@@ -193,7 +193,7 @@
             <div id="job-type-wrap" class="hidden mb-5">
                 <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Type of hardware job">
-                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">₹189 &amp; ₹199 diagnostic fee</span></button>
+                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">at just ₹189/₹199</span></button>
                     <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Service <span class="block text-xs font-normal text-slate-500">from ₹549</span></button>
                     <button type="button" data-job-type="install" aria-pressed="false" class="branch-slot-btn">All component installation <span class="block text-xs font-normal text-slate-500">from ₹259</span></button>
                 </div>
@@ -213,9 +213,12 @@
         <div>
             <h2 class="text-lg font-bold text-slate-900 mb-1">When should we visit? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
             <p class="text-sm text-slate-500 mb-3">Tap a recommended slot, or pick any date and time.</p>
-            <!-- V1 FINAL CHANGES: 24/7 noticeable, in the same style as the homepage "24/7 doorstep support" pill -->
-            <p class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg mb-5">
-                <span class="w-2 h-2 rounded-full bg-blue-600" aria-hidden="true"></span>24/7 on-site booking &middot; any day, any hour
+            <!-- Karthik (7 Nov): "24/7 doorstep service", a little bigger, the dot glows like an "on" light -->
+            <p class="inline-flex items-center gap-2.5 text-base font-bold text-blue-700 bg-blue-50 border border-blue-100 px-4 py-2 rounded-lg mb-5">
+                <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping"></span>
+                    <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.9)]"></span>
+                </span>24/7 doorstep service
             </p>
             <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Recommended</p>
             <div id="prime-slots" class="grid gap-3 sm:grid-cols-1"></div>

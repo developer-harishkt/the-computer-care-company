@@ -756,12 +756,8 @@ export function initBookingWizard(root, options = {}) {
 
   if (devicePickerEl && deviceSelect) {
     refreshDevicePicker = mountFlatChoicePicker(devicePickerEl, deviceSelect, {
-      // V1 FINAL CHANGES: under hardware "Repair" and "Service", each device shows its own price (same table as the payment).
-      priceFor: (value) => {
-        if (serviceSelect?.value !== HARDWARE_SERVICE || jobType === 'install' || value === HARDWARE_OTHER_DEVICE) return '';
-        const fee = getVisitFee(jobType === 'cleaning' ? CLEANING_SERVICE : HARDWARE_SERVICE, value);
-        return fee ? formatInr(fee.amountInr) : '';
-      },
+      // Karthik (7 Nov): no prices on the device buttons (inconsistent with other categories).
+      // mountFlatChoicePicker still supports `priceFor` for later use.
       onChange: (value) => {
         if (serviceSelect?.value === HARDWARE_SERVICE && value === HARDWARE_OTHER_DEVICE) {
           openWhatsApp(`Hi, I need hardware repair for a device not in your list: `, deviceWhatsAppNote);
