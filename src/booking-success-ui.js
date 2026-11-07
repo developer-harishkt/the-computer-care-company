@@ -1,4 +1,5 @@
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
+import { serviceDisplayName } from './book-service-config.js';
 
 const MODAL_HEADERS = {
   booking: { title: 'Book your visit', subtitle: 'On-site service · Chennai' },
@@ -71,7 +72,7 @@ export function populateBookingSummary(summaryEl, payload, options = {}) {
       .join('');
     return;
   }
-  const rows = [{ label: 'Service', value: payload.service }];
+  const rows = [{ label: 'Service', value: serviceDisplayName(payload.service, payload.device) }];
   if (options.showDevice !== false && payload.device) {
     rows.push({ label: 'Device', value: payload.device });
   }

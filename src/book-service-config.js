@@ -108,6 +108,23 @@ export const HARDWARE_SERVICE = 'Hardware repair & maintenance';
 export const CLEANING_SERVICE = 'Laptop or desktop servicing (cleaning)';
 export const COMPONENT_INSTALL_SERVICE = 'Component install (RAM / SSD / GPU)';
 
+/**
+ * Name the customer sees for a service (payment page + booking summary). The sheet and Code.gs keep the
+ * internal names above (prices are looked up by them).
+ * Karthik (8 Nov): hardware "Service" says the device ("Printer service", "Windows laptop service"),
+ * no "(cleaning)"; every installation says "Component installation services".
+ * @param {string} service
+ * @param {string} [device]
+ */
+export function serviceDisplayName(service, device) {
+  if (service === CLEANING_SERVICE) {
+    const d = String(device || '').trim();
+    return d && d !== 'Not specified' ? `${d} service` : 'Service';
+  }
+  if (service === COMPONENT_INSTALL_SERVICE) return 'Component installation services';
+  return service;
+}
+
 /*
  * Service price by device (Karthik, Second Modification for V1): Laptop ₹549, Desktop ₹599, Gaming ₹699,
  * All-in-one ₹1,299. Components ₹259 online (confirmed), extra parts quoted on the visit.

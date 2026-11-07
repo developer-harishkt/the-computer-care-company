@@ -1,4 +1,4 @@
-import { formatInr, getVisitFee, whatsAppUrl } from './book-service-config.js';
+import { formatInr, getVisitFee, serviceDisplayName, whatsAppUrl } from './book-service-config.js';
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
 import { createVisitFeeOrder, verifyVisitFeePayment } from './booking-submit.js';
 import { track } from './analytics.js';
@@ -550,7 +550,7 @@ export function initVisitFeePayment(root, hooks) {
         showPaidAwaitingConfirmation('');
         return;
       }
-      if (payService) payService.textContent = payload.service || 'On-site visit';
+      if (payService) payService.textContent = serviceDisplayName(payload.service, payload.device) || 'On-site visit';
       const feeLabel = root.querySelector('.booking-success-fee-row__label');
       if (feeLabel) feeLabel.textContent = fee.label || 'Service fee';
       // Same note for every job (PRE-FINAL). Set every time: the same popup can be reused for a different job.
