@@ -8,9 +8,9 @@
 
 ## Last updated
 
-- **Date:** 2026-11-06 late (IST)
+- **Date:** 2026-11-07 (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
-- **Current focus:** PostHog analytics live on the preview (`29b7dec`, `8c2cc31`). Karthik answered PRE-FINAL (11-06): PC security ₹189 OK; "Need help?" line → quote; slots need 2 h lead time — both done (see Session log). Next: agree the V1 cut-off and merge to `main` (user's plan: lean V1 live → analytics → real customers; the data is meant to show Karthik what customers actually use).
+- **Current focus:** Karthik's "Last minute changes" (11-07) done — declared the **V1 cut-off** (user sent Karthik a message: anything new goes on a V1.1 list, decided by analytics after launch). Code.gs V1 FINAL prices redeployed + verified 11-06. Next: Karthik's OK → Razorpay live keys (option A) → PR to `main` (see `docs/v1-merge-checklist.md`).
 
 ---
 
@@ -116,9 +116,9 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 ## Not done / waiting
 
-- **Karthik to confirm (assumed 2026-11-06):** "Soonest" recommended slot only between 8 AM and 9 PM (asked in the sign-off message).
-- **ASSUMED (V1 FINAL CHANGES, user said "take a call"):** "189 & 199" = Hardware *Repair / unknown issue* fee by device — laptops ₹189; Desktop PC, Gaming / Pro Laptop & PC, All-in-one, Printer ₹199 (`HARDWARE_REPAIR_FEE_BY_DEVICE` + Code.gs). Hardware device list keeps "Other" (→ WhatsApp) last. "Last three contents" on Subscriptions = the quote + the two lines under the plan tiles. Footer: name + philosophy stacked beside the logo.
-- **Code.gs changed 2026-11-06 (printer ₹649, repair ₹189/₹199, new device names):** user must redeploy (edit existing deployment → New version), then verify read-only with `create-order`.
+- **V1 cut-off (2026-11-07):** Karthik's "Last minute changes" were the last pre-launch round. New asks → a **V1.1 list**, reviewed after a couple of weeks of real data.
+- **Confirmed by Karthik (2026-11-07):** Soonest slot 8 AM–9 PM; repair ₹189 laptops / ₹199 Desktop, Gaming/Pro, AIO, Printer; "Other" kept in the device list; "last three contents" = quote + 2 lines under the plan tiles.
+- **ASSUMED (2026-11-07, "take a call"):** late-night 4th slot = 10 PM (today if 2 h+ away, else tomorrow), badge "Late night", the 4 cards in time order; the "on" light on the 24/7 badge is a green glowing/pulsing dot; footer link columns stay side by side from 768 px; the 3-year plan's blue "For new PC buyers" label is grey like the 1-year one.
 - **PRE-FINAL answers (Karthik, 2026-11-06):** PC security & threat management ₹189 "Visit & Assessment fee" — confirmed. "Need help?" line on the payment confirmation — removed, replaced by the centred quote "Technology needs ongoing care". Slots — earliest bookable time is **2 hours from now** (`MIN_LEAD_MINUTES` in `booking-slots.js`).
 - **Karthik to confirm (assumed 2026-11-05):** Printer/scanner service ₹549 · "Network Setup & WI-FI" card → Network & security · "Sale of Laptops & Printers" card → WhatsApp. Each is one line in `book-service-config.js` / `index.html` (price also in `Code.gs` + redeploy).
 - **Rate card:** removed for now (Third Modification: "we will think about it in the future").
@@ -147,6 +147,15 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-07 — Karthik's "Last minute changes" (V1 cut-off)
+
+- **Booking:** device buttons no longer show prices (`priceFor` still supported in `choice-picker.js`, unused); Repair sublabel "at just ₹189/₹199"; time-step badge "24/7 doorstep service", bigger, green glowing dot; 4th recommended slot **Late night 10 PM** (`LATE_NIGHT_TIME` in `booking-slots.js`), cards sorted by time — if 10 PM tonight is before the next 8 AM, the 8 AM card says "Tomorrow" instead of "Soonest".
+- **Footer (homepage only — other pages use a short footer):** "Care Before Cost. (Our Philosophy)" removed; "Mail:" / "Phone / WhatsApp:"; divider above Mail removed; grid `md:grid-cols-3` with brand full width so Organisation / Services / Legal stay in one row from 768 px (Legal used to drop to its own row at 768–1279).
+- **Contact:** "Bringing complete computer care closer to you!" / "Address and opening hours will be announced soon" (no full stop).
+- **Subscriptions:** 3-year tile now the same plain style as the 1-year (no blue border/ring/bigger shadow, grey label). Measured: identical spacing in both tiles; the 1-year has one fewer bullet, so a small gap above "Ideal for" keeps both buttons aligned.
+- Code.gs redeployed (V1 FINAL prices) and verified read-only: printer service ₹649, Gaming/Pro ₹699, desktop repair ₹199, laptop repair ₹189, standard ₹189. No Code.gs change this round.
+- Tests: sweep 8 pages × 5 widths clean; slots at 6 times of day; payment, live validation, analytics (no PII), parity 64 pairs — all pass.
 
 ### 2026-11-06 (late) — V1 FINAL CHANGES + footer
 
