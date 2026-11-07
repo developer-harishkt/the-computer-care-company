@@ -8,7 +8,7 @@
 
 ## Last updated
 
-- **Date:** 2026-11-07 (IST)
+- **Date:** 2026-11-08 (IST)
 - **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
 - **Current focus:** Karthik's "Last minute changes" (11-07) done — declared the **V1 cut-off** (user sent Karthik a message: anything new goes on a V1.1 list, decided by analytics after launch). Code.gs V1 FINAL prices redeployed + verified 11-06. Next: Karthik's OK → Razorpay live keys (option A) → PR to `main` (see `docs/v1-merge-checklist.md`).
 
@@ -147,6 +147,11 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-08 — Service names on the payment page and summary
+
+- Karthik: hardware "Service" and "Component installation" showed the internal names ("Laptop or desktop servicing (cleaning)", "Component install (RAM / SSD / GPU)") on the payment page and the post-payment summary — our miss from the 3 Nov button rename. Now `serviceDisplayName()` (`book-service-config.js`): "<device> service" (e.g. "Printer service", "Windows laptop service") and "Component installation services". Display only: the sheet and Code.gs keep the internal names (prices keyed by them) — no redeploy. The status email doesn't show the service.
+- Payment cancel: no WhatsApp on purpose (failures, gateway errors, load errors and confirmation delay all show "Continue on WhatsApp"); cancelled bookings stay "Pending" in the sheet for a call-back. Karthik told.
 
 ### 2026-11-07 — Karthik's "Last minute changes" (V1 cut-off)
 
