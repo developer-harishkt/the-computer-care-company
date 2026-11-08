@@ -1,0 +1,290 @@
+<div id="booking-intro" class="text-center mb-6 sm:mb-8 px-1">
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wide mb-3 sm:mb-4">
+        On-site service — Chennai
+    </span>
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 uppercase mb-2 sm:mb-3">Book your visit</h1>
+    <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+        One step at a time — we only ask what’s relevant to your service.
+    </p>
+</div>
+
+<div id="booking-success" class="hidden booking-success-panel" role="status" aria-live="polite">
+    <div class="booking-success-panel__scroll">
+        <h2 id="booking-success-page-title" class="booking-success-page-title">Complete your booking</h2>
+        <p id="booking-success-redirect" class="hidden text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2 mb-4" role="status" aria-live="polite"></p>
+
+        <div id="booking-success-paid-hero" class="booking-success-paid-hero hidden">
+            <div class="booking-success-paid-hero__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p id="booking-success-heading" class="booking-success-paid-hero__title">Booking confirmed</p>
+        </div>
+
+        <dl id="booking-success-summary" class="booking-success-summary" aria-label="Your booking"></dl>
+
+        <div id="booking-success-reference-wrap" class="booking-success-reference hidden">
+            <span class="booking-success-reference__label">Reference</span>
+            <code id="booking-success-reference" class="booking-success-reference__code"></code>
+            <button type="button" id="booking-copy-reference" class="booking-success-reference__copy">Copy</button>
+        </div>
+
+        <!-- V1 FINAL CHANGES: what the fee includes comes first, above the fee -->
+        <ul class="booking-success-checklist" aria-label="Included with your visit">
+            <li class="booking-success-checklist__item">
+                <svg class="booking-success-checklist__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span id="booking-trust-visit-title">Doorstep visit and technical assessment</span>
+            </li>
+            <li class="booking-success-checklist__item">
+                <svg class="booking-success-checklist__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span id="booking-trust-warranty-title">60-day service warranty</span>
+            </li>
+        </ul>
+
+        <details class="booking-success-details">
+            <summary class="booking-success-details__summary">What’s included</summary>
+            <div class="booking-success-details__body">
+                <p id="booking-trust-visit-body" class="booking-success-details__para"></p>
+                <p id="booking-trust-warranty-body" class="booking-success-details__para"></p>
+            </div>
+        </details>
+
+        <div id="booking-payment-block" class="hidden booking-success-section booking-success-payment">
+            <span id="booking-pay-service" class="sr-only"></span>
+            <div class="booking-success-fee-row">
+                <span class="booking-success-fee-row__label">Service fee</span>
+                <span id="booking-pay-amount" class="booking-success-fee-row__amount tabular-nums"></span>
+            </div>
+            <p class="booking-success-fee-note" id="booking-visit-fee-hint">Note: parts and extra repair work are quoted after inspection.</p>
+            <p id="booking-pay-skip-note" class="booking-success-fee-note">Your slot is confirmed once the fee is paid. If you skip payment, we&rsquo;ll WhatsApp you to confirm.</p>
+
+            <div class="booking-success-pay-sticky">
+                <p id="booking-payment-error" class="booking-success-pay-alert hidden" role="alert" aria-live="polite">
+                    <svg class="booking-success-pay-alert__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="booking-success-pay-alert__text"></span>
+                </p>
+                <p id="booking-payment-pending" class="booking-success-pay-done hidden" role="status" aria-live="polite"></p>
+                <p id="booking-payment-done" class="booking-success-pay-done hidden" aria-live="polite">
+                    Payment received — you’re all set.
+                </p>
+                <button type="button" id="pay-visit-fee" class="book-btn-primary booking-success-pay-btn w-full">Continue to secure payment</button>
+                <p id="booking-razorpay-hint" class="booking-success-pay-sub hidden"></p>
+            </div>
+        </div>
+
+        <p id="booking-success-consent" class="booking-success-consent"></p>
+
+        <details class="booking-success-details">
+            <summary class="booking-success-details__summary">Full terms</summary>
+            <p id="booking-success-terms" class="booking-success-details__para"></p>
+        </details>
+
+        <div class="booking-success-next hidden" id="booking-success-next-wrap">
+            <p class="booking-success-next__title">What happens next</p>
+            <ol id="booking-success-next-steps" class="booking-success-next__list"></ol>
+        </div>
+
+        <p id="booking-trust-longer-life" class="booking-success-longer-life hidden"></p>
+        <p id="booking-success-contact" class="booking-success-contact"></p>
+
+        <p id="booking-success-intro" class="sr-only"></p>
+        <p id="booking-success-tagline" class="hidden" aria-hidden="true"></p>
+    </div>
+
+    <div class="booking-success-actions">
+        <a href="/" data-booking-dismiss-page class="book-btn-secondary booking-success-actions__secondary">Back to home</a>
+        <button type="button" data-booking-dismiss-modal class="hidden book-btn-secondary booking-success-actions__secondary">Close</button>
+    </div>
+</div>
+
+<form id="book-form" class="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 md:p-8 shadow-sm overflow-visible" novalidate>
+    <div id="wizard-progress-wrap" class="-mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 py-3 mb-5 sm:mb-6">
+        <p id="wizard-progress" class="text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2 leading-snug">Step 1 of 4</p>
+        <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden" aria-hidden="true">
+            <div id="wizard-progress-bar" class="h-full bg-blue-600 rounded-full transition-[width] duration-300 ease-out" style="width: 25%"></div>
+        </div>
+    </div>
+
+    <div id="wizard-selection-trail" class="hidden -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 mb-4 sm:mb-5" aria-label="Your choices so far"></div>
+
+    <p id="form-error" class="hidden text-sm text-red-600 font-medium text-center rounded-lg bg-red-50 border border-red-100 px-3 py-2 mb-5" role="alert"></p>
+
+    <div data-wizard-step="mode" class="space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">How would you like our help? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">We come to you, or you walk in to our Korattur branch.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="button" data-visit-mode="doorstep" aria-pressed="false" class="visit-mode-card">
+                    <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-blue-600">We come to you</span>
+                    <span class="block text-base font-black text-slate-900 mt-1">Get service at your doorstep</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Home, office, studio etc.</span>
+                    <span class="mt-3 block space-y-1 text-sm text-slate-600">
+                        <span class="flex justify-between gap-3"><span>Standard diagnosis</span><span class="font-semibold text-slate-900">₹189</span></span>
+                        <span class="flex justify-between gap-3"><span>RAM issue</span><span class="font-semibold text-slate-900">₹189</span></span>
+                        <span class="flex justify-between gap-3"><span>Slow PC</span><span class="font-semibold text-slate-900">₹189</span></span>
+                    </span>
+                </button>
+                <div data-visit-mode-card="branch" class="visit-mode-card">
+                    <span class="text-[11px] font-mono font-semibold uppercase tracking-wide text-emerald-700">Free diagnosis · Korattur</span>
+                    <span class="block text-base font-black text-slate-900 mt-1">Branch visit</span>
+                    <div class="mt-3 grid grid-cols-1 gap-2" role="group" aria-label="Branch visit slot">
+                        <button type="button" data-branch-slot="Morning (8am–1pm)" aria-pressed="false" class="branch-slot-btn">Morning slot · <span class="whitespace-nowrap">8am – 1pm</span></button>
+                        <button type="button" data-branch-slot="Afternoon (3pm–7pm)" aria-pressed="false" class="branch-slot-btn">Afternoon slot · <span class="whitespace-nowrap">3pm – 7pm</span></button>
+                    </div>
+                    <p class="mt-3 text-[11px] text-slate-500">We would also appreciate your confirmation through WhatsApp or call.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-wizard-step="service" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">What do you need help with? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">We’ll tailor the next questions based on this. <span class="text-slate-400">(* required)</span></p>
+            <select id="service-type" name="service" required class="sr-only" tabindex="-1" aria-hidden="true">
+                <option value="" disabled selected>Select a service</option>
+                <optgroup label="Diagnosis &amp; Repairs" data-quote="Repair before replacement">
+                    <option value="Standard diagnosis / Unknown problems">Standard diagnosis / Unknown problems</option>
+                    <option value="Hardware repair &amp; maintenance">Hardware repair &amp; maintenance (laptop, desktop &amp; printer)</option>
+                    <option value="OS &amp; software care">OS &amp; software care</option>
+                    <option value="Network &amp; Wifi">Network &amp; Wifi</option>
+                    <option value="PC security &amp; threat management">PC security &amp; threat management</option>
+                    <option value="Backup &amp; recovery">Backup &amp; recovery</option>
+                </optgroup>
+                <optgroup label="New Systems &amp; Infrastructure" data-quote="Care before cost">
+                    <option value="Custom PC">Custom PC</option>
+                    <option value="Storage / NAS setup">Storage / NAS setup</option>
+                    <option value="Network setup">Network setup</option>
+                    <option value="CCTV installation">CCTV installation</option>
+                    <option value="Server build">Server build</option>
+                </optgroup>
+                <optgroup label="Lifetime Care &amp; Business Support" data-quote="Complete care">
+                    <option value="Subscriptions">Subscription / Care plans</option>
+                    <option value="AMC &amp; corporate solutions">AMC &amp; corporate solutions</option>
+                </optgroup>
+            </select>
+            <div id="service-picker" class="space-y-4" aria-live="polite"></div>
+        </div>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p class="text-center text-xs text-slate-400">Tap a service to continue</p>
+        <p id="service-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
+    </div>
+
+    <!-- What would you like us to take care of? / What are we building? (per service, see SERVICE_TASKS) -->
+    <div id="step-task" data-wizard-step="task" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1"><span id="task-question">What would you like us to take care of?</span> <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p id="task-hint" class="text-sm text-slate-500 mb-4">Pick the closest fit.</p>
+            <select id="task-type" class="sr-only" tabindex="-1" aria-hidden="true"></select>
+            <div id="task-picker"></div>
+        </div>
+        <p id="task-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p id="task-footnote" class="text-center text-xs text-slate-400">Tap an option to continue</p>
+    </div>
+
+    <div id="step-device" data-wizard-step="device" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1"><span id="device-question">Which device would you like us to take care of?</span> <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-4">Options match your service — pick the closest fit.</p>
+            <div id="job-type-wrap" class="hidden mb-5">
+                <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">What&rsquo;s the job?</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Type of hardware job">
+                    <button type="button" data-job-type="repair" aria-pressed="true" class="branch-slot-btn">Repair / unknown issue <span class="block text-xs font-normal text-slate-500">at just ₹189/₹199</span></button>
+                    <button type="button" data-job-type="cleaning" aria-pressed="false" class="branch-slot-btn">Service <span class="block text-xs font-normal text-slate-500">from ₹549</span></button>
+                    <button type="button" data-job-type="install" aria-pressed="false" class="branch-slot-btn">All component installation <span class="block text-xs font-normal text-slate-500">from ₹259</span></button>
+                </div>
+            </div>
+            <select id="device-type" name="device" class="sr-only" tabindex="-1" aria-hidden="true"></select>
+            <p id="device-sublabel" class="hidden text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Your device</p>
+            <div id="device-picker"></div>
+        </div>
+        <p id="device-whatsapp-note" class="hidden text-center text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status"></p>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p class="text-center text-xs text-slate-400">Tap your device to continue</p>
+    </div>
+
+    <div data-wizard-step="schedule" class="hidden space-y-6">
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 mb-1">When should we visit? <span class="text-red-600 text-base" aria-hidden="true">*</span></h2>
+            <p class="text-sm text-slate-500 mb-3">Tap a recommended slot, or pick any date and time.</p>
+            <!-- Karthik (7 Nov): "24/7 doorstep service", a little bigger, the dot glows like an "on" light -->
+            <p class="inline-flex items-center gap-2.5 text-base font-bold text-blue-700 bg-blue-50 border border-blue-100 px-4 py-2 rounded-lg mb-5">
+                <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping"></span>
+                    <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.9)]"></span>
+                </span>24/7 doorstep service
+            </p>
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-2">Recommended</p>
+            <div id="prime-slots" class="grid gap-3 sm:grid-cols-1"></div>
+            <button type="button" id="schedule-custom-toggle" class="mt-4 w-full text-left rounded-lg border border-dashed border-slate-300 bg-slate-50/80 px-4 py-3 text-sm font-semibold text-blue-700 hover:border-blue-300 hover:bg-blue-50/50 transition-colors min-h-[44px]">
+                None of these work? Choose date &amp; time
+            </button>
+        </div>
+        <div id="custom-schedule-panel" class="hidden space-y-3 rounded-lg border border-slate-200/80 p-4 bg-white">
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500">Choose date</p>
+            <div id="date-list" class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"></div>
+            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 pt-1">Choose time <span class="normal-case font-sans text-slate-400">(any hour, 24/7)</span></p>
+            <div id="time-grid" role="group" aria-label="Available visit times" class="grid grid-cols-3 min-[400px]:grid-cols-4 sm:grid-cols-4 gap-2 max-h-[min(14rem,40vh)] overflow-y-auto overscroll-contain pr-1"></div>
+            <p id="slot-selection-summary" class="hidden text-sm font-medium text-blue-800 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2"></p>
+        </div>
+        <p id="slot-selection-summary-prime" class="hidden text-sm font-medium text-blue-800 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2"></p>
+        <div class="flex flex-col-reverse sm:flex-row gap-3">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+        </div>
+        <p class="text-center text-xs text-slate-400">Pick a slot to continue — or choose date &amp; time below</p>
+    </div>
+
+    <div data-wizard-step="details" class="hidden space-y-8">
+        <div class="space-y-4">
+            <h2 class="text-lg font-bold text-slate-900">Who should we contact?</h2>
+            <p class="text-sm text-slate-500 -mt-2"><span class="text-red-600">*</span> Required fields</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                    <label for="full-name" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Your name</label>
+                    <input id="full-name" name="name" autocomplete="name" placeholder="Full name" class="book-field" required aria-required="true" minlength="2" maxlength="80" />
+                </div>
+                <div>
+                    <label for="phone" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Phone / WhatsApp</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile" class="book-field" required aria-required="true" maxlength="14" />
+                    <p class="text-[11px] text-slate-400 mt-1">We’ll confirm your slot here first.</p>
+                </div>
+                <div>
+                    <label for="email" class="block text-xs font-semibold text-slate-500 mb-1.5">Email for your warranty record (optional)</label>
+                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="book-field" maxlength="120" />
+                </div>
+            </div>
+        </div>
+
+        <div id="details-address" class="space-y-4">
+            <h2 class="text-lg font-bold text-slate-900">Where should we come?</h2>
+            <div>
+                <label for="address-line" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Full address</label>
+                <textarea id="address-line" name="address" rows="2" placeholder="Flat / door no., street, area, PIN" class="book-field-area" required aria-required="true" minlength="12" maxlength="400"></textarea>
+            </div>
+            <div>
+                <label for="landmark" class="block text-xs font-semibold text-slate-500 mb-1.5">Landmark (optional)</label>
+                <input id="landmark" type="text" placeholder="Near temple, school, or shop" class="book-field" maxlength="120" />
+            </div>
+        </div>
+
+        <div>
+            <label for="notes" class="block text-xs font-semibold text-slate-500 mb-1.5">Anything else we should know?</label>
+            <textarea id="notes" rows="2" placeholder="Symptoms, urgency, gate code…" class="book-field-area" maxlength="800"></textarea>
+        </div>
+
+        <div class="flex flex-col-reverse sm:flex-row gap-3 pt-2">
+            <button type="button" data-wizard-back class="book-btn-secondary flex-1">Back</button>
+            <button type="submit" id="submit-booking" class="book-btn-primary flex-[2]">
+                Let&rsquo;s Book Your Visit
+            </button>
+        </div>
+        <p class="text-center text-xs text-slate-500">Submitting sends your request to our team (Chennai on-site).</p>
+        <p id="submit-slow-hint" class="hidden text-center text-xs text-slate-500" role="status">This can take up to 30 seconds. Please keep this page open.</p>
+    </div>
+</form>

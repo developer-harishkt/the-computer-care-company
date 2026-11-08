@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grievance &amp; Redressal | The Computer Care Company</title>
+    <meta name="description" content="How to raise a concern with The Computer Care Company, how we review it, and how to escalate. Doorstep and branch computer repair in Chennai." />
+    <link rel="canonical" href="%VITE_SITE_URL%/grievance" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Computer Care Company" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="Grievance &amp; Redressal | The Computer Care Company" />
+    <meta property="og:description" content="How to raise a concern with The Computer Care Company, how we review it, and how to escalate. Doorstep and branch computer repair in Chennai." />
+    <meta property="og:url" content="%VITE_SITE_URL%/grievance" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/src/style.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+            <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
+                <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
+                <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+            </a>
+
+            <!-- DESKTOP NAV + CTA — equal gaps between every item -->
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+                <a href="/book" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(37,99,235,0.35)]
+                          active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
+                </a>
+            </div>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
+                    aria-controls="mobile-menu" aria-expanded="false"
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                           hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition duration-150">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
+                <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
+                <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/subscriptions" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Contact</a>
+                <div class="border-t border-slate-200 my-3"></div>
+                <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
+                <a href="/book" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+<section id="grievance" class="py-12 md:py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 uppercase mb-6">Grievance &amp; Redressal</h1>
+                    <p class="text-lg md:text-xl text-slate-700 italic max-w-3xl mx-auto leading-relaxed border-l-4 border-blue-600 pl-6 text-left">
+                        &ldquo;Our aim is to resolve genuine concerns fairly and respectfully, without unnecessary inconvenience to the customer&rdquo;
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-200/80 rounded-2xl
+                                 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]">
+                    <h2 class="p-6 md:p-8 pb-0 md:pb-0 text-slate-900 font-bold text-lg md:text-xl">How our grievance &amp; redressal process works</h2>
+
+                    <div class="px-6 md:px-8 pb-8 md:pb-10 pt-6 space-y-10">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+
+                            <div>
+                                <h4 class="text-sm font-bold text-blue-700 uppercase tracking-wide mb-4">How to Raise a Grievance</h4>
+                                <ul class="list-disc space-y-2.5 pl-5 text-sm text-slate-600 leading-relaxed marker:text-blue-600">
+                                    <li>Contact us by phone, WhatsApp, email, or in person at the relevant branch.</li>
+                                    <li>Please provide your service/job reference, invoice details, or other information that helps us identify the service.</li>
+                                    <li>Briefly describe the concern and, where possible, the outcome you believe would resolve it.</li>
+                                    <li>We will review the matter, discuss it with the relevant team member where necessary, and communicate the outcome to you.</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-bold text-blue-700 uppercase tracking-wide mb-4">Our Redressal Approach</h4>
+                                <ul class="list-disc space-y-2.5 pl-5 text-sm text-slate-600 leading-relaxed marker:text-blue-600">
+                                    <li>We will listen to your concern without dismissing it.</li>
+                                    <li>We will review the service records, diagnosis, work performed, parts used, and applicable warranty terms where relevant.</li>
+                                    <li>If we find that we have made an error or failed to meet our stated service commitments, we will explain the corrective action available.</li>
+                                    <li>Where a requested remedy is not covered by the service or warranty terms, we will explain the reason clearly.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="bg-[#EEF2F7] border border-slate-200 rounded-xl p-6">
+                            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">Grievances vs Warranty</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                A grievance does not automatically extend, replace, or alter the terms of our stated 60-day service warranty. Warranty eligibility and exclusions will continue to be assessed according to the service performed and the applicable warranty terms.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-bold text-blue-700 uppercase tracking-wide mb-3">Escalation</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                If your concern is not resolved at the first point of contact, you may request that it be escalated to the person responsible for customer service or management at the relevant branch.
+                            </p>
+                        </div>
+
+                        <div class="bg-white border-2 border-blue-600/20 rounded-xl p-6">
+                            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Please Contact Us</h4>
+                            <ul class="list-disc space-y-2 pl-5 text-sm text-slate-600 leading-relaxed marker:text-blue-600">
+                                <li>Email: <a href="mailto:thecomputercarecompany@gmail.com" class="break-all font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">thecomputercarecompany@gmail.com</a></li>
+                                <li>Phone / WhatsApp: <a href="tel:+917010481012" class="font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">+91 70104 81012</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#EEF2F7] border-t border-slate-200 pt-8 pb-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-slate-600">©️ The Computer Care Company. All rights reserved.</p>
+            <p class="text-xs text-slate-500 mt-2">
+                <a href="/" class="text-blue-700 hover:underline">← Back to homepage</a>
+                · <a href="/book" class="text-blue-700 hover:underline">Book your care</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

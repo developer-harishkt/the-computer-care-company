@@ -7,12 +7,14 @@
     <meta name="description" content="Book your on-site computer service in Chennai. Fast, transparent doorstep laptop repair covering Anna Nagar, Korattur, and more. Care before cost." />
     <link rel="canonical" href="%VITE_SITE_URL%/book" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="The Computer Care Company" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content="Book Doorstep IT Repair in Chennai" />
-    <meta property="og:description" content="Schedule your on-site computer repair. We cover Anna Nagar, Korattur, Mogappair, and more. Free diagnosis on eligible issues." />
+    <meta property="og:description" content="Schedule your on-site computer repair. We cover Anna Nagar, Korattur, Mogappair, and more. Walk in for a free diagnosis at our Korattur branch." />
     <meta property="og:url" content="%VITE_SITE_URL%/book" />
     <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -59,25 +61,24 @@
 </head>
 <body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth pb-safe">
 
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 pt-safe">
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200 pt-safe">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-3 shrink-0">
-                <img src="/logo.jpg" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
+                <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
                 <span class="font-black text-xl md:text-2xl tracking-tight text-slate-900 uppercase hidden sm:inline">The Computer Care Company</span>
             </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-                <a href="/about" class="hover:text-blue-600 transition-colors">About Us</a>
                 <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
                 <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
                 <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
-                <span class="bg-blue-50 text-blue-700 px-5 py-2.5 rounded-lg text-sm font-bold border border-blue-100" aria-current="page">Book visit</span>
+                <span class="bg-blue-50 text-blue-700 px-5 py-2.5 rounded-lg text-sm font-bold border border-blue-100" aria-current="page">Book your care</span>
             </div>
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
-                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-150">
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
                 </svg>
@@ -86,11 +87,10 @@
                 </svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white">
             <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
                 <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50">Home</a>
-                <a href="/about" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50">About Us</a>
-                <span class="px-3 py-3 rounded-lg text-base font-bold text-blue-700 bg-blue-50 border border-blue-100" aria-current="page">Book visit</span>
+                <span class="px-3 py-3 rounded-lg text-base font-bold text-blue-700 bg-blue-50 border border-blue-100" aria-current="page">Book your care</span>
                 <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50">Make a Call</a>
             </nav>
         </div>
@@ -98,27 +98,136 @@
 
     <main class="flex-grow">
         <section class="relative bg-[#EEF2F7] overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_15%,#DBEAFE,transparent_55%)]"></div>
-            <div class="relative max-w-3xl mx-auto px-safe sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-                <div class="mb-8 sm:mb-10 text-slate-700 leading-relaxed space-y-6">
-                    <p class="text-base sm:text-lg">
-                        Skip the hassle of unplugging your desktop or navigating Chennai traffic with a broken laptop. THE COMPUTER CARE COMPANY brings expert IT support directly to your doorstep. We service key localities including Anna Nagar, Mogappair, Korattur, and the surrounding areas. Our process is entirely transparent: you schedule a visit, and our technicians arrive to diagnose the issue before recommending any fixes. We strictly believe in care before cost, meaning we aim to repair before replacing and will explain every detail before we proceed. With free initial diagnosis for eligible issues and a 60-day service warranty on qualifying repairs, your devices are in safe hands. Select your service category below to schedule your on-site visit today.
-                    </p>
-                    <ul class="list-none space-y-3 text-sm sm:text-base">
-                        <li><strong class="text-slate-900">Desktop &amp; Laptop Hardware Repair:</strong> Screen replacements, keyboard fixes, hard drive upgrades, and power issue diagnostics.</li>
-                        <li><strong class="text-slate-900">Software &amp; OS Troubleshooting:</strong> Virus removal, operating system installations, boot failure fixes, and system optimization.</li>
-                        <li><strong class="text-slate-900">Network &amp; Peripheral Setup:</strong> Wi-Fi troubleshooting, printer configuration, and smart home IT support.</li>
-                    </ul>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,#DBEAFE,transparent_50%)]" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_90%_80%,#E0E7FF,transparent_45%)]" aria-hidden="true"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-14 px-safe">
+                <div class="book-page-layout grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] xl:grid-cols-[minmax(0,1.1fr)_32rem] gap-10 lg:gap-12 xl:gap-16 items-start">
+
+                    <!-- Left: why book + what we cover -->
+                    <aside class="book-page-aside space-y-8">
+                        <div class="space-y-4">
+                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wide">
+                                On-site service · Chennai
+                            </span>
+                            <h1 class="text-3xl sm:text-4xl lg:text-[2.5rem] font-black tracking-tight text-slate-900 uppercase leading-tight">
+                                Book your visit
+                            </h1>
+                            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+                                Doorstep computer care across Anna Nagar, Mogappair, Korattur, and nearby areas. We diagnose first, explain options, then repair — care before cost.
+                            </p>
+                        </div>
+
+                        <ol class="space-y-4">
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">1</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Choose service &amp; device</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Tell us what you need — we only ask what’s relevant.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">2</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Pick a visit time</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Recommended slots or any date &amp; hour — 24/7 booking.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-sm font-black text-blue-700 shadow-sm">3</span>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Send request, then pay the diagnostic fee</p>
+                                    <p class="text-sm text-slate-600 mt-0.5">Your slot is confirmed once the diagnostic fee is paid; repairs quoted after inspection. Branch visits are free.</p>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <p class="text-sm text-slate-600 leading-relaxed border-l-2 border-blue-200 pl-3"><span class="font-semibold text-slate-800">Note:</span> We do our best to complete repairs at your doorstep, though some may require attention at our service centre.</p>
+
+                        <div>
+                            <h2 class="text-xs font-mono font-semibold uppercase tracking-wide text-slate-500 mb-3">What we help with</h2>
+                            <ul class="grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Hardware repair</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Screens, batteries, keyboards, storage upgrades, power issues.</p>
+                                </li>
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Software &amp; OS</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Virus removal, OS installs, boot failures, performance tuning.</p>
+                                </li>
+                                <li class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm sm:col-span-2 lg:col-span-1">
+                                    <p class="font-bold text-slate-900 text-sm mb-1">Network &amp; peripherals</p>
+                                    <p class="text-xs text-slate-600 leading-relaxed">Wi‑Fi, printers, and day-to-day device setup at your location.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Our Process (moved from the homepage; branch drop-off flow) -->
+                        <div class="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+                            <p class="text-xs font-mono font-semibold uppercase tracking-wide text-blue-600">Our Process</p>
+                            <h2 class="text-lg font-black tracking-tight text-slate-900 mt-1">From drop-off to go-back.</h2>
+                            <p class="text-sm text-slate-600 leading-relaxed mt-1 mb-4">A simple, transparent process for better results.</p>
+                            <ol class="space-y-3">
+                                <li class="flex gap-3">
+                                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-xs font-black text-blue-700 shadow-sm">1</span>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Receive</p>
+                                        <p class="text-xs text-slate-600 leading-relaxed mt-0.5">Your device arrives at our service centre.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-xs font-black text-blue-700 shadow-sm">2</span>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Diagnose</p>
+                                        <p class="text-xs text-slate-600 leading-relaxed mt-0.5">We find the actual cause.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-xs font-black text-blue-700 shadow-sm">3</span>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Explain &amp; Approve</p>
+                                        <p class="text-xs text-slate-600 leading-relaxed mt-0.5">We share findings, options and costs. You decide.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-xs font-black text-blue-700 shadow-sm">4</span>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Repair &amp; Test</p>
+                                        <p class="text-xs text-slate-600 leading-relaxed mt-0.5">We fix, replace, configure and run thorough tests.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-slate-200 text-xs font-black text-blue-700 shadow-sm">5</span>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Ready for Collection</p>
+                                        <p class="text-xs text-slate-600 leading-relaxed mt-0.5">Your device is good to go.</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm text-slate-700 space-y-2">
+                            <p class="font-semibold text-emerald-900">Questions before you book?</p>
+                            <p class="text-xs leading-relaxed">
+                                <a href="tel:+917010481012" class="text-blue-700 font-semibold hover:underline">Call / WhatsApp +91 70104 81012</a>
+                                · <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 font-semibold hover:underline">Email us</a>
+                            </p>
+                        </div>
+                    </aside>
+
+                    <!-- Right: wizard -->
+                    <div class="book-page-wizard min-w-0 w-full">
+                        <div id="booking-wizard-root" class="booking-wizard-root w-full"></div>
+                    </div>
                 </div>
-                <div id="booking-wizard-root" class="booking-wizard-root"></div>
             </div>
         </section>
     </main>
 
     <footer class="bg-[#EEF2F7] border-t border-slate-200 py-6 sm:py-8 text-center text-sm text-slate-600 pb-safe">
-        <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 hover:underline">Email</a>
+        <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 hover:underline">Mail</a>
         · <a href="tel:+917010481012" class="text-blue-700 hover:underline">+91 70104 81012</a>
-        · <a href="/book" class="text-blue-700 hover:underline">Book a visit</a>
+        · <a href="/book" class="text-blue-700 hover:underline">Book your care</a>
     </footer>
 
     <script type="module" src="/src/main.js"></script>

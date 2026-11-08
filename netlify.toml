@@ -1,0 +1,43 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Branch previews: deploy non-production branches for co-founder review.
+[context.branch-deploy]
+  command = "npm run build"
+
+[context.deploy-preview]
+  command = "npm run build"
+
+# Clean URLs on Netlify only (do not use public/_redirects — breaks Cloudflare Pages pretty URLs).
+[[redirects]]
+  from = "/book"
+  to = "/book.html"
+  status = 200
+[[redirects]]
+  from = "/subscriptions"
+  to = "/subscriptions.html"
+  status = 200
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+[[redirects]]
+  from = "/schedule-visit"
+  to = "/schedule-visit.html"
+  status = 200
+[[redirects]]
+  from = "/grievance"
+  to = "/grievance.html"
+  status = 200

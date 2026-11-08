@@ -5,6 +5,8 @@ Single-page marketing site for The Computer Care Company, built with Vite and Ta
 
 Static, single-page marketing site for a Chennai-based IT support and hardware repair business. The site's core proposition is *repair before replacement*: diagnose first, explain the options, obtain approval, and only then repair — never upsell a replacement just because a device has a problem.
 
+**Agent / multi-session work:** see [`docs/dev-handoff.md`](docs/dev-handoff.md) for booking wizard status, next steps, and session log.
+
 The build is intentionally dependency-light and integration-ready. There is no framework and no client-side router; the entire page is one static document, so it can be deployed to any edge host and later wired to third-party booking, payment, and scheduling APIs.
 
 ## Tech Stack

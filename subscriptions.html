@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Care Subscriptions Chennai | The Computer Care Company</title>
+    <meta name="description" content="1-Year and 3-Year in-home PC care plans in Chennai. Scheduled maintenance visits, health reports, and preventive support. Prices include GST." />
+    <link rel="canonical" href="%VITE_SITE_URL%/subscriptions" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Computer Care Company" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="PC Care Subscription Plans | The Computer Care Company" />
+    <meta property="og:description" content="Preventive in-home PC maintenance with scheduled visits and Computer Health Reports. 1-Year and 3-Year plans for Chennai." />
+    <meta property="og:url" content="%VITE_SITE_URL%/subscriptions" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/src/style.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth">
+
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+            <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
+                <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
+                <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+            </a>
+
+            <!-- DESKTOP NAV + CTA — equal gaps between every item -->
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="text-blue-600" aria-current="page">Subscriptions</a>
+                <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+                <a href="/book" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(37,99,235,0.35)]
+                          active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
+                </a>
+            </div>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
+                    aria-controls="mobile-menu" aria-expanded="false"
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                           hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition duration-150">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
+                <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
+                <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/subscriptions" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Contact</a>
+                <div class="border-t border-slate-200 my-3"></div>
+                <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
+                <a href="/book" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <header class="mb-12 max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-4 uppercase leading-tight">Care plans for your PC</h1>
+                <p class="text-base text-slate-600 leading-relaxed">
+                    Planned in-home maintenance visits, early issue detection, and a Computer Health Report after every visit — so your PC stays useful for longer.
+                </p>
+            </header>
+
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-10 mb-12">
+                <article class="bg-white border border-slate-200 rounded-2xl p-8 md:p-10 shadow-sm flex flex-col">
+                    <p class="text-xs font-mono font-bold uppercase tracking-wide text-slate-500 mb-3">For existing PC owners</p>
+                    <h2 class="text-2xl md:text-[26px] font-black text-slate-900 uppercase mb-4">1-Year Scheduled Care</h2>
+                    <p class="text-2xl font-black text-blue-700">Just ₹150<span class="text-sm font-semibold text-slate-500">/month</span></p>
+                    <p class="text-xs text-slate-500 mt-1 mb-4">Monthly equivalent · Annual payment</p>
+                    <p class="text-3xl md:text-4xl font-black text-slate-900 mb-2">₹1,799 <span class="text-base font-semibold text-slate-500">incl. GST</span></p>
+                    <p class="text-sm text-slate-600 mb-8">Once every 4 months · <strong class="text-slate-800">3 scheduled visits per year</strong></p>
+                    <p class="text-slate-700 text-[15px] leading-relaxed mb-6">
+                        Keep your existing computer in good condition with regular preventive maintenance throughout the year.
+                    </p>
+                    <ul class="text-sm md:text-[15px] text-slate-700 leading-relaxed space-y-3 mb-8 flex-grow list-disc pl-5 marker:text-blue-500">
+                        <li>In-home maintenance visit every four months (3 visits per year)</li>
+                        <li>Early identification of potential issues</li>
+                        <li>Performance optimisation where possible</li>
+                        <li>Regular cleaning and system health checks</li>
+                        <li>Computer Health Report after every visit</li>
+                    </ul>
+                    <p class="text-xs md:text-sm text-slate-500 leading-relaxed mb-8"><strong class="text-slate-700">Ideal for:</strong> PC owners who want smooth performance, early warnings, and a longer useful life through regular care.</p>
+                    <a href="https://wa.me/917010481012?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20the%201-Year%20Scheduled%20Care." data-plan-enquire="1-Year Scheduled Care" class="book-btn-primary text-center min-h-[44px] flex items-center justify-center">Enquire on WhatsApp</a>
+                </article>
+
+                <!-- Karthik (7 Nov): same plain tile as the 1-year plan (no blue outline) -->
+                <article class="bg-white border border-slate-200 rounded-2xl p-8 md:p-10 shadow-sm flex flex-col">
+                    <p class="text-xs font-mono font-bold uppercase tracking-wide text-slate-500 mb-3">For new PC buyers</p>
+                    <h2 class="text-2xl md:text-[26px] font-black text-slate-900 uppercase mb-4">3-Year Scheduled Care</h2>
+                    <p class="text-2xl font-black text-blue-700">Just ₹117<span class="text-sm font-semibold text-slate-500">/month</span></p>
+                    <p class="text-xs text-slate-500 mt-1 mb-4">Monthly equivalent · Three-year upfront payment</p>
+                    <p class="text-3xl md:text-4xl font-black text-slate-900 mb-2">₹4,199 <span class="text-base font-semibold text-slate-500">incl. GST</span></p>
+                    <p class="text-sm text-slate-600 mb-8">Once every 6 months · <strong class="text-slate-800">6 scheduled visits over three years</strong></p>
+                    <p class="text-slate-700 text-[15px] leading-relaxed mb-6">
+                        Start your new PC journey with a long-term maintenance schedule designed to keep your computer cared for over the years ahead.
+                    </p>
+                    <ul class="text-sm md:text-[15px] text-slate-700 leading-relaxed space-y-3 mb-8 flex-grow list-disc pl-5 marker:text-blue-500">
+                        <li>In-home maintenance visit every six months (6 visits over 3 years)</li>
+                        <li>Early identification of potential issues</li>
+                        <li>Performance optimisation where possible</li>
+                        <li>Ongoing preventive care for long-term condition</li>
+                        <li>Regular cleaning and system health checks</li>
+                        <li>Computer Health Report after every visit</li>
+                    </ul>
+                    <p class="text-xs md:text-sm text-slate-500 leading-relaxed mb-8"><strong class="text-slate-700">Ideal for:</strong> New PC buyers who want to protect their investment and maintain performance over time.</p>
+                    <a href="https://wa.me/917010481012?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20the%203-Year%20Scheduled%20Care." data-plan-enquire="3-Year Scheduled Care" class="book-btn-primary text-center min-h-[44px] flex items-center justify-center">Enquire on WhatsApp</a>
+                </article>
+            </div>
+            <!-- V1 FINAL CHANGES: the quote + what's covered / quoted separately, in one subtle tile (were loose grey lines) -->
+            <div class="max-w-3xl mx-auto mb-16 rounded-2xl border border-blue-100 bg-blue-50/60 px-6 py-6 md:px-8">
+                <p class="text-center text-base md:text-lg font-bold text-blue-800 mb-4">&ldquo;Technology needs ongoing care&rdquo;</p>
+                <ul class="grid sm:grid-cols-2 gap-3 text-sm text-slate-700 leading-relaxed">
+                    <li class="flex gap-3 rounded-xl bg-white border border-slate-200/80 p-4">
+                        <svg class="w-5 h-5 shrink-0 text-emerald-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span>Subscription visits cover preventive maintenance, installations &amp; re-installations and servicing.</span>
+                    </li>
+                    <li class="flex gap-3 rounded-xl bg-white border border-slate-200/80 p-4">
+                        <svg class="w-5 h-5 shrink-0 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Repairs, parts, licences and additional work are quoted separately for your approval.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Why a care plan: one tile, centred heading (PRE-FINAL MODIFICATIONS) -->
+            <section class="bg-white border border-slate-200/80 rounded-2xl p-6 md:p-10 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_12px_rgba(15,23,42,0.05)]" aria-labelledby="why-care-plan">
+                <p id="why-care-plan" class="text-sm font-mono font-semibold uppercase tracking-wide text-blue-700 mb-3 text-center">Computer · Scheduled care · Longer life</p>
+                <p class="text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8 text-center">A care plan looks after your computer before something goes wrong, so fewer problems turn into avoidable repairs or replacements.</p>
+                <ul class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <li class="bg-[#F7F9FC] border border-slate-200/80 rounded-xl p-5">
+                        <p class="font-bold text-slate-900 text-sm mb-1">Preventive maintenance</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Identify potential issues before they become bigger problems.</p>
+                    </li>
+                    <li class="bg-[#F7F9FC] border border-slate-200/80 rounded-xl p-5">
+                        <p class="font-bold text-slate-900 text-sm mb-1">Performance preservation</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Keep the computer clean, optimised and functioning properly.</p>
+                    </li>
+                    <li class="bg-[#F7F9FC] border border-slate-200/80 rounded-xl p-5">
+                        <p class="font-bold text-slate-900 text-sm mb-1">Longer device life</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Get more years of use from your existing equipment.</p>
+                    </li>
+                    <li class="bg-[#F7F9FC] border border-slate-200/80 rounded-xl p-5">
+                        <p class="font-bold text-slate-900 text-sm mb-1">Regular health updates</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Understand your computer&rsquo;s condition through health reports.</p>
+                    </li>
+                    <li class="bg-[#F7F9FC] border border-slate-200/80 rounded-xl p-5">
+                        <p class="font-bold text-slate-900 text-sm mb-1">Convenience</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Scheduled visits mean you don&rsquo;t have to remember when your computer needs maintenance.</p>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-[#EEF2F7] border-t border-slate-200 pt-8 pb-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-slate-600">©️ The Computer Care Company. All rights reserved.</p>
+            <p class="text-xs text-slate-500 mt-2">
+                <a href="/" class="text-blue-700 hover:underline">← Home</a>
+                · <a href="/terms" class="text-blue-700 hover:underline">Service terms</a>
+                · <a href="/privacy" class="text-blue-700 hover:underline">Privacy</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Plan enquiry: ask details, save the lead, then WhatsApp (Second Modification). Opened by [data-plan-enquire]. -->
+    <dialog id="plan-enquiry" aria-labelledby="plan-enquiry-title"
+            class="w-[calc(100%-2rem)] max-w-md rounded-2xl border border-slate-200 bg-white p-0 shadow-xl backdrop:bg-slate-900/85">
+        <form id="plan-enquiry-form" class="p-6 sm:p-8 space-y-4" novalidate>
+            <div>
+                <p class="text-xs font-mono font-semibold uppercase tracking-wide text-blue-700">Care plan enquiry</p>
+                <h2 id="plan-enquiry-title" class="text-xl font-black text-slate-900 uppercase mt-1">1-Year Scheduled Care</h2>
+                <p class="text-sm text-slate-600 mt-1">Share your details and we&rsquo;ll continue on WhatsApp.</p>
+            </div>
+            <p id="plan-enquiry-error" class="hidden text-sm text-red-600 font-medium rounded-lg bg-red-50 border border-red-100 px-3 py-2" role="alert"></p>
+            <div>
+                <label for="plan-name" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Your name</label>
+                <input id="plan-name" name="name" autocomplete="name" placeholder="Full name" class="book-field" required minlength="2" maxlength="80" />
+            </div>
+            <div>
+                <label for="plan-phone" class="book-label-required block text-xs font-semibold text-slate-500 mb-1.5">Phone / WhatsApp</label>
+                <input id="plan-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile" class="book-field" required maxlength="14" />
+            </div>
+            <div>
+                <label for="plan-email" class="block text-xs font-semibold text-slate-500 mb-1.5">Email (optional)</label>
+                <input id="plan-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="book-field" maxlength="120" />
+            </div>
+            <p id="plan-enquiry-done" class="hidden text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2" role="status" aria-live="polite"></p>
+            <div class="flex flex-col-reverse sm:flex-row gap-3 pt-2">
+                <button type="button" id="plan-enquiry-cancel" class="book-btn-secondary flex-1">Cancel</button>
+                <button type="submit" id="plan-enquiry-submit" class="book-btn-primary flex-[2]">We&rsquo;re Getting Connected</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/plan-enquiry.js"></script>
+</body>
+</html>

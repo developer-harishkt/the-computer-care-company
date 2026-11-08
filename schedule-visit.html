@@ -7,6 +7,8 @@
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="%VITE_SITE_URL%/schedule-visit" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,30 +18,30 @@
 <body class="flex flex-col min-h-screen bg-[#EEF2F7] text-slate-900 antialiased font-sans scroll-smooth">
 
     <!-- HEADER / NAVIGATION — light glass bar, no longer competes with the hero -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/70">
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center shrink-0">
-                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-12 md:h-16 w-auto object-contain" />
-            </div>
-            <nav class="hidden md:flex ml-auto mr-10 gap-8 text-sm font-medium text-slate-500">
+            <a href="/" class="flex items-center shrink-0">
+                <img src="/logo.png" alt="The Computer Care Company" class="theme-logo h-12 md:h-16 w-auto object-contain" />
+            </a>
+            <nav class="hidden lg:flex ml-auto mr-10 gap-8 text-sm font-medium text-slate-500">
                 <a href="/#services" class="hover:text-slate-900 transition-colors">Services</a>
                 <a href="/#coverage" class="hover:text-slate-900 transition-colors">Locations</a>
             </nav>
-            <div class="hidden md:flex items-center gap-4">
+            <div class="hidden lg:flex items-center gap-4">
                 <a href="/book" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
                           shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
                           hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_8px_rgba(37,99,235,0.35)]
                           active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
-                          transition-all duration-150">
-                    Book On-Site Service
+                          transition duration-150">
+                    Book your care
                 </a>
             </div>
 
             <!-- MOBILE MENU TOGGLE -->
             <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
                     aria-controls="mobile-menu" aria-expanded="false"
-                    class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                    class="lg:hidden inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
                            hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors duration-150">
                 <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -52,7 +54,7 @@
         </div>
 
         <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
                 <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
                 <a href="/#coverage" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Locations</a>
@@ -62,8 +64,8 @@
                           shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
                           hover:bg-blue-700 active:scale-[0.98] active:shadow-none
                           focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
-                          transition-all duration-150">
-                    Book On-Site Service
+                          transition duration-150">
+                    Book your care
                 </a>
             </nav>
         </div>
@@ -125,7 +127,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
 
             <div class="space-y-4">
-                <img src="/logo.jpg" alt="The Computer Care Company" class="theme-logo h-16 w-auto object-contain" />
+                <img src="/logo.png" alt="The Computer Care Company" class="theme-logo h-16 w-auto object-contain" />
                 <p class="text-sm text-slate-600">24hrs Computer Service & Support in Chennai</p>
                 <div class="pt-2 space-y-1">
                     <p class="text-xs font-mono text-slate-700">Mail: <a href="mailto:thecomputercarecompany@gmail.com" class="text-blue-700 hover:text-blue-800 hover:underline">thecomputercarecompany@gmail.com</a></p>
@@ -141,6 +143,7 @@
                 <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm transition-colors hover:border-blue-300">
                     <p class="font-medium text-sm text-slate-900">Korattur (Main branch)</p>
                     <p class="text-xs text-slate-600 mt-1">TNHB colony - 71st street<br>CH- 600080</p>
+                    <p class="text-xs text-slate-600 mt-1">Open <span class="whitespace-nowrap">8am &ndash; 1pm</span> &middot; <span class="whitespace-nowrap">3pm &ndash; 7pm</span> &middot; <a href="https://share.google/QzucAYroQZ24JzAMC" target="_blank" rel="noopener" class="text-blue-700 font-semibold hover:underline">Get directions</a></p>
                 </div>
                 <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm transition-colors hover:border-blue-300">
                     <p class="font-medium text-sm text-slate-900">Maduravoyal (2nd branch)</p>
@@ -151,8 +154,8 @@
             <div class="space-y-4">
                 <h4 class="font-bold text-slate-900 mb-4">Legal &amp; Support</h4>
                 <ul class="space-y-2.5 text-sm">
-                    <li><a href="/#grievance" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Grievance &amp; Redressal</a></li>
-                    <li><a href="/#coverage" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Onsite Service Coverage</a></li>
+                    <li><a href="/grievance" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Grievance &amp; Redressal</a></li>
+                    <li><a href="/#coverage" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Service Hours &amp; Locations</a></li>
                     <li><a href="/#faq" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Frequently Asked Questions</a></li>
                     <li><a href="/#services" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">Our Services</a></li>
                     <li><a href="/#process" class="text-slate-600 hover:text-blue-700 hover:underline transition-colors">How We Work</a></li>

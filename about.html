@@ -7,6 +7,8 @@
     <meta name="description" content="Learn why Chennai trusts The Computer Care Company for doorstep laptop and PC repair. We believe in care before cost. Read our story today." />
     <link rel="canonical" href="%VITE_SITE_URL%/about" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="The Computer Care Company" />
@@ -25,17 +27,60 @@
 
     <!-- HEADER -->
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3 shrink-0">
-                <a href="/" class="flex items-center gap-3">
-                    <img src="/logo.jpg" alt="The Computer Care Company" class="h-8 w-auto shrink-0" />
-                    <span class="font-black text-lg md:text-xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+            <!-- BRAND — logo image + company name (wraps to two lines on phones) -->
+            <a href="/" class="flex items-center gap-3 min-w-0 lg:shrink-0 hover:opacity-90 transition-opacity">
+                <img src="/logo.png" alt="The Computer Care Company" class="h-10 w-auto shrink-0" />
+                <span class="font-black text-base leading-tight sm:text-xl md:text-2xl tracking-tight text-slate-900 uppercase">The Computer Care Company</span>
+            </a>
+
+            <!-- DESKTOP NAV + CTA — equal gaps between every item -->
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="/#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="/subscriptions" class="hover:text-blue-600 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+                <a href="/book" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(37,99,235,0.35)]
+                          active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
                 </a>
             </div>
-            <nav class="hidden md:flex ml-auto gap-6 text-sm font-medium text-slate-600">
-                <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-                <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
-                <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+
+            <!-- MOBILE MENU TOGGLE -->
+            <button type="button" id="mobile-menu-button" aria-label="Toggle navigation menu"
+                    aria-controls="mobile-menu" aria-expanded="false"
+                    class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 -mr-1 rounded-lg border border-slate-200 text-slate-700
+                           hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:scale-95
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition duration-150">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU PANEL — mirrors the desktop nav plus the primary CTA -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col" aria-label="Mobile navigation">
+                <a href="/" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Home</a>
+                <a href="/#services" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Services</a>
+                <a href="/subscriptions" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Subscriptions</a>
+                <a href="/#contact" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Contact</a>
+                <div class="border-t border-slate-200 my-3"></div>
+                <a href="tel:+917010481012" class="px-3 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">Make a Call</a>
+                <a href="/book" class="mt-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-center font-bold
+                          shadow-[0_1px_2px_rgba(0,0,0,0.06),0_1px_1px_rgba(37,99,235,0.4)]
+                          hover:bg-blue-700 active:scale-[0.98] active:shadow-none
+                          focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none
+                          transition duration-150">
+                    Book your care
+                </a>
             </nav>
         </div>
     </header>
@@ -61,7 +106,7 @@
                         We have built our reputation in Chennai on a simple philosophy: care before cost. We know how disruptive a broken device is to your daily life, which is why we eliminate the hassle by bringing transparent, on-site IT support directly to your home or office. From our main hub in Korattur to doorsteps across Anna Nagar, Mogappair, and beyond, our technicians prioritize honest diagnostics. We explain before we proceed and repair before we replace, ensuring you never pay for unnecessary parts. Ready to get your technology running smoothly again? Book your on-site service today.
                     </p>
                     <p class="text-lg">
-                        <a href="/book" class="text-blue-700 font-bold hover:underline">Book your on-site service</a>
+                        <a href="/book" class="text-blue-700 font-bold hover:underline">Book your care</a>
                     </p>
 
                     <h2 class="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wide">Our Approach</h2>
@@ -117,10 +162,11 @@
             <p class="text-sm text-slate-600">©️ The Computer Care Company. All rights reserved.</p>
             <p class="text-xs text-slate-500 mt-2">
                 <a href="/" class="text-blue-700 hover:underline">← Back to homepage</a>
-                · <a href="/book" class="text-blue-700 hover:underline">Book a visit</a>
+                · <a href="/book" class="text-blue-700 hover:underline">Book your care</a>
             </p>
         </div>
     </footer>
 
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

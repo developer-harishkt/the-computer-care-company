@@ -1,4 +1,5 @@
 import './style.css';
+import './analytics.js';
 
 const menuButton = document.querySelector('#mobile-menu-button');
 const mobileMenu = document.querySelector('#mobile-menu');
