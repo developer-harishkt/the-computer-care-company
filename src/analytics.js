@@ -16,10 +16,18 @@
  *
  * posthog-js is loaded after the page is idle so it never slows the first paint or the first tap;
  * calls made before it loads are queued.
+ *
+ * Google tag (Google Analytics, for measuring Google Ads): follows the same on/off rules, but only ever
+ * loads on the real domain and never in ?analytics=test, so previews and test runs can't reach the ad data.
+ * Keep "Outbound clicks" OFF in the GA data stream's Enhanced measurement: it would send the full wa.me
+ * link to Google, and that link's prefilled message can include the customer's name.
  */
 
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_qV46rx8LKWJWGqTYkDCnB7Y9QEykKTxS4YVEWD5oaYAD';
 const POSTHOG_HOST = 'https://us.i.posthog.com';
+
+const GOOGLE_TAG_ID = 'G-SVWMS8GJDE';
+const GOOGLE_TAG_HOSTS = ['thecomputercarecompany.in', 'www.thecomputercarecompany.in'];
 
 const OFF_KEY = 'tccc-analytics-off';
 const TEST_KEY = 'tccc-analytics-test';
@@ -170,6 +178,21 @@ export function track(name, props = {}) {
   else if (queue.length < 100) queue.push([name, props]);
 }
 
+/**
+ * A paid booking, sent to Google as a GA4 "purchase" (imported into Google Ads as the conversion).
+ * Only the order id, amount and service: never personal details. A no-op wherever the Google tag isn't loaded.
+ * @param {{ orderId: string, valueInr: number, service: string }} purchase
+ */
+export function trackPurchase({ orderId, valueInr, service }) {
+  if (!enabled || typeof window.gtag !== 'function') return;
+  window.gtag('event', 'purchase', {
+    transaction_id: orderId,
+    value: valueInr,
+    currency: 'INR',
+    items: [{ item_id: service, item_name: service, price: valueInr, quantity: 1 }],
+  });
+}
+
 /** Which part of the page an element sits in: its section id, else the section's heading. */
 export function sectionOf(el) {
   if (!el?.closest) return '';
@@ -262,6 +285,21 @@ function watchSectionsSeen() {
   sections.forEach((s) => observer.observe(s));
 }
 
+/** The standard Google tag snippet, added from here so it obeys the on/off rules above. */
+function loadGoogleTag() {
+  if (testMode || !GOOGLE_TAG_HOSTS.includes(window.location.hostname)) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag('js', new Date());
+  window.gtag('config', GOOGLE_TAG_ID);
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`;
+  document.head.appendChild(script);
+}
+
 function start() {
   enabled = shouldRun();
   if (!enabled) {
@@ -270,7 +308,10 @@ function start() {
   }
   watchContactTaps();
   watchSectionsSeen();
-  const go = () => void load();
+  const go = () => {
+    loadGoogleTag();
+    void load();
+  };
   if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 2500 });
   else window.setTimeout(go, 1200);
 }
