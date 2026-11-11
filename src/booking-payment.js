@@ -1,7 +1,7 @@
 import { formatInr, getVisitFee, serviceDisplayName, whatsAppUrl } from './book-service-config.js';
 import { PAYMENT_PAGE } from './booking-payment-copy.js';
 import { createVisitFeeOrder, verifyVisitFeePayment } from './booking-submit.js';
-import { track } from './analytics.js';
+import { track, trackPurchase } from './analytics.js';
 import { setModalBookingHeaderPaid, setBookingSuccessPaidPanel } from './booking-success-ui.js';
 import {
   getBookingPaymentLockMessage,
@@ -463,11 +463,19 @@ export function initVisitFeePayment(root, hooks) {
         setBookingPaymentLock(false);
 
         track(verified.ok ? 'payment_succeeded' : 'payment_pending_confirmation', payProps);
+        // Google Ads conversion: only once the server has confirmed the payment.
+        const purchase = {
+          orderId: response.razorpay_order_id,
+          valueInr: orderResult.amountPaise ? orderResult.amountPaise / 100 : fee.amountInr,
+          service: payload.service || '',
+        };
+        if (verified.ok) trackPurchase(purchase);
         if (!verified.ok) {
           showPaidAwaitingConfirmation(response.razorpay_payment_id);
           window.setTimeout(async () => {
             const retry = await verifyVisitFeePayment(verifyParams);
             if (retry.ok && paidAwaitingConfirmation.has(bookingKey)) {
+              trackPurchase(purchase);
               paidAwaitingConfirmation.delete(bookingKey);
               pendingEl?.classList.add('hidden');
               applyPaidSuccessUi(root, payload, bookingKey);

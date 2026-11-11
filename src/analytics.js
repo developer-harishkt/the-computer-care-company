@@ -178,6 +178,21 @@ export function track(name, props = {}) {
   else if (queue.length < 100) queue.push([name, props]);
 }
 
+/**
+ * A paid booking, sent to Google as a GA4 "purchase" (imported into Google Ads as the conversion).
+ * Only the order id, amount and service: never personal details. A no-op wherever the Google tag isn't loaded.
+ * @param {{ orderId: string, valueInr: number, service: string }} purchase
+ */
+export function trackPurchase({ orderId, valueInr, service }) {
+  if (!enabled || typeof window.gtag !== 'function') return;
+  window.gtag('event', 'purchase', {
+    transaction_id: orderId,
+    value: valueInr,
+    currency: 'INR',
+    items: [{ item_id: service, item_name: service, price: valueInr, quantity: 1 }],
+  });
+}
+
 /** Which part of the page an element sits in: its section id, else the section's heading. */
 export function sectionOf(el) {
   if (!el?.closest) return '';
