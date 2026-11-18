@@ -8,9 +8,9 @@
 
 ## Last updated
 
-- **Date:** 2026-11-08 (IST)
-- **Branch:** `feat/cofounder-feedback` (pushed; preview below). `main` = production, has **no** booking/payment code yet.
-- **Current focus:** Karthik's "Last minute changes" (11-07) done — declared the **V1 cut-off** (user sent Karthik a message: anything new goes on a V1.1 list, decided by analytics after launch). Code.gs V1 FINAL prices redeployed + verified 11-06. Next: Karthik's OK → Razorpay live keys (option A) → PR to `main` (see `docs/v1-merge-checklist.md`).
+- **Date:** 2026-11-19 (IST)
+- **Branch:** `main` = production (`thecomputercarecompany.in`), **LIVE since 2026-11-08** with booking + Razorpay **live** payments (PR #9, #10). Since then: Google tag (PR #11, 11-11) and Meta Pixel (PR #12, 11-19). Work on a new branch from `origin/main`, merge by PR.
+- **Current focus:** Meta (Instagram/Facebook) ads. Google Ads can't be used (policy bans third-party consumer tech support, incl. hardware repair). Campaign "The Computer Care Company - Leads" reviewed with Karthik; it is **off**, draft unpublished, waiting for the first PageView in Events Manager → user publishes.
 
 ---
 
@@ -86,6 +86,15 @@ Quick check that both tables agree: load `Code.gs` in Node `vm` and compare with
 - **PostHog project settings done by the user:** session replay on; test filter `is_test` **is not set** (keep it). Time zone should be **Asia/Kolkata** (was UTC).
 - **Testing:** intercept `us.i.posthog.com` in Playwright with `?analytics=test` (script `an.js` pattern: fulfil `/flags` yourself, decode `/e/` bodies). `$pageleave` is sent on unload, so a test only sees it by calling the unload handler. A real check from the preview with `?analytics=test` returned 200 from PostHog.
 
+### Ad tags (Google tag + Meta Pixel) — added 2026-11-11 / 11-19
+
+- **Code:** `src/analytics.js` (`loadGoogleTag`, `loadMetaPixel`). Same on/off rules as PostHog, plus: only on `thecomputercarecompany.in` / `www.` (never previews, localhost, tests or `?analytics=test`).
+- **Google tag** `G-SVWMS8GJDE` (GA4). Sends `purchase` (Razorpay order id, ₹ amount, service) after `verify-payment` succeeds. GA "Outbound clicks" must stay **OFF** (wa.me links can carry the customer's name) — done by the user 11-11. Google **Ads** not used (policy), so no conversion import.
+- **Meta Pixel** dataset `1622175358918917`, `autoConfig` off. Events: `PageView`; `Schedule` (visit booking saved, `trackBooked`); `Lead` (lead enquiry or subscription enquiry, `trackBooked` / `trackPlanEnquiry`); `Purchase` (visit fee confirmed, `eventID` = order id). No personal details.
+- **Meta Events Manager settings (checked 11-19):** automatic website matching (advanced matching) **off**, automatic events **off**, "Track events automatically without code" **off**. "Automatically include more detailed page and product info" is on (optional to turn off).
+- **Privacy policy §8** names Google Analytics, Google Ads and the Meta Pixel (Last updated 18 Nov 2026; wording ASSUMED, not yet confirmed by Karthik).
+- **Tests:** serve `dist/` as the real domain in Playwright (route `https://thecomputercarecompany.in/**` to files, override `navigator.webdriver`), fulfil `googletagmanager` / `connect.facebook.net` with an empty script and read `window.dataLayer` / `window.fbq.queue`.
+
 ### Env vars (Vite — baked at **build** time)
 
 | Variable | Production | Preview |
@@ -116,6 +125,9 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 
 ## Not done / waiting
 
+- **Meta ad (2026-11-19):** user publishes once Events Manager shows the first PageView (test from an incognito window — browsers with `?analytics=off` send nothing). Leave "securities and investments" unticked. Karthik will send a real technician photo to replace the logo image ("soon"). His decisions: keep his original ad text, radius **Korattur + 25 km**, budget ₹2,900 lifetime (ends 17 Dec), rest of the budget offline.
+- **Real ₹189 payment + refund** on production still not done: the only untested live piece is `verify-payment` marking the sheet row "Paid".
+- **Cloudflare Preview** still builds with the Razorpay **test** key (Preview variable not saved) — preview checkout is broken; not urgent.
 - **V1 cut-off (2026-11-07):** Karthik's "Last minute changes" were the last pre-launch round. New asks → a **V1.1 list**, reviewed after a couple of weeks of real data.
 - **Confirmed by Karthik (2026-11-07):** Soonest slot 8 AM–9 PM; repair ₹189 laptops / ₹199 Desktop, Gaming/Pro, AIO, Printer; "Other" kept in the device list; "last three contents" = quote + 2 lines under the plan tiles.
 - **ASSUMED (2026-11-07, "take a call"):** late-night 4th slot = 10 PM (today if 2 h+ away, else tomorrow), badge "Late night", the 4 cards in time order; the "on" light on the 24/7 badge is a green glowing/pulsing dot; footer link columns stay side by side from 768 px; the 3-year plan's blue "For new PC buyers" label is grey like the 1-year one.
@@ -125,7 +137,6 @@ Local: `.env.local` (gitignored); `.env.production` has `VITE_SITE_URL` for loca
 - **Third Modification answers (Karthik, 2026-11-06):** OS "Other" needs no note (rule removed); button labels: paid doorstep "Proceed to Payment", enquiries "We’re Getting Connected" (also Subscriptions popup), branch "Let’s Book Your Visit"; centred turnaround intro confirmed.
 - **Logo in Google results:** new real favicons (`favicon.ico` was a PNG mislabelled as ICO, served as `image/vnd.microsoft.icon` + `nosniff`). Only helps after merge to `main` + Google recrawl (can take days–weeks; request indexing in Search Console).
 - **V2 (agreed):** cart (₹49 per extra service), WhatsApp approve buttons (needs WhatsApp Business API).
-- Merge `feat/cofounder-feedback` → `main` after Karthik's sign-off (production has no booking code yet).
 - GSC sitemap submit (`public/sitemap.xml` now includes `/grievance`).
 - **Products** nav (cleaning kit, etc.) — no copy doc yet.
 - Optional polish: contact-step helper text still booking-style for enquiries ("warranty record", "confirm your slot", "gate code").
@@ -147,6 +158,13 @@ npm run test:webhook # needs VITE_BOOKINGS_WEBHOOK_URL in env
 ---
 
 ## Session log (newest first)
+
+### 2026-11-08 → 11-19 — Go-live, Google tag, Meta Pixel, Meta ad review
+
+- **Go-live (11-08):** Razorpay live key `rzp_live_TxW7nOZqx98Nno` in Cloudflare Production + live pair in Apps Script properties; PR #9 merged, PR #10 (empty rebuild — the Production variable hadn't been saved). Verified: live bundle has the live key; real create-order works; live checkout opens at ₹189 with Google Pay on Android.
+- **Google tag (PR #11, 11-11):** see "Ad tags". Then found Google Ads disallows third-party consumer tech support ads (support.google.com/adspolicy/answer/13527027), so marketing moved to Meta.
+- **Meta Pixel (PR #12, merged 11-19):** see "Ad tags". Live check: all 8 pages load pixel + Google tag once, `?analytics=off` blocks both.
+- **Meta ad review (via Claude in Chrome, user signed in):** campaign switched **off**; ad draft: website URL → `/book.html`, URL parameters `utm_source=meta&utm_medium=paid&utm_campaign=leads`; primary text kept as Karthik's original; radius changed 35 → 25 km (saved audience, applied at once). The phone shows as `070104 81012` — Meta's local display of +91 70104 81012, not an error. The saved audience "Instagram & Facebook Engagers" is only an Advantage+ suggestion, so "Below 1,000" doesn't limit reach; kept.
 
 ### 2026-11-08 — Service names on the payment page and summary
 
