@@ -7,7 +7,7 @@ import { normalizeIndianMobile, validateBookingDetails, validateEmail, validateN
 import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
 import { whatsAppUrl } from './book-service-config.js';
-import { track } from './analytics.js';
+import { track, trackPlanEnquiry } from './analytics.js';
 
 const REDIRECT_DELAY_MS = 2500;
 
@@ -153,6 +153,7 @@ if (dialog && form) {
     }
 
     track('plan_enquiry_submitted', { plan });
+    trackPlanEnquiry(plan);
     const url = whatsAppUrl(`Hi, I just sent an enquiry for the ${plan} on your website (name: ${name}). Let's discuss.`);
     if (doneEl) {
       doneEl.innerHTML = `Request received. Taking you to WhatsApp&hellip; <a href="${url}" class="underline font-semibold">Go now</a>`;

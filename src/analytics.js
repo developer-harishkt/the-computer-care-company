@@ -21,13 +21,19 @@
  * loads on the real domain and never in ?analytics=test, so previews and test runs can't reach the ad data.
  * Keep "Outbound clicks" OFF in the GA data stream's Enhanced measurement: it would send the full wa.me
  * link to Google, and that link's prefilled message can include the customer's name.
+ *
+ * Meta Pixel (dataset 1622175358918917, for Instagram / Facebook ads): same rules as the Google tag.
+ * autoConfig is off, so Meta doesn't scan buttons or forms by itself; we send only these events:
+ *   PageView, Schedule (visit booked), Lead (enquiry sent), Purchase (visit fee confirmed).
+ * Keep "Automatic advanced matching" OFF in Events Manager: it would hash typed name / phone / email.
  */
 
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_qV46rx8LKWJWGqTYkDCnB7Y9QEykKTxS4YVEWD5oaYAD';
 const POSTHOG_HOST = 'https://us.i.posthog.com';
 
 const GOOGLE_TAG_ID = 'G-SVWMS8GJDE';
-const GOOGLE_TAG_HOSTS = ['thecomputercarecompany.in', 'www.thecomputercarecompany.in'];
+const AD_TAG_HOSTS = ['thecomputercarecompany.in', 'www.thecomputercarecompany.in'];
+const META_PIXEL_ID = '1622175358918917';
 
 const OFF_KEY = 'tccc-analytics-off';
 const TEST_KEY = 'tccc-analytics-test';
@@ -179,18 +185,42 @@ export function track(name, props = {}) {
 }
 
 /**
- * A paid booking, sent to Google as a GA4 "purchase" (imported into Google Ads as the conversion).
- * Only the order id, amount and service: never personal details. A no-op wherever the Google tag isn't loaded.
+ * A paid booking: GA4 "purchase" for Google, and "Purchase" for Meta (with the order id, so it counts once).
+ * Only the order id, amount and service: never personal details. A no-op wherever the tags aren't loaded.
  * @param {{ orderId: string, valueInr: number, service: string }} purchase
  */
 export function trackPurchase({ orderId, valueInr, service }) {
-  if (!enabled || typeof window.gtag !== 'function') return;
-  window.gtag('event', 'purchase', {
-    transaction_id: orderId,
-    value: valueInr,
-    currency: 'INR',
-    items: [{ item_id: service, item_name: service, price: valueInr, quantity: 1 }],
-  });
+  if (!enabled) return;
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'purchase', {
+      transaction_id: orderId,
+      value: valueInr,
+      currency: 'INR',
+      items: [{ item_id: service, item_name: service, price: valueInr, quantity: 1 }],
+    });
+  }
+  metaTrack('Purchase', { value: valueInr, currency: 'INR', content_name: service }, orderId);
+}
+
+/** Meta Pixel event; a no-op wherever the pixel isn't loaded. eventId stops Meta counting one sale twice. */
+function metaTrack(event, params, eventId) {
+  if (!enabled || typeof window.fbq !== 'function') return;
+  if (eventId) window.fbq('track', event, params, { eventID: eventId });
+  else window.fbq('track', event, params);
+}
+
+/**
+ * A booking was saved: a visit (doorstep or branch) → Meta "Schedule"; a lead enquiry (Custom PC, AMC…) → "Lead".
+ * Service name only, never personal details.
+ * @param {{ lead: boolean, service: string }} booking
+ */
+export function trackBooked({ lead, service }) {
+  metaTrack(lead ? 'Lead' : 'Schedule', { content_name: service });
+}
+
+/** A subscription plan enquiry was saved → Meta "Lead". */
+export function trackPlanEnquiry(plan) {
+  metaTrack('Lead', { content_name: plan });
 }
 
 /** Which part of the page an element sits in: its section id, else the section's heading. */
@@ -287,7 +317,7 @@ function watchSectionsSeen() {
 
 /** The standard Google tag snippet, added from here so it obeys the on/off rules above. */
 function loadGoogleTag() {
-  if (testMode || !GOOGLE_TAG_HOSTS.includes(window.location.hostname)) return;
+  if (testMode || !AD_TAG_HOSTS.includes(window.location.hostname)) return;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
     window.dataLayer.push(arguments);
@@ -300,6 +330,28 @@ function loadGoogleTag() {
   document.head.appendChild(script);
 }
 
+/** The standard Meta Pixel base code, added from here so it obeys the on/off rules above. */
+function loadMetaPixel() {
+  if (testMode || !AD_TAG_HOSTS.includes(window.location.hostname) || window.fbq) return;
+  const fbq = function fbq() {
+    if (fbq.callMethod) fbq.callMethod.apply(fbq, arguments);
+    else fbq.queue.push(arguments);
+  };
+  fbq.push = fbq;
+  fbq.loaded = true;
+  fbq.version = '2.0';
+  fbq.queue = [];
+  window.fbq = fbq;
+  if (!window._fbq) window._fbq = fbq;
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+  document.head.appendChild(script);
+  fbq('set', 'autoConfig', false, META_PIXEL_ID);
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+
 function start() {
   enabled = shouldRun();
   if (!enabled) {
@@ -310,6 +362,7 @@ function start() {
   watchSectionsSeen();
   const go = () => {
     loadGoogleTag();
+    loadMetaPixel();
     void load();
   };
   if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 2500 });

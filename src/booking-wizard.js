@@ -42,7 +42,7 @@ import {
 } from './booking-form-validation.js';
 import { attachLiveValidation, clearFieldError, eagerPhone, setFieldError } from './live-validation.js';
 import { submitBookingToSheet } from './booking-submit.js';
-import { track } from './analytics.js';
+import { track, trackBooked } from './analytics.js';
 import { initVisitFeePayment } from './booking-payment.js';
 import { applyVisitModeSuccessCopy, initBookingSuccessCopy, populateBookingSummary, resetBookingSuccessPanelUi, setBookingSuccessPhase, setBookingSuccessReceivedPanel } from './booking-success-ui.js';
 
@@ -966,6 +966,7 @@ export function initBookingWizard(root, options = {}) {
         fee_inr: submittedFee?.amountInr || 0,
         already_paid: Boolean(result.alreadyPaid),
       });
+      trackBooked({ lead: isLeadBooking(), service: payload.service || '' });
       showBookingSuccess(payload, result.bookingKey || '', { alreadyPaid: result.alreadyPaid });
       redirectAfterBooking(payload);
     });
